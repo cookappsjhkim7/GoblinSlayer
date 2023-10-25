@@ -7,6 +7,7 @@ public class HeroController : MonoBehaviour
     Vector2[] myPos;
 
     public GameObject hitMask;
+    public GameObject shieldMask;
     public GameObject gameOverMask;
     public UI_StateBar hp;
     public UI_StateBar shield;
@@ -21,9 +22,9 @@ public class HeroController : MonoBehaviour
     void Start()
     {
         myPos = new Vector2[3];
-        myPos[0] = new Vector2(-1.8f, transform.position.y);
+        myPos[0] = new Vector2(-1.2f, transform.position.y);
         myPos[1] = new Vector2(0f, transform.position.y);
-        myPos[2] = new Vector2(1.8f, transform.position.y);
+        myPos[2] = new Vector2(1.2f, transform.position.y);
 
         Move(1);
 
@@ -87,6 +88,7 @@ public class HeroController : MonoBehaviour
         }
         else
         {
+            StartCoroutine(CoShieldMask());
             shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
             shieldCount--;
         }
@@ -97,5 +99,11 @@ public class HeroController : MonoBehaviour
         hitMask.SetActive(true);
         yield return wfsHitMask;
         hitMask.SetActive(false);
-    }    
+    }
+    IEnumerator CoShieldMask()
+    {
+        shieldMask.SetActive(true);
+        yield return wfsHitMask;
+        shieldMask.SetActive(false);
+    }
 }

@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public UI_TimeCount uiTimerbar;
     public UI_TextManager uiCombotex;
     public UI_BerserkerGauge uiBerGauge;
+    public MoveMap moveMap;
 
     //public static int[] uiStateRate = new int[4] { 0, 3, 3, 3 };
     //public static int[] uiStateCountRate = new int[3] { 5, 2, 2 };

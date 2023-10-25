@@ -10,7 +10,9 @@ public class MonsterController : MonoBehaviour
     public Vector2 myPos = new Vector2();
     public int stateCount;
 
+
     float movePosX;
+    float xGap = 1.2f;
 
     //private void Start()
     //{
@@ -30,14 +32,14 @@ public class MonsterController : MonoBehaviour
         {
             case -1:
                 //transform.position = new Vector2(1.5f, transform.position.y);
-                myPos.x = -3f;
+                myPos.x = -1.5f;
                 existPos = 2;
                 StartCoroutine(CoMoving02(2));
                 break;
 
             case 0:
                 //transform.position = new Vector2(-1.5f, transform.position.y);
-                myPos.x = -1.8f;       
+                myPos.x = -xGap;       
                 existPos = 0;
                 StartCoroutine(CoMoving());
                 break;
@@ -51,14 +53,14 @@ public class MonsterController : MonoBehaviour
 
             case 2:
                 //transform.position = new Vector2(1.5f, transform.position.y);
-                myPos.x = 1.8f;
+                myPos.x = xGap;
                 existPos = 2;
                 StartCoroutine(CoMoving());
                 break;
 
             case 3:
                 //transform.position = new Vector2(-1.5f, transform.position.y);
-                myPos.x = 3f;
+                myPos.x = xGap + 0.3f;
                 existPos = 0;
                 StartCoroutine(CoMoving02(0));
                 break;
@@ -122,7 +124,11 @@ public class MonsterController : MonoBehaviour
         {
             GameManager.inst.spawn.spawnData.RemoveAt(0);
             GameManager.inst.spawn.SpawnNextMonster();
+            //GameManager.inst.moveMap.MoveMapOffset(0.45f);
             GameManager.inst.uiCombotex.KillCount();
+            
+            //StartCoroutine(CoMove());
+
             gameObject.SetActive(false);
             //StartCoroutine(CoDeath());
             //gameObject.SetActive(false);
@@ -137,6 +143,16 @@ public class MonsterController : MonoBehaviour
         stateCount--;
     }
 
+    IEnumerator CoMove()
+    {
+        while(true)
+        {
+
+
+            yield break;
+        }
+    }
+
     IEnumerator CoDeath()
     {
 
@@ -145,6 +161,7 @@ public class MonsterController : MonoBehaviour
         GameManager.inst.spawn.spawnData.RemoveAt(0);
         GameManager.inst.spawn.SpawnNextMonster();
         GameManager.inst.uiCombotex.KillCount();
+
         gameObject.SetActive(false);
     }
 

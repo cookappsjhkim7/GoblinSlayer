@@ -8,10 +8,14 @@ public class SpawnManager : MonoBehaviour
 
     // ¹è¿­ À§Ä¡
     float startY = -2.8f;
-    float yGap = 1.5f;
-    float[] xGap = new float[3] { -1.8f, 0, 1.8f };
+    float yGap = 1.2f;
+    float[] xGap = new float[3] { -1.2f, 0, 1.2f };
+
+
+    float timer;
 
     MonsterController tmpMon;
+    MonsterController tmpMon2;
 
     public int stateCount;
 
@@ -72,16 +76,44 @@ public class SpawnManager : MonoBehaviour
         {
             if (i + 1 < 7)
             {
+                tmpMon2 = spawnData[i];
                 tmpMon = spawnData[i];
                 tmpMon.myPos.y -= yGap;
 
                 spawnData[i] = tmpMon;
 
-                spawnData[i].transform.position = spawnData[i].myPos;
+                StartCoroutine(CoMove(i, tmpMon2.myPos));
+
+                //spawnData[i].transform.position = spawnData[i].myPos;
             }
             else
             {
                 SpawnMonster(i);
+            }
+        }
+    }
+
+    IEnumerator CoMove(int index, Vector2 startPos)
+    {
+
+        while (true)
+        {
+            spawnData[index].transform.position = Vector3.MoveTowards(startPos, spawnData[index].myPos, 0.1f);
+            
+            yield return null;
+
+            timer += Time.deltaTime;
+
+            if (timer > .1f)
+            {
+                Debug.Log("°­Á¦Å»Ãâ");
+                yield break;
+            }
+
+            if (spawnData[index].transform.position.y == spawnData[index].myPos.y)
+            {
+                yield break;
+                Debug.Log("Å»Ãâ");
             }
         }
     }

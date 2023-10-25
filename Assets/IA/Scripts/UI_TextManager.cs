@@ -12,6 +12,7 @@ public class UI_TextManager : MonoBehaviour
     public Text killCountText;
 
     int lvUp = 0;
+    public Text lvCountText;
 
     public void KillCount()
     {
@@ -70,6 +71,7 @@ public class UI_TextManager : MonoBehaviour
     public void lvCount()
     {
         lvUp++;
+        lvCountText.text = lvUp.ToString();
 
         if (lvUp == 0)
         {
