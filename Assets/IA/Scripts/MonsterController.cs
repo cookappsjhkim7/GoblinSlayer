@@ -122,6 +122,8 @@ public class MonsterController : MonoBehaviour
         
         if (stateCount == 0)
         {
+            BattleCamera.Instance.Shake(0.1f,0.25f);
+            SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
             GameManager.inst.spawn.spawnData.RemoveAt(0);
             GameManager.inst.spawn.SpawnNextMonster();
             //GameManager.inst.moveMap.MoveMapOffset(0.45f);
