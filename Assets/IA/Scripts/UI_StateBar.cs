@@ -10,6 +10,7 @@ public class UI_StateBar : MonoBehaviour
     {
         public Sprite stateTex;
         public int stateType;
+        public Color color;
     }
 
     public List<StateData> stateData;
@@ -18,14 +19,13 @@ public class UI_StateBar : MonoBehaviour
     public Image[] stateSlot;
     public int[] stateCountRate;
     public int[] stateType;
+
     
-
-
-
     public void SettingState(int stateNum, int index)
     {
-        stateSlot[stateNum].gameObject.SetActive(true);
         stateSlot[stateNum].sprite = stateData[index].stateTex;
+        stateSlot[stateNum].color = stateData[index].color;
+        stateSlot[stateNum].gameObject.SetActive(true);
         stateType[stateNum] = index;
     }
 

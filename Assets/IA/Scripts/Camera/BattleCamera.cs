@@ -3,15 +3,20 @@ using UnityEngine;
 
 public class BattleCamera : SingletonMonoBehaviour<BattleCamera>
 {
-    private Transform cameraTransform;
+    private Vector3 _initCameraTransform;
 
     void Start()
     {
-        cameraTransform = transform;
+        _initCameraTransform = transform.position;
     }
 
     public void Shake(float duration, float magnitude)
     {
-        cameraTransform.DOShakePosition(duration, magnitude);
+        transform.DOKill();
+        
+        transform.DOShakePosition(duration, magnitude).OnComplete(() =>
+        {
+            transform.position = _initCameraTransform;
+        });
     }
 }
