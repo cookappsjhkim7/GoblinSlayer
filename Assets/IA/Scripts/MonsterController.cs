@@ -10,6 +10,8 @@ public class MonsterController : MonoBehaviour
     public Vector2 myPos = new Vector2();
     public int stateCount;
 
+    public float moveSpeed = 1;
+
 
     float movePosX;
     float xGap = 1.2f;
@@ -25,6 +27,11 @@ public class MonsterController : MonoBehaviour
     {
         stateCount = stateBar.SpawnState();
     }
+
+    //private void Update()
+    //{
+    //    transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, -2.5f), moveSpeed * Time.deltaTime);
+    //}
 
     public void Move(int index)
     {
@@ -64,6 +71,24 @@ public class MonsterController : MonoBehaviour
                 existPos = 0;
                 StartCoroutine(CoMoving02(0));
                 break;
+        }
+    }
+
+
+
+    public IEnumerator CoMoveDown(MonsterController mon)
+    {
+        while (true)
+        {
+            mon.transform.position = Vector3.MoveTowards(mon.transform.position, mon.myPos, 10f * Time.deltaTime);
+
+            yield return new WaitForEndOfFrame();
+
+            if (mon.transform.position.y == mon.myPos.y)
+            {
+                Debug.Log("≈ª√‚");
+                yield break;
+            }
         }
     }
 

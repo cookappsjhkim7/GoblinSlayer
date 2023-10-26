@@ -19,6 +19,8 @@ public class HeroController : MonoBehaviour
 
     int movePosIndex;
 
+    public ParticleSystem pt;
+
     void Start()
     {
         myPos = new Vector2[3];
