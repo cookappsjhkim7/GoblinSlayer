@@ -12,6 +12,10 @@ public class MonsterController : MonoBehaviour
 
     public float moveSpeed = 1;
 
+    public ParticleSystem ptSlash;
+    public ParticleSystem ptCoin;
+
+    public Transform hero;
 
     float movePosX;
     float xGap = 1.2f;
@@ -41,58 +45,55 @@ public class MonsterController : MonoBehaviour
                 //transform.position = new Vector2(1.5f, transform.position.y);
                 myPos.x = -1.5f;
                 existPos = 2;
-                StartCoroutine(CoMoving02(2));
+                StartCoroutine(CoMoveSide_02(2));
                 break;
 
             case 0:
                 //transform.position = new Vector2(-1.5f, transform.position.y);
                 myPos.x = -xGap;       
                 existPos = 0;
-                StartCoroutine(CoMoving());
+                StartCoroutine(CoMoveSide());
                 break;
 
             case 1:
                 //transform.position = new Vector2(0, transform.position.y);
                 myPos.x = 0;
                 existPos = 1;
-                StartCoroutine(CoMoving());
+                StartCoroutine(CoMoveSide());
                 break;
 
             case 2:
                 //transform.position = new Vector2(1.5f, transform.position.y);
                 myPos.x = xGap;
                 existPos = 2;
-                StartCoroutine(CoMoving());
+                StartCoroutine(CoMoveSide());
                 break;
 
             case 3:
                 //transform.position = new Vector2(-1.5f, transform.position.y);
                 myPos.x = xGap + 0.3f;
                 existPos = 0;
-                StartCoroutine(CoMoving02(0));
+                StartCoroutine(CoMoveSide_02(0));
                 break;
         }
     }
 
-
-
-    public IEnumerator CoMoveDown(MonsterController mon)
+    public IEnumerator CoMoveDown()
     {
         while (true)
         {
-            mon.transform.position = Vector3.MoveTowards(mon.transform.position, mon.myPos, 10f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, myPos, 10f * Time.deltaTime);
 
             yield return new WaitForEndOfFrame();
 
-            if (mon.transform.position.y == mon.myPos.y)
+            if (transform.position.y == myPos.y)
             {
-                Debug.Log("≈ª√‚");
                 yield break;
             }
         }
     }
 
-    IEnumerator CoMoving()
+    IEnumerator CoMoveSide()
     {
         Vector2 dest = new Vector2(myPos.x, transform.position.y);
 
@@ -108,7 +109,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    IEnumerator CoMoving02(int nextMove)
+    IEnumerator CoMoveSide_02(int nextMove)
     {
         Vector2 dest = new Vector2(myPos.x, transform.position.y);
         Vector2 tmpDest;
@@ -144,21 +145,25 @@ public class MonsterController : MonoBehaviour
     {
         stateBar.stateSlot[stateCount].gameObject.SetActive(false);
         stateBar.stateData[stateCount].stateType = -1;
-        
+
         if (stateCount == 0)
         {
-            BattleCamera.Instance.Shake(0.1f,0.25f);
-            SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
-            GameManager.inst.spawn.spawnData.RemoveAt(0);
-            GameManager.inst.spawn.SpawnNextMonster();
-            //GameManager.inst.moveMap.MoveMapOffset(0.45f);
-            GameManager.inst.uiCombotex.KillCount();
+            if (stateBar.stateType[0] == 1)
+            {
+                stateBar.SettingState(0, 0);
+                stateCount++;
+            }
+            else
+            {
+                BattleCamera.Instance.Shake(0.1f,0.25f);
+                SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+                GameManager.inst.spawn.spawnData.RemoveAt(0);
+                GameManager.inst.spawn.SpawnNextMonster();
+                GameManager.inst.uiCombotex.KillCount();
             
-            //StartCoroutine(CoMove());
-
-            gameObject.SetActive(false);
-            //StartCoroutine(CoDeath());
-            //gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                StartCoroutine(CoDeath());
+            }
 
             if (!GameManager.inst.uiBerGauge.isBerserker)
             {
@@ -170,37 +175,62 @@ public class MonsterController : MonoBehaviour
         stateCount--;
     }
 
-    IEnumerator CoMove()
+    public IEnumerator CoMoveAtk(Vector3 startPos, Vector3 endPos)
     {
-        while(true)
+        Debug.Log("Ω««‡");
+
+        while (true)
         {
+            transform.position = Vector3.MoveTowards(transform.position, endPos, 60f * Time.deltaTime);
 
+            yield return new WaitForEndOfFrame();
 
-            yield break;
+            if (transform.position.y == endPos.y)
+            {
+                ptSlash.Play();
+                endPos = startPos;
+            }
+
+            if (transform.position.y == startPos.y)
+            {
+                Debug.Log("≈ª√‚");
+                yield break;
+            }
         }
     }
 
     IEnumerator CoDeath()
     {
+        yield return new WaitForSeconds(0.1f);
 
-        yield return new WaitForSeconds(0.15f);
-
-        GameManager.inst.spawn.spawnData.RemoveAt(0);
-        GameManager.inst.spawn.SpawnNextMonster();
-        GameManager.inst.uiCombotex.KillCount();
+        //GameManager.inst.spawn.spawnData.RemoveAt(0);
+        //GameManager.inst.spawn.SpawnNextMonster();
+        //GameManager.inst.uiCombotex.KillCount();
 
         gameObject.SetActive(false);
     }
 
     public void Hit()
     {
+
         //isCombo = false;
         RemoveStateBar();
     }
 
-    public void Attack()
+    public void Attack(bool moveAtk, Vector3 monPos, Vector3 heroPos)
     {
-        //isCombo = true;
+        StartCoroutine(CoMoveAtk(monPos, heroPos));
+
+        //switch (moveAtk)
+        //{
+        //    case true:
+        //        StartCoroutine(CoMoveAtk(monPos, heroPos));
+        //        break;
+
+        //    case false:
+        //        StartCoroutine(CoMoveAtk(monPos, new Vector3(monPos.x, heroPos.y, 0)));
+        //        break;
+        //}
     }
 
 

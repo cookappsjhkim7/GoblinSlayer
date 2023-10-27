@@ -7,12 +7,15 @@ public class UI_TextManager : MonoBehaviour
 {
     int comboCount = 0;
     public Text comboCountText;
-    
+
     int killCount = 0;
     public Text killCountText;
 
     int lvUp = 0;
     public Text lvCountText;
+
+    int coinCount = 0;
+    public Text coinCountText;
 
     public void KillCount()
     {
@@ -67,6 +70,12 @@ public class UI_TextManager : MonoBehaviour
 
 
     }
+    public void CoinCount()
+    {
+        coinCount++;
+        coinCountText.text = coinCount.ToString();
+    }
+
 
     public void lvCount()
     {

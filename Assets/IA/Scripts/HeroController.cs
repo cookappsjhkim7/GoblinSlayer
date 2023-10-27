@@ -86,6 +86,7 @@ public class HeroController : MonoBehaviour
             {
                 gameOverMask.SetActive(true);
                 GameManager.inst.uiTimerbar.TimerStop();
+                //GameManager.inst.spawn.SpawnNextMonster();
             }
         }
         else

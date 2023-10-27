@@ -21,12 +21,12 @@ public class UI_StateBar : MonoBehaviour
     public int[] stateType;
 
     
-    public void SettingState(int stateNum, int index)
+    public void SettingState(int stateNum, int stateTypeNum)
     {
-        stateSlot[stateNum].sprite = stateData[index].stateTex;
-        stateSlot[stateNum].color = stateData[index].color;
+        stateSlot[stateNum].sprite = stateData[stateTypeNum].stateTex;
+        stateSlot[stateNum].color = stateData[stateTypeNum].color;
         stateSlot[stateNum].gameObject.SetActive(true);
-        stateType[stateNum] = index;
+        stateType[stateNum] = stateTypeNum;
     }
 
     public void StateOff(int stateNum)

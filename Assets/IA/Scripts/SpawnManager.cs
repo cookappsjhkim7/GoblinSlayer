@@ -77,7 +77,7 @@ public class SpawnManager : MonoBehaviour
 
                 spawnData[i] = tmpMon;
 
-                StartCoroutine(spawnData[i].CoMoveDown(spawnData[i]));
+                StartCoroutine(spawnData[i].CoMoveDown());
 
                 //spawnData[i].transform.position = spawnData[i].myPos;
             }

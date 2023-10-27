@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_AtkButtonManager : MonoBehaviour
 {
@@ -38,6 +39,11 @@ public class UI_AtkButtonManager : MonoBehaviour
         BtnFunction(2);
     }
 
+    public void OnLobbyBtnClick()
+    {
+        SceneManager.LoadScene("Lobby");
+    }
+
     void BtnFunction(int heroCurIndex)
     {
         int heroBeforeIndex = hero.existPos;
@@ -53,6 +59,8 @@ public class UI_AtkButtonManager : MonoBehaviour
                 mon.Hit();
                 hero.pt.Play();
                 GameManager.inst.uiCombotex.Combo();
+
+                hero.Move(mon.existPos);
             }
         }
         else
@@ -63,6 +71,8 @@ public class UI_AtkButtonManager : MonoBehaviour
             {
                 if (hero.existPos == mon.existPos)
                 {
+                    //mon.Attack(false, mon.transform.position, hero.transform.position); 
+                    mon.ptSlash.Play();
                     hero.Hit();
                     AttackFail();
                 }
@@ -72,12 +82,16 @@ public class UI_AtkButtonManager : MonoBehaviour
 
                     if (heroBeforeIndex == heroCurIndex)
                     {
+                        //mon.Attack(false, mon.transform.position, hero.transform.position);
+                        mon.ptSlash.Play();
                         hero.Hit();
                         AttackFail();
                     }
                     else
                     {
                         mon.RemoveStateBar();
+                        //mon.Attack(false, mon.transform.position, hero.transform.position); 
+                        mon.ptSlash.Play();
                         AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                     }
                 }
@@ -104,6 +118,7 @@ public class UI_AtkButtonManager : MonoBehaviour
                 else
                 {
                     //mon.Move(heroCurIndex);
+                    mon.Attack(true, mon.transform.position, hero.transform.position);
                     hero.Hit();
                     AttackFail();
                 }
@@ -114,9 +129,6 @@ public class UI_AtkButtonManager : MonoBehaviour
 
                 //mon.stateBar.stateData[mon.stateCount].stateType = NotNullStateNum(mon);
 
-                int ranNum = Random.Range(0, 4);
-                mon.stateBar.SettingState(mon.stateCount, ranNum);
-
                 if (hero.existPos == mon.existPos)
                 {
                     mon.Hit();
@@ -124,8 +136,12 @@ public class UI_AtkButtonManager : MonoBehaviour
                 }
                 else
                 {
+                    mon.Attack(true, mon.transform.position, hero.transform.position);
                     hero.Hit();
                     AttackFail();
+
+                    int ranNum = Random.Range(0, 4);
+                    mon.stateBar.SettingState(mon.stateCount, ranNum);
                 }
 
             }
@@ -136,9 +152,6 @@ public class UI_AtkButtonManager : MonoBehaviour
                 //mon.stateBar.stateData[mon.stateCount].stateType = NotNullStateNum(mon);
                 //mon.stateBar.stateSlot[mon.stateCount].sprite = mon.stateBar.stateData[mon.stateBar.stateType[mon.stateCount]].stateTex;
 
-                int ranNum = Random.Range(0, 4);
-                mon.stateBar.SettingState(mon.stateCount, ranNum);
-
                 if (hero.existPos == mon.existPos)
                 {
                     mon.Hit();
@@ -146,8 +159,12 @@ public class UI_AtkButtonManager : MonoBehaviour
                 }
                 else
                 {
+                    mon.Attack(true, mon.transform.position, hero.transform.position);
                     hero.Hit();
                     AttackFail();
+
+                    int ranNum = Random.Range(0, 4);
+                    mon.stateBar.SettingState(mon.stateCount, ranNum);
                 }
             }
         }
