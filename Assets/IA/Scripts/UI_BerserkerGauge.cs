@@ -23,7 +23,7 @@ public class UI_BerserkerGauge : MonoBehaviour
 
     public void GaugeCharging(float num)
     {
-        gauge += num / 40;
+        gauge += num * 0;
 
         if (gauge > 1)
         {

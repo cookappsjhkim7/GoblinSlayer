@@ -67,47 +67,7 @@ public class UI_AtkButtonManager : MonoBehaviour
         {
             GameManager.inst.uiTimerbar.TimerReset();
 
-            if (mon.stateBar.stateType[mon.stateCount] == 1)
-            {
-                if (hero.existPos == mon.existPos)
-                {
-                    //mon.Attack(false, mon.transform.position, hero.transform.position); 
-                    mon.ptSlash.Play();
-                    hero.Hit();
-                    AttackFail();
-                }
-                else
-                {
-                    mon.Move(heroBeforeIndex);
-
-                    if (heroBeforeIndex == heroCurIndex)
-                    {
-                        //mon.Attack(false, mon.transform.position, hero.transform.position);
-                        mon.ptSlash.Play();
-                        hero.Hit();
-                        AttackFail();
-                    }
-                    else
-                    {
-                        mon.RemoveStateBar();
-                        //mon.Attack(false, mon.transform.position, hero.transform.position); 
-                        mon.ptSlash.Play();
-                        AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
-                    }
-                }
-
-                //if (hero.existPos == mon.existPos)
-                //{
-                //    hero.Hit();
-                //    AttackFail();
-                //}
-                //else
-                //{
-                //    mon.RemoveStateBar();
-                //    AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
-                //}
-            }
-            else if (mon.stateBar.stateType[mon.stateCount] == 0)
+            if (mon.stateBar.stateType[mon.stateCount] == 0)
             {
                 if (hero.existPos == mon.existPos)
                 {
@@ -117,49 +77,73 @@ public class UI_AtkButtonManager : MonoBehaviour
                 }
                 else
                 {
-                    //mon.Move(heroCurIndex);
-                    mon.Attack(true, mon.transform.position, hero.transform.position);
+                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
                     hero.Hit();
                     AttackFail();
+                }
+            }
+            else if (mon.stateBar.stateType[mon.stateCount] == 1)
+            {
+                if (hero.existPos == mon.existPos)
+                {
+                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
+                    hero.Hit();
+                    AttackFail();
+                }
+                else
+                {
+                    if (heroBeforeIndex == heroCurIndex)
+                    {
+                        StartCoroutine(mon.Action_AtkMove(heroBeforeIndex, heroBeforeIndex));
+                        hero.Hit();
+                        AttackFail();
+                    }
+                    else
+                    {
+                        StartCoroutine(mon.Action_AtkMove(heroBeforeIndex, heroBeforeIndex));
+                        mon.RemoveStateBar();
+                        AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
+                    }
+
                 }
             }
             else if (mon.stateBar.stateType[mon.stateCount] == 2)
             {
                 mon.Move(mon.existPos - 1);
 
-                //mon.stateBar.stateData[mon.stateCount].stateType = NotNullStateNum(mon);
-
                 if (hero.existPos == mon.existPos)
                 {
                     mon.Hit();
+                    hero.pt.Play();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
-                    mon.Attack(true, mon.transform.position, hero.transform.position);
+                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
                     hero.Hit();
                     AttackFail();
 
                     int ranNum = Random.Range(0, 4);
+                    Debug.Log("bbb");
                     mon.stateBar.SettingState(mon.stateCount, ranNum);
                 }
+
 
             }
             else if (mon.stateBar.stateType[mon.stateCount] == 3)
             {
                 mon.Move(mon.existPos + 1);
 
-                //mon.stateBar.stateData[mon.stateCount].stateType = NotNullStateNum(mon);
-                //mon.stateBar.stateSlot[mon.stateCount].sprite = mon.stateBar.stateData[mon.stateBar.stateType[mon.stateCount]].stateTex;
-
                 if (hero.existPos == mon.existPos)
                 {
                     mon.Hit();
+                    hero.pt.Play();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
-                    mon.Attack(true, mon.transform.position, hero.transform.position);
+                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
+                    //StartCoroutine(mon.Action_MoveAtk(mon.existPos + 1, hero.existPos));
                     hero.Hit();
                     AttackFail();
 
@@ -170,48 +154,6 @@ public class UI_AtkButtonManager : MonoBehaviour
         }
 
     }
-
-    //private int NotNullStateNum(MonsterController mon)
-    //{
-    //    int ranNum;
-
-    //    ranNum = Random.Range(0, 4);
-
-    //    while (true)
-    //    {
-    //        if (mon.stateBar.stateTex[ranNum] == null)
-    //        {
-    //            ranNum = Random.Range(0, 4);
-    //        }
-    //        else
-    //        {
-    //            break;
-    //        }
-    //    }
-
-    //    return ranNum;
-    //}
-
-    //void RelocationState(MonsterController mon)
-    //{
-    //    int n;
-
-    //    // 좌우 화살표 검사해서 변경
-    //    for (int i = mon.stateCount; i >= 0; i--)
-    //    {
-    //        if (mon.existPos == 0 && mon.stateBar.stateType[i] == 2)
-    //        {
-    //            mon.stateBar.stateType[i] = Random.Range(0, 2);
-    //            mon.stateBar.stateSlot[i].sprite = mon.stateBar.stateTex[mon.stateBar.stateType[i]];
-    //        }
-    //        else if (mon.existPos == 2 && mon.stateBar.stateType[i] == 3)
-    //        {
-    //            mon.stateBar.stateType[i] = Random.Range(0, 2);
-    //            mon.stateBar.stateSlot[i].sprite = mon.stateBar.stateTex[mon.stateBar.stateType[i]];
-    //        }
-    //    }
-
-    //}
 
     void AttackFail()
     {

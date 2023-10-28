@@ -10,129 +10,182 @@ public class MonsterController : MonoBehaviour
     public Vector2 myPos = new Vector2();
     public int stateCount;
 
-    public float moveSpeed = 1;
-
     public ParticleSystem ptSlash;
     public ParticleSystem ptCoin;
 
-    public Transform hero;
+    //public Transform hero;
 
-    float movePosX;
-    float xGap = 1.2f;
+    bool isMove = false;
+    bool isAtk = false;
 
-    //private void Start()
-    //{
-    //    Debug.Log(stateCount);
-    //    stateCount = stateBar.SpawnState();
-    //    Debug.Log(stateBar.SpawnState());
-    //}
+    Vector3[] atkPos = {
+            new Vector2(-1.2f, -2.5f),
+            new Vector2(0f, -2.5f),
+            new Vector2(1.2f, -2.5f)
+         };
 
     private void OnEnable()
     {
         stateCount = stateBar.SpawnState();
     }
 
-    //private void Update()
-    //{
-    //    transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, -2.5f), moveSpeed * Time.deltaTime);
-    //}
 
-    public void Move(int index)
+    public IEnumerator Action_AtkMove(int atkPosIndex, int movePosIndex)
     {
-        switch (index)
+        while (true)
+        {
+            if (isMove == false)
+            {
+                Attack(atkPosIndex);
+                break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+        
+        while(true)
+        {
+            if(isAtk == false)
+            {
+                Move(movePosIndex);
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+    }
+    public IEnumerator Action_MoveAtk(int movePosIndex, int atkPosIndex)
+    {
+        Move(movePosIndex);
+
+        while (true)
+        {
+            if (isMove == false)
+            {
+                Attack(atkPosIndex);
+                break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (true)
+        {
+            if (isAtk == false)
+            {
+                Move(atkPosIndex);
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+        
+    }
+
+    public void Attack(int atkPosIndex) // 0 바로 앞 공격, 1 추격 공격, 2 이동, 3 바로 앞 공격 후 이동, 4 추격 공격 후 이동
+    {
+        isAtk = true;
+        StartCoroutine(CoAtk(atkPosIndex));
+    }
+
+    IEnumerator CoAtk(int atkPosIndex)
+    {
+        while (true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, atkPos[atkPosIndex], 30f * Time.deltaTime);
+
+            if (transform.position == atkPos[atkPosIndex])
+            {
+                isAtk = false;
+                ptSlash.Play();
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public void Move(int movePosIndex)
+    {
+        isMove = true;
+
+        switch (movePosIndex)
         {
             case -1:
-                //transform.position = new Vector2(1.5f, transform.position.y);
                 myPos.x = -1.5f;
                 existPos = 2;
-                StartCoroutine(CoMoveSide_02(2));
+                StartCoroutine(CoMoveSideEscape(2));
                 break;
 
             case 0:
-                //transform.position = new Vector2(-1.5f, transform.position.y);
-                myPos.x = -xGap;       
+                myPos.x = -1.2f;
                 existPos = 0;
                 StartCoroutine(CoMoveSide());
                 break;
 
             case 1:
-                //transform.position = new Vector2(0, transform.position.y);
                 myPos.x = 0;
                 existPos = 1;
                 StartCoroutine(CoMoveSide());
                 break;
 
             case 2:
-                //transform.position = new Vector2(1.5f, transform.position.y);
-                myPos.x = xGap;
+                myPos.x = 1.2f;
                 existPos = 2;
                 StartCoroutine(CoMoveSide());
                 break;
 
             case 3:
-                //transform.position = new Vector2(-1.5f, transform.position.y);
-                myPos.x = xGap + 0.3f;
+                myPos.x = 1.5f;
                 existPos = 0;
-                StartCoroutine(CoMoveSide_02(0));
+                StartCoroutine(CoMoveSideEscape(0));
                 break;
-        }
-    }
-
-    public IEnumerator CoMoveDown()
-    {
-        while (true)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, myPos, 10f * Time.deltaTime);
-
-            yield return new WaitForEndOfFrame();
-
-            if (transform.position.y == myPos.y)
-            {
-                yield break;
-            }
         }
     }
 
     IEnumerator CoMoveSide()
     {
-        Vector2 dest = new Vector2(myPos.x, transform.position.y);
+        Vector3 dest = new Vector3(myPos.x, -1.6f, 0);
 
         while (true)
         {
-            transform.position = Vector3.MoveTowards(gameObject.transform.position, dest, 60f * Time.deltaTime);
-            yield return null;
+            transform.position = Vector3.MoveTowards(transform.position, dest, 30f * Time.deltaTime);
 
-            if(transform.position.x == dest.x)
+            if (transform.position == dest)
             {
+                isMove = false;
                 yield break;
             }
+
+            yield return null;
         }
     }
 
-    IEnumerator CoMoveSide_02(int nextMove)
+    IEnumerator CoMoveSideEscape(int nextMove)
     {
-        Vector2 dest = new Vector2(myPos.x, transform.position.y);
-        Vector2 tmpDest;
+        Vector3 dest = new Vector3(myPos.x, -1.6f, 0);
+        Vector3 tmpDest;
 
         if (nextMove == 2)
         {
-            tmpDest = new Vector2(3, transform.position.y);
+            tmpDest = new Vector3(3, -1.6f, 0);
         }
-        else if(nextMove == 0)
+        else if (nextMove == 0)
         {
-            tmpDest = new Vector2(-3, transform.position.y);
+            tmpDest = new Vector3(-3, -1.6f, 0);
         }
         else
         {
-            tmpDest = new Vector2(-100, transform.position.y);
+            tmpDest = new Vector3(-100, -1.6f, 0);
         }
-                
+
         while (true)
         {
-            transform.position = Vector3.MoveTowards(gameObject.transform.position, dest, 60f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, dest, 60f * Time.deltaTime);
             yield return null;
 
-            if (transform.position.x == dest.x)
+            if (transform.position == dest)
             {
                 transform.position = tmpDest;
                 Move(nextMove);
@@ -155,12 +208,12 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
-                BattleCamera.Instance.Shake(0.1f,0.25f);
+                BattleCamera.Instance.Shake(0.1f, 0.25f);
                 SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
                 GameManager.inst.spawn.spawnData.RemoveAt(0);
                 GameManager.inst.spawn.SpawnNextMonster();
                 GameManager.inst.uiCombotex.KillCount();
-            
+
                 //gameObject.SetActive(false);
                 StartCoroutine(CoDeath());
             }
@@ -175,25 +228,16 @@ public class MonsterController : MonoBehaviour
         stateCount--;
     }
 
-    public IEnumerator CoMoveAtk(Vector3 startPos, Vector3 endPos)
+    public IEnumerator CoMoveDown()
     {
-        Debug.Log("실행");
-
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, endPos, 60f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, myPos, 10f * Time.deltaTime);
 
             yield return new WaitForEndOfFrame();
 
-            if (transform.position.y == endPos.y)
+            if (transform.position.y == myPos.y)
             {
-                ptSlash.Play();
-                endPos = startPos;
-            }
-
-            if (transform.position.y == startPos.y)
-            {
-                Debug.Log("탈출");
                 yield break;
             }
         }
@@ -212,26 +256,7 @@ public class MonsterController : MonoBehaviour
 
     public void Hit()
     {
-
         //isCombo = false;
         RemoveStateBar();
     }
-
-    public void Attack(bool moveAtk, Vector3 monPos, Vector3 heroPos)
-    {
-        StartCoroutine(CoMoveAtk(monPos, heroPos));
-
-        //switch (moveAtk)
-        //{
-        //    case true:
-        //        StartCoroutine(CoMoveAtk(monPos, heroPos));
-        //        break;
-
-        //    case false:
-        //        StartCoroutine(CoMoveAtk(monPos, new Vector3(monPos.x, heroPos.y, 0)));
-        //        break;
-        //}
-    }
-
-
 }

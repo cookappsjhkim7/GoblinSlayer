@@ -75,26 +75,26 @@ public class HeroController : MonoBehaviour
 
     public void Hit()
     {
-        if (shieldCount == 0)
-        {
-            hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
-            hpCount--;
+        //if (shieldCount == 0)
+        //{
+        //    hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
+        //    hpCount--;
 
-            StartCoroutine(CoHitMask());
+        //    StartCoroutine(CoHitMask());
 
-            if (hpCount == 0)
-            {
-                gameOverMask.SetActive(true);
-                GameManager.inst.uiTimerbar.TimerStop();
-                //GameManager.inst.spawn.SpawnNextMonster();
-            }
-        }
-        else
-        {
-            StartCoroutine(CoShieldMask());
-            shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
-            shieldCount--;
-        }
+        //    if (hpCount == 0)
+        //    {
+        //        gameOverMask.SetActive(true);
+        //        GameManager.inst.uiTimerbar.TimerStop();
+        //        //GameManager.inst.spawn.SpawnNextMonster();
+        //    }
+        //}
+        //else
+        //{
+        //    StartCoroutine(CoShieldMask());
+        //    shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
+        //    shieldCount--;
+        //}
     }
 
     IEnumerator CoHitMask()
