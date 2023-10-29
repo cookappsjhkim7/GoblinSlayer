@@ -40,7 +40,7 @@ public class UI_AtkButtonManager : MonoBehaviour
         {
             for (int i = mon.stateCount; i >= 0; i--)
             {
-                mon.Hit();
+                mon.Hit(false);
                 hero.pt.Play();
                 GameManager.inst.uiCombotex.Combo();
 
@@ -55,7 +55,7 @@ public class UI_AtkButtonManager : MonoBehaviour
             {
                 if (hero.existPos == mon.existPos)
                 {
-                    mon.Hit();
+                    mon.Hit(false);
                     hero.pt.Play();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
@@ -93,19 +93,20 @@ public class UI_AtkButtonManager : MonoBehaviour
             }
             else if (mon.stateBar.stateType[mon.stateCount] == 2)
             {
-                mon.Move(mon.existPos - 1);
+                //mon.Move(mon.existPos - 1);
 
-                if (hero.existPos == mon.existPos)
+                int monNextMove = (mon.existPos - 1 == -1) ? 2 : mon.existPos - 1;
+
+                if (hero.existPos == monNextMove)
                 {
-                    Debug.Log("222");
-                    mon.Hit();
+                    mon.Move(mon.existPos - 1);
+                    mon.Hit(true);
                     hero.pt.Play();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
-                    Debug.Log("222222");
-                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
+                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos - 1));
                     hero.Hit();
                     AttackFail();
 
@@ -117,20 +118,20 @@ public class UI_AtkButtonManager : MonoBehaviour
             }
             else if (mon.stateBar.stateType[mon.stateCount] == 3)
             {
-                mon.Move(mon.existPos + 1);
+                //mon.Move(mon.existPos + 1);
 
-                if (hero.existPos == mon.existPos)
+                int monNextMove = (mon.existPos + 1 == 3) ? 0 : mon.existPos + 1;
+
+                if (hero.existPos == monNextMove)
                 {
-                    Debug.Log("333");
-                    mon.Hit();
+                    mon.Move(mon.existPos + 1);
+                    mon.Hit(true);
                     hero.pt.Play();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
-                    Debug.Log("333333");
-                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
-                    //StartCoroutine(mon.Action_MoveAtk(mon.existPos + 1, hero.existPos));
+                    StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos + 1));
                     hero.Hit();
                     AttackFail();
 

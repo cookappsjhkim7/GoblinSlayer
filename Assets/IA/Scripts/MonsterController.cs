@@ -12,12 +12,13 @@ public class MonsterController : MonoBehaviour
 
     public ParticleSystem ptSlash;
     public ParticleSystem ptCoin;
-    public ParticleSystem ptHit;
+    //public ParticleSystem ptHit;
 
     //public Transform hero;
 
     bool isMove;
     bool isAtk;
+    bool isHit;
 
     Vector3[] atkPos = {
             new Vector2(-1.2f, -3f),
@@ -29,7 +30,9 @@ public class MonsterController : MonoBehaviour
     {
         isMove = false;
         isAtk = false;
+        isHit = false;
         stateCount = stateBar.SpawnState();
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
 
@@ -45,10 +48,10 @@ public class MonsterController : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        
-        while(true)
+
+        while (true)
         {
-            if(isAtk == false)
+            if (isAtk == false)
             {
                 Move(movePosIndex);
                 yield break;
@@ -111,7 +114,7 @@ public class MonsterController : MonoBehaviour
     public void Move(int movePosIndex)
     {
         //Debug.Log(isMove);
-        if(isMove==false)
+        if (isMove == false)
         {
             isMove = true;
 
@@ -148,7 +151,7 @@ public class MonsterController : MonoBehaviour
                     break;
             }
         }
-        
+
 
     }
 
@@ -261,9 +264,10 @@ public class MonsterController : MonoBehaviour
 
         while (true)
         {
-            if(isMove == false)
+            if (isMove == false)
             {
-                transform.position = Vector3.MoveTowards(transform.position, pos, 40f * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, pos, 20f * Time.deltaTime);
+                transform.Rotate(new Vector3(0, 0, 1) * 800 * Time.deltaTime);
 
                 if (transform.position == pos)
                 {
@@ -275,12 +279,37 @@ public class MonsterController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
-
-    public void Hit()
+    public IEnumerator CoHit()
     {
-        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
-        ptHit.Play();
-        //isCombo = false;
-        RemoveStateBar();
+        while (true)
+        {
+            if (isMove == false)
+            {
+                SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+                //ptHit.Play();
+                //GameManager.inst.vfx.VFXPlay(GameManager.inst.vfx.ptHit, transform.position);
+                //GameManager.inst.vfx.SpawnVFX(0, transform.position);
+                //isCombo = false;
+                RemoveStateBar();
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public void Hit(bool move)
+    {
+        if (move)
+        {
+            StartCoroutine(CoHit());
+        }
+        else
+        {
+            SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+            //GameManager.inst.vfx.VFXPlay(GameManager.inst.vfx.ptHit, transform.position);
+            GameManager.inst.vfx.SpawnVFX(0, transform.position);
+            RemoveStateBar();
+        }
     }
 }

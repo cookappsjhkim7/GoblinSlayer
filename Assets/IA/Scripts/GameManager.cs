@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public UI_BerserkerGauge uiBerGauge;
     public MoveMap moveMap;
     public HeroController hero;
+    public VFXManager vfx;
 
     bool isAction;
     WaitForSeconds wfs_01f = new WaitForSeconds(0.1f);
