@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public MoveMap moveMap;
     public HeroController hero;
 
+    bool isAction;
+    WaitForSeconds wfs_01f = new WaitForSeconds(0.1f);
+
     //public static int[] uiStateRate = new int[4] { 0, 3, 3, 3 };
     //public static int[] uiStateCountRate = new int[3] { 5, 2, 2 };
     //public static int[] unitTypeRate = new int[2] { 8, 2 };
@@ -22,21 +25,37 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         inst = this;
+        isAction = false;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            uiAtkbtn.OnLAtkBtnClick();
+            if( isAction == false)
+            {
+                isAction = true;
+                uiAtkbtn.OnLAtkBtnClick();
+                StartCoroutine(CoIsAction());
+            }
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            uiAtkbtn.OnCAtkBtnClick();
+            if (isAction == false)
+            {
+                isAction = true;
+                uiAtkbtn.OnCAtkBtnClick();
+                StartCoroutine(CoIsAction());
+            }
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            uiAtkbtn.OnRAtkBtnClick();
+            if (isAction == false)
+            {
+                isAction = true;
+                uiAtkbtn.OnRAtkBtnClick();
+                StartCoroutine(CoIsAction());
+            }
         }
     }
 
@@ -69,5 +88,12 @@ public class GameManager : MonoBehaviour
             }
         }
         return -100;
+    }
+
+    IEnumerator CoIsAction()
+    {
+        yield return wfs_01f;
+
+        isAction = false;
     }
 }

@@ -12,20 +12,23 @@ public class MonsterController : MonoBehaviour
 
     public ParticleSystem ptSlash;
     public ParticleSystem ptCoin;
+    public ParticleSystem ptHit;
 
     //public Transform hero;
 
-    bool isMove = false;
-    bool isAtk = false;
+    bool isMove;
+    bool isAtk;
 
     Vector3[] atkPos = {
-            new Vector2(-1.2f, -2.5f),
-            new Vector2(0f, -2.5f),
-            new Vector2(1.2f, -2.5f)
+            new Vector2(-1.2f, -3f),
+            new Vector2(0f, -3f),
+            new Vector2(1.2f, -3f)
          };
 
     private void OnEnable()
     {
+        isMove = false;
+        isAtk = false;
         stateCount = stateBar.SpawnState();
     }
 
@@ -80,7 +83,6 @@ public class MonsterController : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        
     }
 
     public void Attack(int atkPosIndex) // 0 바로 앞 공격, 1 추격 공격, 2 이동, 3 바로 앞 공격 후 이동, 4 추격 공격 후 이동
@@ -93,7 +95,7 @@ public class MonsterController : MonoBehaviour
     {
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, atkPos[atkPosIndex], 30f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, atkPos[atkPosIndex], 40f * Time.deltaTime);
 
             if (transform.position == atkPos[atkPosIndex])
             {
@@ -108,40 +110,46 @@ public class MonsterController : MonoBehaviour
 
     public void Move(int movePosIndex)
     {
-        isMove = true;
-
-        switch (movePosIndex)
+        //Debug.Log(isMove);
+        if(isMove==false)
         {
-            case -1:
-                myPos.x = -1.5f;
-                existPos = 2;
-                StartCoroutine(CoMoveSideEscape(2));
-                break;
+            isMove = true;
 
-            case 0:
-                myPos.x = -1.2f;
-                existPos = 0;
-                StartCoroutine(CoMoveSide());
-                break;
+            switch (movePosIndex)
+            {
+                case -1:
+                    myPos.x = -1.5f;
+                    existPos = 2;
+                    StartCoroutine(CoMoveSideEscape(2));
+                    break;
 
-            case 1:
-                myPos.x = 0;
-                existPos = 1;
-                StartCoroutine(CoMoveSide());
-                break;
+                case 0:
+                    myPos.x = -1.2f;
+                    existPos = 0;
+                    StartCoroutine(CoMoveSide());
+                    break;
 
-            case 2:
-                myPos.x = 1.2f;
-                existPos = 2;
-                StartCoroutine(CoMoveSide());
-                break;
+                case 1:
+                    myPos.x = 0;
+                    existPos = 1;
+                    StartCoroutine(CoMoveSide());
+                    break;
 
-            case 3:
-                myPos.x = 1.5f;
-                existPos = 0;
-                StartCoroutine(CoMoveSideEscape(0));
-                break;
+                case 2:
+                    myPos.x = 1.2f;
+                    existPos = 2;
+                    StartCoroutine(CoMoveSide());
+                    break;
+
+                case 3:
+                    myPos.x = 1.5f;
+                    existPos = 0;
+                    StartCoroutine(CoMoveSideEscape(0));
+                    break;
+            }
         }
+        
+
     }
 
     IEnumerator CoMoveSide()
@@ -188,6 +196,7 @@ public class MonsterController : MonoBehaviour
             if (transform.position == dest)
             {
                 transform.position = tmpDest;
+                isMove = false;
                 Move(nextMove);
                 yield break;
             }
@@ -197,7 +206,7 @@ public class MonsterController : MonoBehaviour
     public void RemoveStateBar()
     {
         stateBar.stateSlot[stateCount].gameObject.SetActive(false);
-        stateBar.stateData[stateCount].stateType = -1;
+        //stateBar.stateType[stateCount] = -1;
 
         if (stateCount == 0)
         {
@@ -209,7 +218,6 @@ public class MonsterController : MonoBehaviour
             else
             {
                 BattleCamera.Instance.Shake(0.1f, 0.25f);
-                SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
                 GameManager.inst.spawn.spawnData.RemoveAt(0);
                 GameManager.inst.spawn.SpawnNextMonster();
                 GameManager.inst.uiCombotex.KillCount();
@@ -245,17 +253,33 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator CoDeath()
     {
-        yield return new WaitForSeconds(0.1f);
+        float rPosY = Random.Range(-1, 7);
+        float rPosX = Random.Range(2, 8);
+        int rNum = Random.Range(0, 2);
 
-        //GameManager.inst.spawn.spawnData.RemoveAt(0);
-        //GameManager.inst.spawn.SpawnNextMonster();
-        //GameManager.inst.uiCombotex.KillCount();
+        Vector3 pos = (rNum == 0) ? new Vector3(-rPosX, rPosY, 0) : new Vector3(rPosX, rPosY, 0);
 
-        gameObject.SetActive(false);
+        while (true)
+        {
+            if(isMove == false)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, pos, 40f * Time.deltaTime);
+
+                if (transform.position == pos)
+                {
+                    gameObject.SetActive(false);
+                    yield break;
+                }
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     public void Hit()
     {
+        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+        ptHit.Play();
         //isCombo = false;
         RemoveStateBar();
     }

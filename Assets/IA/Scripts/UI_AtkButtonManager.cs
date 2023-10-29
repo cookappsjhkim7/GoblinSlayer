@@ -9,22 +9,6 @@ public class UI_AtkButtonManager : MonoBehaviour
 
     public void OnLAtkBtnClick()
     {
-        //foreach (MonsterController mon in GameManager.inst.spawn.spawnData)
-        //{
-        //    for (int i = 0; i < mon.stateBar.curState.Count; i++)
-        //    {
-        //        mon.stateBar.curState[i].SetActive(false);
-        //    }
-        //    mon.stateBar.curState.Clear();
-        //    mon.stateBar.stateAtk.Clear();
-        //    mon.stateBar.stateType.Clear();
-        //    mon.gameObject.SetActive(false);
-        //}
-        //GameManager.inst.spawn.SpawnMonster(0);
-
-        //GameManager.inst.spawn.spawnData[0].Hit();
-        //GameManager.inst.uiCombotex.Combo();
-
         BtnFunction(0);
     }
 
@@ -113,18 +97,19 @@ public class UI_AtkButtonManager : MonoBehaviour
 
                 if (hero.existPos == mon.existPos)
                 {
+                    Debug.Log("222");
                     mon.Hit();
                     hero.pt.Play();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
+                    Debug.Log("222222");
                     StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
                     hero.Hit();
                     AttackFail();
 
                     int ranNum = Random.Range(0, 4);
-                    Debug.Log("bbb");
                     mon.stateBar.SettingState(mon.stateCount, ranNum);
                 }
 
@@ -136,12 +121,14 @@ public class UI_AtkButtonManager : MonoBehaviour
 
                 if (hero.existPos == mon.existPos)
                 {
+                    Debug.Log("333");
                     mon.Hit();
                     hero.pt.Play();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
+                    Debug.Log("333333");
                     StartCoroutine(mon.Action_AtkMove(hero.existPos, mon.existPos));
                     //StartCoroutine(mon.Action_MoveAtk(mon.existPos + 1, hero.existPos));
                     hero.Hit();
