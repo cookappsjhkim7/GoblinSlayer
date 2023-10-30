@@ -21,6 +21,10 @@ public class UI_TextManager : MonoBehaviour
     {
         killCount++;
         killCountText.text = killCount.ToString();
+        
+        GameManager.inst.spawn.SpawnNextMonster();
+        
+        //.. 200부터 소환 안되게
     }
 
     public void CoinCount()

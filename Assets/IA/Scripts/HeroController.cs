@@ -19,7 +19,11 @@ public class HeroController : MonoBehaviour
 
     int movePosIndex;
 
-    public ParticleSystem pt;
+    public ParticleSystem ptAtk;
+    public ParticleSystem ptBerserkerAtk;
+
+
+    public Transform chaImage;
 
     void Start()
     {
@@ -49,7 +53,7 @@ public class HeroController : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, myPos[movePosIndex], 60f * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, myPos[movePosIndex], 40f * Time.deltaTime);
     }
     public void Move(int n)
     {
@@ -70,31 +74,33 @@ public class HeroController : MonoBehaviour
             {
                 yield break;
             }
+
+            yield return new WaitForEndOfFrame();
         }
     }
 
     public void Hit()
     {
-        //if (shieldCount == 0)
-        //{
-        //    hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
-        //    hpCount--;
+        if (shieldCount == 0)
+        {
+            hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
+            hpCount--;
 
-        //    StartCoroutine(CoHitMask());
+            StartCoroutine(CoHitMask());
 
-        //    if (hpCount == 0)
-        //    {
-        //        gameOverMask.SetActive(true);
-        //        GameManager.inst.uiTimerbar.TimerStop();
-        //        //GameManager.inst.spawn.SpawnNextMonster();
-        //    }
-        //}
-        //else
-        //{
-        //    StartCoroutine(CoShieldMask());
-        //    shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
-        //    shieldCount--;
-        //}
+            if (hpCount == 0)
+            {
+                gameOverMask.SetActive(true);
+                GameManager.inst.uiTimerbar.TimerStop();
+                //GameManager.inst.spawn.SpawnNextMonster();
+            }
+        }
+        else
+        {
+            StartCoroutine(CoShieldMask());
+            shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
+            shieldCount--;
+        }
     }
 
     IEnumerator CoHitMask()
@@ -108,5 +114,50 @@ public class HeroController : MonoBehaviour
         shieldMask.SetActive(true);
         yield return wfsHitMask;
         shieldMask.SetActive(false);
+    }
+
+    public void Attack()
+    {
+        ptAtk.Play();
+        StartCoroutine(CoAttack());
+    }
+
+    public void BerserkerAttack()
+    {
+        ptBerserkerAtk.Play();
+        StartCoroutine(CoBerserkerAttack());
+    }
+
+    IEnumerator CoAttack()
+    {
+        while(true)
+        {
+            chaImage.transform.Rotate(new Vector3(0, 0, -1) * 1800 * Time.deltaTime);
+
+            if (chaImage.transform.rotation.eulerAngles.z < 120)
+            {
+                chaImage.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    IEnumerator CoBerserkerAttack()
+    {
+        while (true)
+        {
+            chaImage.transform.Rotate(new Vector3(0, 0, -1) * 1800 * Time.deltaTime);
+
+            if (!GameManager.inst.uiBerGauge.isBerserker)
+            {
+                ptBerserkerAtk.Stop();
+                chaImage.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield break;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 }

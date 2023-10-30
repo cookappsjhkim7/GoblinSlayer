@@ -14,7 +14,7 @@ public class MonsterController : MonoBehaviour
     public ParticleSystem ptCoin;
     //public ParticleSystem ptHit;
 
-    //public Transform hero;
+    int rCoin;
 
     bool isMove;
     bool isAtk;
@@ -220,9 +220,16 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
+                rCoin = Random.Range(0, 10);
+
+                if (rCoin == 0)
+                {
+                    GameManager.inst.vfx.SpawnVFX(1, transform.position);
+                    GameManager.inst.uiCombotex.CoinCount();
+                }
+
                 BattleCamera.Instance.Shake(0.1f, 0.25f);
                 GameManager.inst.spawn.spawnData.RemoveAt(0);
-                GameManager.inst.spawn.SpawnNextMonster();
                 GameManager.inst.uiCombotex.KillCount();
 
                 //gameObject.SetActive(false);
@@ -256,11 +263,16 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator CoDeath()
     {
-        float rPosY = Random.Range(-1, 7);
+        float rPosY = Random.Range(0, 7);
         float rPosX = Random.Range(2, 8);
         int rNum = Random.Range(0, 2);
 
         Vector3 pos = (rNum == 0) ? new Vector3(-rPosX, rPosY, 0) : new Vector3(rPosX, rPosY, 0);
+
+        float dirWing = Mathf.Atan2(pos.y - transform.position.y, pos.x - transform.position.x) * 180 / Mathf.PI;
+
+        GameManager.inst.vfx.SpawnVFX_2(2, transform.position, dirWing - 90);
+
 
         while (true)
         {
@@ -286,10 +298,7 @@ public class MonsterController : MonoBehaviour
             if (isMove == false)
             {
                 SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
-                //ptHit.Play();
-                //GameManager.inst.vfx.VFXPlay(GameManager.inst.vfx.ptHit, transform.position);
-                //GameManager.inst.vfx.SpawnVFX(0, transform.position);
-                //isCombo = false;
+
                 RemoveStateBar();
                 yield break;
             }

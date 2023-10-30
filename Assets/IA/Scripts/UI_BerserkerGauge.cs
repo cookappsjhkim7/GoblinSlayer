@@ -23,7 +23,7 @@ public class UI_BerserkerGauge : MonoBehaviour
 
     public void GaugeCharging(float num)
     {
-        gauge += num * 0;
+        gauge += num / 30;
 
         if (gauge > 1)
         {
@@ -45,7 +45,9 @@ public class UI_BerserkerGauge : MonoBehaviour
         berserkerMask.SetActive(true);
 
         GameManager.inst.uiTimerbar.TimerStop();
-        
+
+        GameManager.inst.hero.BerserkerAttack();
+
         while (true)
         {
             timer += Time.deltaTime;

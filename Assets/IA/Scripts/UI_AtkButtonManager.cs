@@ -41,7 +41,7 @@ public class UI_AtkButtonManager : MonoBehaviour
             for (int i = mon.stateCount; i >= 0; i--)
             {
                 mon.Hit(false);
-                hero.pt.Play();
+                //hero.BerserkerAttack();
                 GameManager.inst.uiCombotex.Combo();
 
                 hero.Move(mon.existPos);
@@ -56,7 +56,7 @@ public class UI_AtkButtonManager : MonoBehaviour
                 if (hero.existPos == mon.existPos)
                 {
                     mon.Hit(false);
-                    hero.pt.Play();
+                    hero.Attack();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
@@ -101,7 +101,7 @@ public class UI_AtkButtonManager : MonoBehaviour
                 {
                     mon.Move(mon.existPos - 1);
                     mon.Hit(true);
-                    hero.pt.Play();
+                    hero.Attack();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
@@ -126,7 +126,7 @@ public class UI_AtkButtonManager : MonoBehaviour
                 {
                     mon.Move(mon.existPos + 1);
                     mon.Hit(true);
-                    hero.pt.Play();
+                    hero.Attack();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
                 else
