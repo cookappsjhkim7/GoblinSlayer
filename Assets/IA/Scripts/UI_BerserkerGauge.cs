@@ -13,6 +13,8 @@ public class UI_BerserkerGauge : MonoBehaviour
     public bool isBerserker = false;
     public GameObject berserkerMask;
 
+    public GameObject tmp_berserkerMode;
+
     void Start()
     {
         slider = GetComponent<Slider>();
@@ -44,6 +46,8 @@ public class UI_BerserkerGauge : MonoBehaviour
     {
         berserkerMask.SetActive(true);
 
+        tmp_berserkerMode.SetActive(true);
+
         GameManager.inst.uiTimerbar.TimerStop();
 
         GameManager.inst.hero.BerserkerAttack();
@@ -58,6 +62,7 @@ public class UI_BerserkerGauge : MonoBehaviour
                 slider.value = 0;
                 isBerserker = false;
                 berserkerMask.SetActive(false);
+                tmp_berserkerMode.SetActive(false);
                 GameManager.inst.uiTimerbar.TimerReset();
                 timer = 0;
                 yield break;
