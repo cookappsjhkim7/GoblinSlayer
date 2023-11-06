@@ -16,7 +16,7 @@ public class UI_TimeCount : MonoBehaviour
         slider = GetComponent<Slider>();
 
         slider.value = 1;
-        timeOver = 2;
+        timeOver = 2f;
 
 
         StartCoroutine("CoTimer");

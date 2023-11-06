@@ -83,6 +83,8 @@ public class HeroController : MonoBehaviour
     {
         if (shieldCount == 0)
         {
+            SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+
             hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
             hpCount--;
 

@@ -61,33 +61,7 @@ public class MonsterController : MonoBehaviour
         }
 
     }
-    public IEnumerator Action_MoveAtk(int movePosIndex, int atkPosIndex)
-    {
-        Move(movePosIndex);
-
-        while (true)
-        {
-            if (isMove == false)
-            {
-                Attack(atkPosIndex);
-                break;
-            }
-
-            yield return new WaitForEndOfFrame();
-        }
-
-        while (true)
-        {
-            if (isAtk == false)
-            {
-                Move(atkPosIndex);
-                yield break;
-            }
-
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
+   
     public void Attack(int atkPosIndex) // 0 바로 앞 공격, 1 추격 공격, 2 이동, 3 바로 앞 공격 후 이동, 4 추격 공격 후 이동
     {
         isAtk = true;
@@ -213,7 +187,7 @@ public class MonsterController : MonoBehaviour
 
         if (stateCount == 0)
         {
-            if (stateBar.stateType[0] == 1)
+            if (stateBar.stateType[0] == 1 && !GameManager.inst.uiBerGauge.isBerserker)
             {
                 stateBar.SettingState(0, 0);
                 stateCount++;
@@ -226,6 +200,7 @@ public class MonsterController : MonoBehaviour
                 {
                     GameManager.inst.vfx.SpawnVFX(1, transform.position);
                     GameManager.inst.uiCombotex.CoinCount();
+                    SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
                 }
 
                 BattleCamera.Instance.Shake(0.1f, 0.25f);
@@ -240,7 +215,6 @@ public class MonsterController : MonoBehaviour
             {
                 GameManager.inst.uiCombotex.lvCount();
             }
-
         }
 
         stateCount--;

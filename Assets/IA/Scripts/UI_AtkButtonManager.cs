@@ -55,7 +55,18 @@ public class UI_AtkButtonManager : MonoBehaviour
             {
                 if (hero.existPos == mon.existPos)
                 {
-                    mon.Hit(false);
+                    if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
+                    {
+                        for (int i = 0; i <= mon.stateCount; i++)
+                        {
+                            mon.Hit(false);
+                        }
+                        GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                    }
+                    else
+                    {
+                        mon.Hit(false);
+                    }
                     hero.Attack();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
@@ -100,7 +111,18 @@ public class UI_AtkButtonManager : MonoBehaviour
                 if (hero.existPos == monNextMove)
                 {
                     mon.Move(mon.existPos - 1);
-                    mon.Hit(true);
+                    if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
+                    {
+                        for (int i = 0; i <= mon.stateCount; i++)
+                        {
+                            mon.Hit(true);
+                        }
+                        GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                    }
+                    else
+                    {
+                        mon.Hit(true);
+                    }
                     hero.Attack();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }
@@ -125,7 +147,18 @@ public class UI_AtkButtonManager : MonoBehaviour
                 if (hero.existPos == monNextMove)
                 {
                     mon.Move(mon.existPos + 1);
-                    mon.Hit(true);
+                    if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
+                    {
+                        for (int i = 0; i <= mon.stateCount; i++)
+                        {
+                            mon.Hit(true);
+                        }
+                        GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                    }
+                    else
+                    {
+                        mon.Hit(true);
+                    }
                     hero.Attack();
                     AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
                 }

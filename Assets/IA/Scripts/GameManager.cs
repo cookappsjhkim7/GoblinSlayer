@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
     public HeroController hero;
     public VFXManager vfx;
 
+    public int[] criticalRate;
+
+
+    public int[] missRate;
+
     bool isAction;
     WaitForSeconds wfs_01f = new WaitForSeconds(0.1f);
 
@@ -27,6 +32,9 @@ public class GameManager : MonoBehaviour
     {
         inst = this;
         isAction = false;
+
+        criticalRate = new int[2] { 80, 20 };
+        missRate = new int[2] { 99, 1 };
     }
 
     void Update()
