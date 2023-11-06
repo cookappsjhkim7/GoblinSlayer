@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         isAction = false;
 
         criticalRate = new int[2] { 80, 20 };
-        missRate = new int[2] { 99, 1 };
+        //missRate = new int[2] { 99, 1 };
     }
 
     void Update()

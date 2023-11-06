@@ -28,6 +28,36 @@ public class UI_AtkButtonManager : MonoBehaviour
         SceneManager.LoadScene("Lobby");
     }
 
+    public void CriticalTimeScaleCon()
+    {
+        Time.timeScale = 1;
+        StopCoroutine(CoCritcalTime());
+        StartCoroutine(CoCritcalTime());
+    }
+
+    IEnumerator CoCritcalTime()
+    {
+        float time = 0.2f;
+
+        Time.timeScale = 0.1f;
+                
+        while(true)
+        {
+            time += 0.25f;
+
+            yield return new WaitForSeconds(0.05f);
+
+            Time.timeScale = time;
+
+            if(Time.timeScale >= 1)
+            {
+                Time.timeScale = 1;
+                yield break;
+            }
+        }
+    }
+
+
     void BtnFunction(int heroCurIndex)
     {
         int heroBeforeIndex = hero.existPos;
@@ -57,11 +87,17 @@ public class UI_AtkButtonManager : MonoBehaviour
                 {
                     if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
                     {
+                        mon.criticalHit = true;
+
                         for (int i = 0; i <= mon.stateCount; i++)
                         {
                             mon.Hit(false);
                         }
+                        CriticalTimeScaleCon();
                         GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
+
+                        mon.criticalHit = false;
                     }
                     else
                     {
@@ -111,13 +147,20 @@ public class UI_AtkButtonManager : MonoBehaviour
                 if (hero.existPos == monNextMove)
                 {
                     mon.Move(mon.existPos - 1);
+                    
                     if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
                     {
+                        mon.criticalHit = true;
+
                         for (int i = 0; i <= mon.stateCount; i++)
                         {
                             mon.Hit(true);
                         }
+                        CriticalTimeScaleCon();
                         GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
+
+                        mon.criticalHit = false;
                     }
                     else
                     {
@@ -147,13 +190,20 @@ public class UI_AtkButtonManager : MonoBehaviour
                 if (hero.existPos == monNextMove)
                 {
                     mon.Move(mon.existPos + 1);
+                    
                     if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
                     {
+                        mon.criticalHit = true;
+
                         for (int i = 0; i <= mon.stateCount; i++)
                         {
                             mon.Hit(true);
                         }
+                        CriticalTimeScaleCon();
                         GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
+
+                        mon.criticalHit = false;
                     }
                     else
                     {

@@ -43,39 +43,39 @@ public class UI_TextManager : MonoBehaviour
         {
             GameManager.inst.spawn.ChangeSpawnRate(0);
         }
-        else if (lvUp == 10)
+        else if (lvUp == 15)
         {
             GameManager.inst.spawn.ChangeSpawnRate(1);
         }
-        else if (lvUp == 20)
+        else if (lvUp == 30)
         {
             GameManager.inst.spawn.ChangeSpawnRate(2);
         }
-        else if (lvUp == 30)
+        else if (lvUp == 45)
         {
             GameManager.inst.spawn.ChangeSpawnRate(3);
         }
-        else if (lvUp == 40)
+        else if (lvUp == 60)
         {
             GameManager.inst.spawn.ChangeSpawnRate(4);
         }
-        else if (lvUp == 50)
+        else if (lvUp == 75)
         {
             GameManager.inst.spawn.ChangeSpawnRate(5);
         }
-        else if (lvUp == 60)
+        else if (lvUp == 90)
         {
             GameManager.inst.spawn.ChangeSpawnRate(6);
         }
-        else if (lvUp == 70)
+        else if (lvUp == 105)
         {
             GameManager.inst.spawn.ChangeSpawnRate(7);
         }
-        else if (lvUp == 80)
+        else if (lvUp == 120)
         {
             GameManager.inst.spawn.ChangeSpawnRate(8);
         }
-        else if (lvUp == 90)
+        else if (lvUp == 135)
         {
             GameManager.inst.spawn.ChangeSpawnRate(9);
         }

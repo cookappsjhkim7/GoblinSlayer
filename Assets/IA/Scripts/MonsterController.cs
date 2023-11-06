@@ -18,7 +18,8 @@ public class MonsterController : MonoBehaviour
 
     bool isMove;
     bool isAtk;
-    bool isHit;
+
+    public bool criticalHit;
 
     Vector3[] atkPos = {
             new Vector2(-1.2f, -3f),
@@ -30,7 +31,8 @@ public class MonsterController : MonoBehaviour
     {
         isMove = false;
         isAtk = false;
-        isHit = false;
+        //isHit = false;
+        criticalHit = false;
         stateCount = stateBar.SpawnState();
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
@@ -185,36 +187,57 @@ public class MonsterController : MonoBehaviour
         stateBar.stateSlot[stateCount].gameObject.SetActive(false);
         //stateBar.stateType[stateCount] = -1;
 
-        if (stateCount == 0)
+        if(!criticalHit)
         {
-            if (stateBar.stateType[0] == 1 && !GameManager.inst.uiBerGauge.isBerserker)
+            if (stateCount == 0)
             {
-                stateBar.SettingState(0, 0);
-                stateCount++;
-            }
-            else
-            {
-                rCoin = Random.Range(0, 10);
-
-                if (rCoin == 0)
+                if (stateBar.stateType[0] == 1 && !GameManager.inst.uiBerGauge.isBerserker)
                 {
-                    GameManager.inst.vfx.SpawnVFX(1, transform.position);
-                    GameManager.inst.uiCombotex.CoinCount();
-                    SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
+                    stateBar.SettingState(0, 0);
+                    stateCount++;
+                }
+                else
+                {
+                    rCoin = Random.Range(0, 10);
+
+                    if (rCoin == 0)
+                    {
+                        GameManager.inst.vfx.SpawnVFX(1, transform.position);
+                        GameManager.inst.uiCombotex.CoinCount();
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
+                    }
+
+                    BattleCamera.Instance.Shake(0.1f, 0.25f);
+                    GameManager.inst.spawn.spawnData.RemoveAt(0);
+                    GameManager.inst.uiCombotex.KillCount();
+
+                    //gameObject.SetActive(false);
+                    StartCoroutine(CoDeath());
                 }
 
-                BattleCamera.Instance.Shake(0.1f, 0.25f);
-                GameManager.inst.spawn.spawnData.RemoveAt(0);
-                GameManager.inst.uiCombotex.KillCount();
-
-                //gameObject.SetActive(false);
-                StartCoroutine(CoDeath());
+                if (!GameManager.inst.uiBerGauge.isBerserker)
+                {
+                    GameManager.inst.uiCombotex.lvCount();
+                }
             }
+        }
+        else
+        {
+            rCoin = Random.Range(0, 10);
 
-            if (!GameManager.inst.uiBerGauge.isBerserker)
+            if (rCoin == 0)
             {
-                GameManager.inst.uiCombotex.lvCount();
+                GameManager.inst.vfx.SpawnVFX(1, transform.position);
+                GameManager.inst.uiCombotex.CoinCount();
+                SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
             }
+
+            BattleCamera.Instance.Shake(0.1f, 0.25f);
+            GameManager.inst.spawn.spawnData.RemoveAt(0);
+            GameManager.inst.uiCombotex.KillCount();
+
+            //gameObject.SetActive(false);
+            StartCoroutine(CoDeath());
         }
 
         stateCount--;

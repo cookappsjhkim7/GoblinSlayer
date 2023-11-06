@@ -81,28 +81,28 @@ public class HeroController : MonoBehaviour
 
     public void Hit()
     {
-        if (shieldCount == 0)
-        {
-            SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+        //if (shieldCount == 0)
+        //{
+        //    SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
 
-            hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
-            hpCount--;
+        //    hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
+        //    hpCount--;
 
-            StartCoroutine(CoHitMask());
+        //    StartCoroutine(CoHitMask());
 
-            if (hpCount == 0)
-            {
-                gameOverMask.SetActive(true);
-                GameManager.inst.uiTimerbar.TimerStop();
-                //GameManager.inst.spawn.SpawnNextMonster();
-            }
-        }
-        else
-        {
-            StartCoroutine(CoShieldMask());
-            shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
-            shieldCount--;
-        }
+        //    if (hpCount == 0)
+        //    {
+        //        gameOverMask.SetActive(true);
+        //        GameManager.inst.uiTimerbar.TimerStop();
+        //        //GameManager.inst.spawn.SpawnNextMonster();
+        //    }
+        //}
+        //else
+        //{
+        //    StartCoroutine(CoShieldMask());
+        //    shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
+        //    shieldCount--;
+        //}
     }
 
     IEnumerator CoHitMask()

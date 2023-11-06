@@ -297,7 +297,7 @@ MonoBehaviour:
   - stateTex: {fileID: 21300000, guid: af3cce42facab3941a3994c455b35272, type: 3}
     stateType: 3
     color: {r: 1, g: 0.8901961, b: 0, a: 1}
-  stateRate: 02000000060000000100000001000000
+  stateRate: 05000000050000000100000001000000
   stateSlot:
   - {fileID: 1888387879}
   - {fileID: 407821418}
@@ -939,6 +939,7 @@ MonoBehaviour:
   stateCount: 0
   ptSlash: {fileID: 2009060644797487886}
   ptCoin: {fileID: 0}
+  criticalHit: 0
 --- !u!1 &1669526676502713438
 GameObject:
   m_ObjectHideFlags: 0
