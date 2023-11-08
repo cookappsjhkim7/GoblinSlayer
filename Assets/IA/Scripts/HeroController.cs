@@ -12,8 +12,10 @@ public class HeroController : MonoBehaviour
     public UI_StateBar hp;
     public UI_StateBar shield;
 
-    int hpCount;
-    int shieldCount;
+    public int hpCount;
+    public int shieldCount;
+    public int[] criticalRate;
+
     public int existPos;
     WaitForSeconds wfsHitMask = new WaitForSeconds(0.2f);
 
@@ -32,24 +34,33 @@ public class HeroController : MonoBehaviour
         myPos[1] = new Vector2(0f, transform.position.y);
         myPos[2] = new Vector2(1.2f, transform.position.y);
 
+        criticalRate = new int[2];
+
         Move(1);
 
         //StartCoroutine_CoMove(0);
 
-        shieldCount = 1;
+        CharacterSpecSetting(1, 2, 10);
+    }
+
+
+    public void CharacterSpecSetting(int _hp, int _shield, int _critical)
+    {
+        hpCount = _hp;
+        shieldCount = _shield;
+        criticalRate[0] = 100 - _critical;
+        criticalRate[1] = _critical;
+
+        for (int i = 0; i < hpCount; i++)
+        {
+            hp.SettingState(i, 0);
+        }
+
         for (int i = 0; i < shieldCount; i++)
         {
             shield.SettingState(i, 0);
         }
-
-        hpCount = 2;
-
-        for(int i = 0; i<hpCount; i++)
-        {
-            hp.SettingState(i, 0);
-        }
     }
-
 
     private void Update()
     {
@@ -66,11 +77,11 @@ public class HeroController : MonoBehaviour
 
     IEnumerator CoMove(int n)
     {
-        while(true)
+        while (true)
         {
             transform.position = Vector3.MoveTowards(transform.position, myPos[n], 1f * Time.deltaTime);
 
-            if(transform.position.x == myPos[n].x)
+            if (transform.position.x == myPos[n].x)
             {
                 yield break;
             }
@@ -132,7 +143,7 @@ public class HeroController : MonoBehaviour
 
     IEnumerator CoAttack()
     {
-        while(true)
+        while (true)
         {
             chaImage.transform.Rotate(new Vector3(0, 0, -1) * 1800 * Time.deltaTime);
 
