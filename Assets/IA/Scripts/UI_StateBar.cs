@@ -24,7 +24,7 @@ public class UI_StateBar : MonoBehaviour
     public void SettingState(int stateNum, int stateTypeNum)
     {
         stateSlot[stateNum].sprite = stateData[stateTypeNum].stateTex;
-        stateSlot[stateNum].color = stateData[stateTypeNum].color;
+        //stateSlot[stateNum].color = stateData[stateTypeNum].color;
         stateSlot[stateNum].gameObject.SetActive(true);
         stateType[stateNum] = stateTypeNum;
     }
