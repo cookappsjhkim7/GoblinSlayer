@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAppIndex: 0
   clientTokens:
-  - 
+  - 903816ada32ca593b3649cfd325152a3
   appIds:
-  - 0
+  - 959366198606221
   appLabels:
-  - App Name
+  - cookapps
   cookie: 1
   logging: 1
   status: 1

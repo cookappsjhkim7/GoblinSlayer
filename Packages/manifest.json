@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.cookapps.analytics-lite": "1.2.2",
+    "com.cookapps.build": "1.0.5",
     "com.cookapps.facebook": "1.1.4",
     "com.cookapps.iap": "2.2.0-preview.2",
     "com.unity.collab-proxy": "2.0.4",
