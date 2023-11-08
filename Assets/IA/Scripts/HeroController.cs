@@ -24,7 +24,6 @@ public class HeroController : MonoBehaviour
     public ParticleSystem ptAtk;
     public ParticleSystem ptBerserkerAtk;
 
-
     public Transform chaImage;
 
     void Start()
@@ -40,22 +39,25 @@ public class HeroController : MonoBehaviour
 
         //StartCoroutine_CoMove(0);
 
-        CharacterSpecSetting(1, 2, 10);
+        // 디폴트 값 CharacterSpecSetting(1, 2, 10, 2, 1);
+        CharacterSpecSetting();
     }
 
 
-    public void CharacterSpecSetting(int _hp, int _shield, int _critical)
+    public void CharacterSpecSetting(int _hp = 1, int _shield = 2, int _critical = 10, float _timeOver = 2, float _berserkGague = 1)
     {
         hpCount = _hp;
         shieldCount = _shield;
         criticalRate[0] = 100 - _critical;
         criticalRate[1] = _critical;
 
+        GameManager.inst.uiTimerbar.timeOver = _timeOver;
+        GameManager.inst.uiBerGauge.berserkGague = _berserkGague;
+
         for (int i = 0; i < hpCount; i++)
         {
             hp.SettingState(i, 0);
         }
-
         for (int i = 0; i < shieldCount; i++)
         {
             shield.SettingState(i, 0);
@@ -92,28 +94,28 @@ public class HeroController : MonoBehaviour
 
     public void Hit()
     {
-        //if (shieldCount == 0)
-        //{
-        //    SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+        if (shieldCount == 0)
+        {
+            SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
 
-        //    hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
-        //    hpCount--;
+            hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
+            hpCount--;
 
-        //    StartCoroutine(CoHitMask());
+            StartCoroutine(CoHitMask());
 
-        //    if (hpCount == 0)
-        //    {
-        //        gameOverMask.SetActive(true);
-        //        GameManager.inst.uiTimerbar.TimerStop();
-        //        //GameManager.inst.spawn.SpawnNextMonster();
-        //    }
-        //}
-        //else
-        //{
-        //    StartCoroutine(CoShieldMask());
-        //    shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
-        //    shieldCount--;
-        //}
+            if (hpCount == 0)
+            {
+                gameOverMask.SetActive(true);
+                GameManager.inst.uiTimerbar.TimerStop();
+                //GameManager.inst.spawn.SpawnNextMonster();
+            }
+        }
+        else
+        {
+            StartCoroutine(CoShieldMask());
+            shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
+            shieldCount--;
+        }
     }
 
     IEnumerator CoHitMask()

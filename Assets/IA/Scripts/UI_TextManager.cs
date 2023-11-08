@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UI_TextManager : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class UI_TextManager : MonoBehaviour
     public void CoinCount()
     {
         coinCount++;
+
         coinCountText.text = coinCount.ToString();
     }
 
@@ -37,7 +39,7 @@ public class UI_TextManager : MonoBehaviour
     public void lvCount()
     {
         lvUp++;
-        lvCountText.text = lvUp.ToString();
+        //lvCountText.text = lvUp.ToString();
 
         if (lvUp == 0)
         {
@@ -84,6 +86,12 @@ public class UI_TextManager : MonoBehaviour
     public void Combo()
     {
         comboCount++;
+
+        comboCountText.transform.DOKill();
+        comboCountText.transform.localScale = Vector3.one * 2f;
+        comboCountText.transform.DOScale(1, 0.2f);
+
+
         comboCountText.text = comboCount.ToString();
     }
 
