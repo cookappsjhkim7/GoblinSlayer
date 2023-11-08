@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_PlayBGM");
         inst = this;
         isAction = false;
     }

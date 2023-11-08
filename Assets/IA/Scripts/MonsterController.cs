@@ -64,8 +64,9 @@ public class MonsterController : MonoBehaviour
 
     }
    
-    public void Attack(int atkPosIndex) // 0 ¹Ù·Î ¾Õ °ø°Ý, 1 Ãß°Ý °ø°Ý, 2 ÀÌµ¿, 3 ¹Ù·Î ¾Õ °ø°Ý ÈÄ ÀÌµ¿, 4 Ãß°Ý °ø°Ý ÈÄ ÀÌµ¿
+    public void Attack(int atkPosIndex) // 0 ï¿½Ù·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 1 ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½, 2 ï¿½Ìµï¿½, 3 ï¿½Ù·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½, 4 ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½
     {
+        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_MonsterAttack");
         isAtk = true;
         StartCoroutine(CoAtk(atkPosIndex));
     }
@@ -205,7 +206,7 @@ public class MonsterController : MonoBehaviour
                     {
                         GameManager.inst.vfx.SpawnVFX(1, transform.position);
                         GameManager.inst.uiCombotex.CoinCount();
-                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin",0.7f);
                     }
 
                     BattleCamera.Instance.Shake(0.1f, 0.25f);
@@ -234,7 +235,7 @@ public class MonsterController : MonoBehaviour
 
             for (int i = 0; i <= n; i++)
             {
-                Debug.Log("Å©¸®");
+                Debug.Log("Å©ï¿½ï¿½");
                 if (stateCount == 0)
                 {
                     rCoin = Random.Range(0, 10);
@@ -243,7 +244,7 @@ public class MonsterController : MonoBehaviour
                     {
                         GameManager.inst.vfx.SpawnVFX(1, transform.position);
                         GameManager.inst.uiCombotex.CoinCount();
-                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin");
                     }
 
                     BattleCamera.Instance.Shake(0.1f, 0.25f);
