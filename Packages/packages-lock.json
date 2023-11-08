@@ -1,5 +1,57 @@
 {
   "dependencies": {
+    "com.cookapps.analytics-lite": {
+      "version": "1.2.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.debug": "1.1.6",
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "url": "https://packages.tech.cookapps.com"
+    },
+    "com.cookapps.debug": {
+      "version": "1.1.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.tech.cookapps.com"
+    },
+    "com.cookapps.facebook": {
+      "version": "1.1.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.link-xml-resolver": "1.0.0",
+        "com.cookapps.package.window": "1.0.3"
+      },
+      "url": "https://packages.tech.cookapps.com"
+    },
+    "com.cookapps.iap": {
+      "version": "2.2.0-preview.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cookapps.debug": "1.1.6",
+        "com.unity.purchasing": "4.9.4",
+        "com.cookapps.package.window": "1.0.3"
+      },
+      "url": "https://packages.tech.cookapps.com"
+    },
+    "com.cookapps.link-xml-resolver": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.tech.cookapps.com"
+    },
+    "com.cookapps.package.window": {
+      "version": "1.0.3",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.tech.cookapps.com"
+    },
     "com.unity.2d.animation": {
       "version": "7.0.11",
       "depth": 1,
@@ -154,6 +206,27 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.purchasing": {
+      "version": "4.9.4",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.unityanalytics": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.androidjni": "1.0.0",
+        "com.unity.services.core": "1.8.1"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.render-pipelines.core": {
       "version": "12.1.12",
       "depth": 1,
@@ -180,6 +253,17 @@
       "depth": 2,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.services.core": {
+      "version": "1.9.0",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.modules.androidjni": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
