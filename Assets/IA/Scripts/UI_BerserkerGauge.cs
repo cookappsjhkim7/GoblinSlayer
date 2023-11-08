@@ -51,7 +51,7 @@ public class UI_BerserkerGauge : MonoBehaviour
         GameManager.inst.uiTimerbar.TimerStop();
 
         GameManager.inst.hero.BerserkerAttack();
-
+        SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_Berserk");
         while (true)
         {
             timer += Time.deltaTime;
@@ -65,6 +65,7 @@ public class UI_BerserkerGauge : MonoBehaviour
                 tmp_berserkerMode.SetActive(false);
                 GameManager.inst.uiTimerbar.TimerReset();
                 timer = 0;
+                SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_PlayBGM");
                 yield break;
             }
 
