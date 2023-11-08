@@ -68,6 +68,7 @@ public class UI_AtkButtonManager : MonoBehaviour
         {
             for (int i = mon.stateCount; i >= 0; i--)
             {
+                SoundManager.Instance.PlayRandomAttack(0.4f,1f);
                 mon.Hit(false);
                 //hero.BerserkerAttack();
                 GameManager.inst.uiCombotex.Combo();
@@ -94,6 +95,7 @@ public class UI_AtkButtonManager : MonoBehaviour
                     }
                     else
                     {
+                        SoundManager.Instance.PlayRandomAttack();
                         mon.Hit(false);
                     }
                     hero.Attack();
@@ -152,6 +154,7 @@ public class UI_AtkButtonManager : MonoBehaviour
                     }
                     else
                     {
+                        SoundManager.Instance.PlayRandomAttack();
                         mon.Hit(true);
                     }
                     hero.Attack();

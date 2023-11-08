@@ -29,8 +29,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
 
         _audioSources[(int)Enum_Sound.Bgm].loop = true;
-        
-        Play(Enum_Sound.Bgm, "Sound_PlayBGM");
     }
 
     public void Clear()
@@ -57,9 +55,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         AudioSource audioSource = _audioSources[(int)type];
         if (path.Contains("Sound/") == false)
             path = string.Format("Sound/{0}", path);
-
-        audioSource.volume = volume;
-
+        
+        
         if (type == Enum_Sound.Bgm)
         {
             AudioClip audioClip = ResourceManager.Instance.Load<AudioClip>(path);
@@ -70,6 +67,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
                 audioSource.Stop();
 
             audioSource.clip = audioClip;
+            audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.Play();
             return true;
@@ -79,7 +77,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             AudioClip audioClip = GetAudioClip(path);
             if (audioClip == null)
                 return false;
-
+            
+            audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
             return true;
@@ -92,10 +91,11 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
 			if (audioSource.isPlaying)
 				audioSource.Stop();
-
+            
+            audioSource.volume = volume;
+            audioSource.pitch = pitch;
 			audioSource.clip = audioClip;
-			audioSource.pitch = pitch;
-			audioSource.Play();
+            audioSource.Play();
 			return true;
 		}
 
@@ -125,5 +125,14 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         audioClip = ResourceManager.Instance.Load<AudioClip>(path);
         _audioClips.Add(path, audioClip);
         return audioClip;
+    }
+
+    public void PlayRandomAttack(float volume = 0.7f, float pitch = 1f)
+    {
+        var random = Random.Range(0, 101);
+
+        var sound = random > 50 ? "Sound_Attack0" : "Sound_Attack1";
+
+        Play(Enum_Sound.Effect, sound,volume,pitch);
     }
 }
