@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class UI_AtkButtonManager : MonoBehaviour
 {
     public HeroController hero;
+    float time;
 
     public void OnLAtkBtnClick()
     {
@@ -37,29 +38,29 @@ public class UI_AtkButtonManager : MonoBehaviour
 
     IEnumerator CoCritcalTime()
     {
-        Time.timeScale = 0.1f;
+        //Time.timeScale = 0.2f;
 
-        yield return new WaitForSeconds(0.05f);
+        //yield return new WaitForSecondsRealtime(0.2f);
 
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
 
-        yield break;
+        //yield break;
 
+        while (true)
+        {
+            time += 0.1f;
 
-        //while (true)
-        //{
-        //    time += 0.4f;
+            Time.timeScale = time;
 
-        //    Time.timeScale = time;
+            yield return new WaitForSecondsRealtime(0.1f);
 
-        //    yield return new WaitForSeconds(0.1f);
-
-        //    if(time >= 1)
-        //    {
-        //        Time.timeScale = 1;
-        //        yield break;
-        //    }
-        //}
+            if (time >= 1)
+            {
+                time = 0;
+                Time.timeScale = 1;
+                yield break;
+            }
+        }
     }
 
 

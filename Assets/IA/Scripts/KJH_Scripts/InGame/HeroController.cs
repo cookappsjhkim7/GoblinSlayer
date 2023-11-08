@@ -37,22 +37,21 @@ public class HeroController : MonoBehaviour
 
         Move(1);
 
-        //StartCoroutine_CoMove(0);
-
-        // 디폴트 값 CharacterSpecSetting(1, 2, 10, 2, 1);
-        CharacterSpecSetting();
-    }
-
-
-    public void CharacterSpecSetting(int _hp = 1, int _shield = 2, int _critical = 10, float _timeOver = 2, float _berserkGague = 1)
-    {
-        hpCount = _hp;
-        shieldCount = _shield;
-        criticalRate[0] = 100 - _critical;
-        criticalRate[1] = _critical;
-
-        GameManager.inst.uiTimerbar.timeOver = _timeOver;
-        GameManager.inst.uiBerGauge.berserkGague = _berserkGague;
+        /* 디폴트 값 CharacterSpecSetting(1, 2, 10, 2, 1);
+         * 1. hp
+         * 2. shield : hp랑 동일하지만 실패 시 버서커게이지 감소 막아줌
+         * 3. critial : 100% 기준으로 계산
+         * 4. timeOver : 타임바 길이, 클 수록 좋음
+         * 5. berserkerGague : 버서커 게이지 총 량, 작을 수록 좋음
+         */
+        CharacterSpecDefault();
+        CharacterSpecSetting(
+            Stat.buff_hp,
+            Stat.buff_shield,
+            Stat.buff_criticalRate,
+            Stat.buff_timeOver,
+            Stat.buff_berserkGague
+        );
 
         for (int i = 0; i < hpCount; i++)
         {
@@ -62,6 +61,28 @@ public class HeroController : MonoBehaviour
         {
             shield.SettingState(i, 0);
         }
+    }
+
+    public void CharacterSpecDefault()
+    {
+        hpCount = 2;
+        shieldCount = 1;
+        criticalRate[0] = 90;
+        criticalRate[1] = 10;
+
+        GameManager.inst.uiTimerbar.timeOver = 2;
+        GameManager.inst.uiBerGauge.berserkGague = 1;
+    }
+
+    public void CharacterSpecSetting(int _hp, int _shield, int _critical, float _timeOver, float _berserkGague)
+    {
+        hpCount += _hp;
+        shieldCount += _shield;
+        criticalRate[1] += _critical;
+        criticalRate[0] = 100 - criticalRate[1];
+
+        GameManager.inst.uiTimerbar.timeOver += _timeOver;
+        GameManager.inst.uiBerGauge.berserkGague += _berserkGague;
     }
 
     private void Update()
@@ -94,6 +115,8 @@ public class HeroController : MonoBehaviour
 
     public void Hit()
     {
+        Debug.LogError($"{name} Hit");
+
         if (shieldCount == 0)
         {
             SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
@@ -139,8 +162,8 @@ public class HeroController : MonoBehaviour
 
     public void BerserkerAttack()
     {
-        ptBerserkerAtk.Play();
         StartCoroutine(CoBerserkerAttack());
+        ptBerserkerAtk.Play();
     }
 
     IEnumerator CoAttack()

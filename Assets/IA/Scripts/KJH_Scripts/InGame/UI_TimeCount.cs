@@ -10,14 +10,16 @@ public class UI_TimeCount : MonoBehaviour
 
     float timer;
     public float timeOver;
+    float kipTimeOver;
 
     private void Start()
     {
         slider = GetComponent<Slider>();
 
         slider.value = 1;
-        timeOver = 2f;
+        timeOver = 2f + Stat.buff_timeOver;
 
+        kipTimeOver = timeOver;
 
         StartCoroutine("CoTimer");
     }
@@ -64,7 +66,7 @@ public class UI_TimeCount : MonoBehaviour
 
     public void WaitTimeDown()
     {
-        if (timeOver > 0.7f)
+        if (timeOver > 0.7f + Stat.buff_timeOver)
         {
             timeOver -= 0.1f;
         }
@@ -72,7 +74,7 @@ public class UI_TimeCount : MonoBehaviour
 
     public void WaitTimeReset()
     {
-        timeOver = 2;
+        timeOver = kipTimeOver;
     }
     
     public float GetTimerSliderValue()

@@ -13,5 +13,8 @@ public class GameOver : MonoBehaviour
     {
         coinCountText.text = uiTextManager.coinCountText.text;
         killCountText.text = uiTextManager.killCountText.text;
+
+        GameManager.inst.hero.CharacterSpecDefault();
+        Stat.StatReset();
     }
 }

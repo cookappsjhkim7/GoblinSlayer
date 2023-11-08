@@ -32,7 +32,7 @@ public class UI_BerserkerGauge : MonoBehaviour
         {
             gauge = 1;
             isBerserker = true;
-            StartCoroutine("CoBerserkerMode", 5);
+            StartCoroutine(CoBerserkerMode(6));
         }
 
         slider.value = gauge / 1;
@@ -45,27 +45,20 @@ public class UI_BerserkerGauge : MonoBehaviour
 
     IEnumerator CoBerserkerMode(int endTime)
     {
-        Time.timeScale = 0.4f;
-
-        yield return new WaitForSeconds(0.1f);
-
-        Time.timeScale = 1.2f;
-
         berserkerMask.SetActive(true);
-
         tmp_berserkerMode.SetActive(true);
-
+        
         GameManager.inst.uiTimerbar.TimerStop();
-
         GameManager.inst.hero.BerserkerAttack();
+        
         SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_Berserk");
+
         while (true)
         {
             timer += Time.deltaTime;
 
             if (timer > endTime + 0.1f)
             {
-                Time.timeScale = 1f;
                 gauge = 0;
                 slider.value = 0;
                 isBerserker = false;

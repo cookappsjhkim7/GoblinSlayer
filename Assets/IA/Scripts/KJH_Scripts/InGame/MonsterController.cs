@@ -235,7 +235,6 @@ public class MonsterController : MonoBehaviour
 
             for (int i = 0; i <= n; i++)
             {
-                Debug.Log("ũ��");
                 if (stateCount == 0)
                 {
                     rCoin = Random.Range(0, 10);
