@@ -15,26 +15,16 @@ public class GameManager : MonoBehaviour
     public HeroController hero;
     public VFXManager vfx;
 
-    public int[] criticalRate;
-
-
     public int[] missRate;
 
     bool isAction;
     WaitForSeconds wfs_01f = new WaitForSeconds(0.1f);
 
-    //public static int[] uiStateRate = new int[4] { 0, 3, 3, 3 };
-    //public static int[] uiStateCountRate = new int[3] { 5, 2, 2 };
-    //public static int[] unitTypeRate = new int[2] { 8, 2 };
-
-
     private void Awake()
     {
+        SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_PlayBGM");
         inst = this;
         isAction = false;
-
-        criticalRate = new int[2] { 80, 20 };
-        //missRate = new int[2] { 99, 1 };
     }
 
     void Update()

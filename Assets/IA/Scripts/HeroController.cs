@@ -12,8 +12,10 @@ public class HeroController : MonoBehaviour
     public UI_StateBar hp;
     public UI_StateBar shield;
 
-    int hpCount;
-    int shieldCount;
+    public int hpCount;
+    public int shieldCount;
+    public int[] criticalRate;
+
     public int existPos;
     WaitForSeconds wfsHitMask = new WaitForSeconds(0.2f);
 
@@ -21,7 +23,6 @@ public class HeroController : MonoBehaviour
 
     public ParticleSystem ptAtk;
     public ParticleSystem ptBerserkerAtk;
-
 
     public Transform chaImage;
 
@@ -32,24 +33,36 @@ public class HeroController : MonoBehaviour
         myPos[1] = new Vector2(0f, transform.position.y);
         myPos[2] = new Vector2(1.2f, transform.position.y);
 
+        criticalRate = new int[2];
+
         Move(1);
 
         //StartCoroutine_CoMove(0);
 
-        shieldCount = 1;
+        // 디폴트 값 CharacterSpecSetting(1, 2, 10, 2, 1);
+        CharacterSpecSetting();
+    }
+
+
+    public void CharacterSpecSetting(int _hp = 1, int _shield = 2, int _critical = 10, float _timeOver = 2, float _berserkGague = 1)
+    {
+        hpCount = _hp;
+        shieldCount = _shield;
+        criticalRate[0] = 100 - _critical;
+        criticalRate[1] = _critical;
+
+        GameManager.inst.uiTimerbar.timeOver = _timeOver;
+        GameManager.inst.uiBerGauge.berserkGague = _berserkGague;
+
+        for (int i = 0; i < hpCount; i++)
+        {
+            hp.SettingState(i, 0);
+        }
         for (int i = 0; i < shieldCount; i++)
         {
             shield.SettingState(i, 0);
         }
-
-        hpCount = 2;
-
-        for(int i = 0; i<hpCount; i++)
-        {
-            hp.SettingState(i, 0);
-        }
     }
-
 
     private void Update()
     {
@@ -66,11 +79,11 @@ public class HeroController : MonoBehaviour
 
     IEnumerator CoMove(int n)
     {
-        while(true)
+        while (true)
         {
             transform.position = Vector3.MoveTowards(transform.position, myPos[n], 1f * Time.deltaTime);
 
-            if(transform.position.x == myPos[n].x)
+            if (transform.position.x == myPos[n].x)
             {
                 yield break;
             }
@@ -81,28 +94,28 @@ public class HeroController : MonoBehaviour
 
     public void Hit()
     {
-        //if (shieldCount == 0)
-        //{
-        //    SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
+        if (shieldCount == 0)
+        {
+            SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
 
-        //    hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
-        //    hpCount--;
+            hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
+            hpCount--;
 
-        //    StartCoroutine(CoHitMask());
+            StartCoroutine(CoHitMask());
 
-        //    if (hpCount == 0)
-        //    {
-        //        gameOverMask.SetActive(true);
-        //        GameManager.inst.uiTimerbar.TimerStop();
-        //        //GameManager.inst.spawn.SpawnNextMonster();
-        //    }
-        //}
-        //else
-        //{
-        //    StartCoroutine(CoShieldMask());
-        //    shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
-        //    shieldCount--;
-        //}
+            if (hpCount == 0)
+            {
+                gameOverMask.SetActive(true);
+                GameManager.inst.uiTimerbar.TimerStop();
+                //GameManager.inst.spawn.SpawnNextMonster();
+            }
+        }
+        else
+        {
+            StartCoroutine(CoShieldMask());
+            shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
+            shieldCount--;
+        }
     }
 
     IEnumerator CoHitMask()
@@ -132,7 +145,7 @@ public class HeroController : MonoBehaviour
 
     IEnumerator CoAttack()
     {
-        while(true)
+        while (true)
         {
             chaImage.transform.Rotate(new Vector3(0, 0, -1) * 1800 * Time.deltaTime);
 

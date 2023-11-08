@@ -37,24 +37,29 @@ public class UI_AtkButtonManager : MonoBehaviour
 
     IEnumerator CoCritcalTime()
     {
-        float time = 0.2f;
-
         Time.timeScale = 0.1f;
-                
-        while(true)
-        {
-            time += 0.25f;
 
-            yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.05f);
 
-            Time.timeScale = time;
+        Time.timeScale = 1;
 
-            if(Time.timeScale >= 1)
-            {
-                Time.timeScale = 1;
-                yield break;
-            }
-        }
+        yield break;
+
+
+        //while (true)
+        //{
+        //    time += 0.4f;
+
+        //    Time.timeScale = time;
+
+        //    yield return new WaitForSeconds(0.1f);
+
+        //    if(time >= 1)
+        //    {
+        //        Time.timeScale = 1;
+        //        yield break;
+        //    }
+        //}
     }
 
 
@@ -70,6 +75,7 @@ public class UI_AtkButtonManager : MonoBehaviour
         {
             for (int i = mon.stateCount; i >= 0; i--)
             {
+                SoundManager.Instance.PlayRandomAttack(0.4f,1f);
                 mon.Hit(false);
                 //hero.BerserkerAttack();
                 GameManager.inst.uiCombotex.Combo();
@@ -85,22 +91,18 @@ public class UI_AtkButtonManager : MonoBehaviour
             {
                 if (hero.existPos == mon.existPos)
                 {
-                    if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
+                    if (GameManager.RandomRate(0, hero.criticalRate) == 1)
                     {
                         mon.criticalHit = true;
+                        mon.Hit(false);
 
-                        for (int i = 0; i <= mon.stateCount; i++)
-                        {
-                            mon.Hit(false);
-                        }
                         CriticalTimeScaleCon();
                         GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
-
-                        mon.criticalHit = false;
                     }
                     else
                     {
+                        SoundManager.Instance.PlayRandomAttack();
                         mon.Hit(false);
                     }
                     hero.Attack();
@@ -148,22 +150,18 @@ public class UI_AtkButtonManager : MonoBehaviour
                 {
                     mon.Move(mon.existPos - 1);
                     
-                    if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
+                    if (GameManager.RandomRate(0, hero.criticalRate) == 1)
                     {
                         mon.criticalHit = true;
-
-                        for (int i = 0; i <= mon.stateCount; i++)
-                        {
-                            mon.Hit(true);
-                        }
+                        mon.Hit(true);
+                        
                         CriticalTimeScaleCon();
                         GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
-
-                        mon.criticalHit = false;
                     }
                     else
                     {
+                        SoundManager.Instance.PlayRandomAttack();
                         mon.Hit(true);
                     }
                     hero.Attack();
@@ -191,19 +189,14 @@ public class UI_AtkButtonManager : MonoBehaviour
                 {
                     mon.Move(mon.existPos + 1);
                     
-                    if (GameManager.RandomRate(0, GameManager.inst.criticalRate) == 1)
+                    if (GameManager.RandomRate(0, hero.criticalRate) == 1)
                     {
                         mon.criticalHit = true;
+                        mon.Hit(true);
 
-                        for (int i = 0; i <= mon.stateCount; i++)
-                        {
-                            mon.Hit(true);
-                        }
                         CriticalTimeScaleCon();
                         GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
-
-                        mon.criticalHit = false;
                     }
                     else
                     {
@@ -230,7 +223,7 @@ public class UI_AtkButtonManager : MonoBehaviour
     {
         GameManager.inst.uiTimerbar.WaitTimeReset();
         GameManager.inst.uiCombotex.ComboEnd();
-        GameManager.inst.uiBerGauge.GaugeDown();
+        //GameManager.inst.uiBerGauge.GaugeDown();
     }
 
     void AttackSuccess(float gauge)

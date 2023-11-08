@@ -64,8 +64,9 @@ public class MonsterController : MonoBehaviour
 
     }
    
-    public void Attack(int atkPosIndex) // 0 ¹Ù·Î ¾Õ °ø°Ý, 1 Ãß°Ý °ø°Ý, 2 ÀÌµ¿, 3 ¹Ù·Î ¾Õ °ø°Ý ÈÄ ÀÌµ¿, 4 Ãß°Ý °ø°Ý ÈÄ ÀÌµ¿
+    public void Attack(int atkPosIndex) // 0 ï¿½Ù·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 1 ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½, 2 ï¿½Ìµï¿½, 3 ï¿½Ù·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½, 4 ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½
     {
+        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_MonsterAttack");
         isAtk = true;
         StartCoroutine(CoAtk(atkPosIndex));
     }
@@ -80,6 +81,7 @@ public class MonsterController : MonoBehaviour
             {
                 isAtk = false;
                 ptSlash.Play();
+                SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Miss");
                 yield break;
             }
 
@@ -187,7 +189,7 @@ public class MonsterController : MonoBehaviour
         stateBar.stateSlot[stateCount].gameObject.SetActive(false);
         //stateBar.stateType[stateCount] = -1;
 
-        if(!criticalHit)
+        if (!criticalHit)
         {
             if (stateCount == 0)
             {
@@ -204,7 +206,7 @@ public class MonsterController : MonoBehaviour
                     {
                         GameManager.inst.vfx.SpawnVFX(1, transform.position);
                         GameManager.inst.uiCombotex.CoinCount();
-                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin",0.7f);
                     }
 
                     BattleCamera.Instance.Shake(0.1f, 0.25f);
@@ -212,6 +214,10 @@ public class MonsterController : MonoBehaviour
                     GameManager.inst.uiCombotex.KillCount();
 
                     //gameObject.SetActive(false);
+                    StopAllCoroutines();
+                    isMove = false;
+                    isAtk = false;
+                    criticalHit = false;
                     StartCoroutine(CoDeath());
                 }
 
@@ -220,27 +226,42 @@ public class MonsterController : MonoBehaviour
                     GameManager.inst.uiCombotex.lvCount();
                 }
             }
+
+            stateCount--;
         }
         else
         {
-            rCoin = Random.Range(0, 10);
+            int n = stateCount;
 
-            if (rCoin == 0)
+            for (int i = 0; i <= n; i++)
             {
-                GameManager.inst.vfx.SpawnVFX(1, transform.position);
-                GameManager.inst.uiCombotex.CoinCount();
-                SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin0");
+                Debug.Log("Å©ï¿½ï¿½");
+                if (stateCount == 0)
+                {
+                    rCoin = Random.Range(0, 10);
+
+                    if (rCoin == 0)
+                    {
+                        GameManager.inst.vfx.SpawnVFX(1, transform.position);
+                        GameManager.inst.uiCombotex.CoinCount();
+                        SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin");
+                    }
+
+                    BattleCamera.Instance.Shake(0.1f, 0.25f);
+                    GameManager.inst.spawn.spawnData.RemoveAt(0);
+                    GameManager.inst.uiCombotex.KillCount();
+
+                    //gameObject.SetActive(false);
+                    StopAllCoroutines();
+                    isMove = false;
+                    isAtk = false;
+                    criticalHit = false;
+                    StartCoroutine(CoDeath());
+                }
+
+                stateCount--;
             }
-
-            BattleCamera.Instance.Shake(0.1f, 0.25f);
-            GameManager.inst.spawn.spawnData.RemoveAt(0);
-            GameManager.inst.uiCombotex.KillCount();
-
-            //gameObject.SetActive(false);
-            StartCoroutine(CoDeath());
         }
-
-        stateCount--;
     }
 
     public IEnumerator CoMoveDown()
@@ -260,7 +281,7 @@ public class MonsterController : MonoBehaviour
 
     IEnumerator CoDeath()
     {
-        float rPosY = Random.Range(0, 7);
+        float rPosY = Random.Range(0, 5);
         float rPosX = Random.Range(2, 8);
         int rNum = Random.Range(0, 2);
 
@@ -270,13 +291,12 @@ public class MonsterController : MonoBehaviour
 
         GameManager.inst.vfx.SpawnVFX_2(2, transform.position, dirWing - 90);
 
-
         while (true)
         {
             if (isMove == false)
             {
-                transform.position = Vector3.MoveTowards(transform.position, pos, 20f * Time.deltaTime);
-                transform.Rotate(new Vector3(0, 0, 1) * 800 * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, pos, 15f * Time.deltaTime);
+                transform.Rotate(new Vector3(0, 0, 1) * 1000 * Time.deltaTime);
 
                 if (transform.position == pos)
                 {
@@ -284,10 +304,10 @@ public class MonsterController : MonoBehaviour
                     yield break;
                 }
             }
-
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();   
         }
     }
+
     public IEnumerator CoHit()
     {
         while (true)
