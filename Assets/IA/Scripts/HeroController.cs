@@ -24,8 +24,6 @@ public class HeroController : MonoBehaviour
     public ParticleSystem ptAtk;
     public ParticleSystem ptBerserkerAtk;
 
-    public Animator animator;
-
     public Transform chaImage;
 
     void Start()

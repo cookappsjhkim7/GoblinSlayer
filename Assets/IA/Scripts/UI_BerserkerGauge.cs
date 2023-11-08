@@ -26,7 +26,7 @@ public class UI_BerserkerGauge : MonoBehaviour
 
     public void GaugeCharging(float num)
     {
-        gauge += num / 50;
+        gauge += num / 30;
 
         if (gauge > berserkGague)
         {
@@ -45,6 +45,12 @@ public class UI_BerserkerGauge : MonoBehaviour
 
     IEnumerator CoBerserkerMode(int endTime)
     {
+        Time.timeScale = 0.4f;
+
+        yield return new WaitForSeconds(0.1f);
+
+        Time.timeScale = 1.2f;
+
         berserkerMask.SetActive(true);
 
         tmp_berserkerMode.SetActive(true);
@@ -59,6 +65,7 @@ public class UI_BerserkerGauge : MonoBehaviour
 
             if (timer > endTime + 0.1f)
             {
+                Time.timeScale = 1f;
                 gauge = 0;
                 slider.value = 0;
                 isBerserker = false;
