@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.UI;
 
 public class HeroController : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class HeroController : MonoBehaviour
 
     public Transform chaImage;
 
+    public SpriteRenderer weapon;
+
     void Start()
     {
         myPos = new Vector2[3];
@@ -37,6 +40,8 @@ public class HeroController : MonoBehaviour
 
         Move(1);
 
+        weapon.sprite = LobbyManager.inst.weaponData.weapon[LobbyManager.inst.weaponData.equipNum].Sprite;
+
         /* 디폴트 값 CharacterSpecSetting(1, 2, 10, 2, 1);
          * 1. hp
          * 2. shield : hp랑 동일하지만 실패 시 버서커게이지 감소 막아줌
@@ -46,11 +51,11 @@ public class HeroController : MonoBehaviour
          */
         CharacterSpecDefault();
         CharacterSpecSetting(
-            Stat.buff_hp,
-            Stat.buff_shield,
-            Stat.buff_criticalRate,
-            Stat.buff_timeOver,
-            Stat.buff_berserkGague
+            LobbyManager.inst.stat.buff_hp,
+            LobbyManager.inst.stat.buff_shield,
+            LobbyManager.inst.stat.buff_criticalRate,
+            LobbyManager.inst.stat.buff_timeOver,
+            LobbyManager.inst.stat.buff_berserkGague
         );
 
         for (int i = 0; i < hpCount; i++)

@@ -31,7 +31,6 @@ public class UI_TextManager : MonoBehaviour
     public void CoinCount()
     {
         coinCount++;
-
         coinCountText.text = coinCount.ToString();
     }
 
@@ -88,9 +87,17 @@ public class UI_TextManager : MonoBehaviour
         comboCount++;
 
         comboCountText.transform.DOKill();
-        comboCountText.transform.localScale = Vector3.one * 2f;
-        comboCountText.transform.DOScale(1, 0.2f);
-
+        
+        if(comboCount%10 == 0)
+        {
+            comboCountText.transform.localScale = Vector3.one * 3f;
+            comboCountText.transform.DOScale(1, 0.2f);
+        }
+        else
+        {
+            comboCountText.transform.localScale = Vector3.one * 2f;
+            comboCountText.transform.DOScale(1, 0.2f);
+        }
 
         comboCountText.text = comboCount.ToString();
     }

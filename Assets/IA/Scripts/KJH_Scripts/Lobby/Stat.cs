@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Stat : MonoBehaviour
 {
-    public static int buff_hp = 0;
-    public static int buff_shield = 0;
-    public static int buff_criticalRate = 0;
-    public static float buff_timeOver = 0;
-    public static float buff_berserkGague = 0;
+    public int buff_hp = 0;
+    public int buff_shield = 0;
+    public int buff_criticalRate = 0;
+    public float buff_timeOver = 0;
+    public float buff_berserkGague = 0;
 
-
-    public static void StatReset()
+    public void Awake()
     {
         buff_hp = 0;
         buff_shield = 0;
@@ -20,7 +19,7 @@ public class Stat : MonoBehaviour
         buff_berserkGague = 0;
     }
 
-    public static void StatBuff(int _hp, int _shield, int _critical, float _timeOver, float _berserkGague)
+    public void StatBuff(int _hp, int _shield, int _critical, float _timeOver, float _berserkGague)
     {
         buff_hp += _hp;
         buff_shield += _shield;

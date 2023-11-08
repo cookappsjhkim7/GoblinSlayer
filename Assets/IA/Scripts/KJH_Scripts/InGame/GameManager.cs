@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public UI_TimeCount uiTimerbar;
     public UI_TextManager uiCombotex;
     public UI_BerserkerGauge uiBerGauge;
-    public MoveMap moveMap;
+    //public MoveMap moveMap;
     public HeroController hero;
     public VFXManager vfx;
 
