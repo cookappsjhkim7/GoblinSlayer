@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 
 public class LobbyBtnManager : MonoBehaviour
@@ -32,6 +33,8 @@ public class LobbyBtnManager : MonoBehaviour
             LobbyManager.inst.weaponData.weapon[equipNum].buff_timeOver,
             LobbyManager.inst.weaponData.weapon[equipNum].buff_berserkGague
         );
+
+        
     }
 
     public void OnWeaponNextBtn()
