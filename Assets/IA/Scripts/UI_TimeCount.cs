@@ -9,7 +9,7 @@ public class UI_TimeCount : MonoBehaviour
     public HeroController hero;
 
     float timer;
-    float timeOver;
+    public float timeOver;
 
     private void Start()
     {

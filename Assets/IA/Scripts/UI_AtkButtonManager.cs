@@ -37,22 +37,29 @@ public class UI_AtkButtonManager : MonoBehaviour
 
     IEnumerator CoCritcalTime()
     {
-        float time = 0f;
-        
-        while(true)
-        {
-            time += 0.2f;
+        Time.timeScale = 0.1f;
 
-            Time.timeScale = time;
+        yield return new WaitForSeconds(0.05f);
 
-            yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 1;
 
-            if(time >= 1)
-            {
-                Time.timeScale = 1;
-                yield break;
-            }
-        }
+        yield break;
+
+
+        //while (true)
+        //{
+        //    time += 0.4f;
+
+        //    Time.timeScale = time;
+
+        //    yield return new WaitForSeconds(0.1f);
+
+        //    if(time >= 1)
+        //    {
+        //        Time.timeScale = 1;
+        //        yield break;
+        //    }
+        //}
     }
 
 
@@ -216,7 +223,7 @@ public class UI_AtkButtonManager : MonoBehaviour
     {
         GameManager.inst.uiTimerbar.WaitTimeReset();
         GameManager.inst.uiCombotex.ComboEnd();
-        GameManager.inst.uiBerGauge.GaugeDown();
+        //GameManager.inst.uiBerGauge.GaugeDown();
     }
 
     void AttackSuccess(float gauge)

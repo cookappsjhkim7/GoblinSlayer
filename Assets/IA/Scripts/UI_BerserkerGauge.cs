@@ -8,6 +8,7 @@ public class UI_BerserkerGauge : MonoBehaviour
     Slider slider;
 
     float gauge = 0;
+    public float berserkGague = 1;
     float timer = 0;
 
     public bool isBerserker = false;
@@ -27,7 +28,7 @@ public class UI_BerserkerGauge : MonoBehaviour
     {
         gauge += num / 50;
 
-        if (gauge > 1)
+        if (gauge > berserkGague)
         {
             gauge = 1;
             isBerserker = true;
