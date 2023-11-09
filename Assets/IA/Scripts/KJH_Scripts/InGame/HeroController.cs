@@ -40,14 +40,14 @@ public class HeroController : MonoBehaviour
 
         Move(1);
 
-        weapon.sprite = LobbyManager.inst.weaponData.weapon[LobbyManager.inst.weaponData.equipNum].Sprite;
+        weapon.sprite = LobbyManager.inst.weaponData.weaponList[LobbyManager.inst.weaponData.equipNum].Sprite;
 
-        /* µğÆúÆ® °ª CharacterSpecSetting(1, 2, 10, 2, 1);
+        /* ë””í´íŠ¸ ê°’ CharacterSpecSetting(1, 2, 10, 2, 1);
          * 1. hp
-         * 2. shield : hp¶û µ¿ÀÏÇÏÁö¸¸ ½ÇÆĞ ½Ã ¹ö¼­Ä¿°ÔÀÌÁö °¨¼Ò ¸·¾ÆÁÜ
-         * 3. critial : 100% ±âÁØÀ¸·Î °è»ê
-         * 4. timeOver : Å¸ÀÓ¹Ù ±æÀÌ, Å¬ ¼ö·Ï ÁÁÀ½
-         * 5. berserkerGague : ¹ö¼­Ä¿ °ÔÀÌÁö ÃÑ ·®, ÀÛÀ» ¼ö·Ï ÁÁÀ½
+         * 2. shield : hpë‘ ë™ì¼í•˜ì§€ë§Œ ì‹¤íŒ¨ ì‹œ ë²„ì„œì»¤ê²Œì´ì§€ ê°ì†Œ ë§‰ì•„ì¤Œ
+         * 3. critial : 100% ê¸°ì¤€ìœ¼ë¡œ ê³„ì‚°
+         * 4. timeOver : íƒ€ì„ë°” ê¸¸ì´, í´ ìˆ˜ë¡ ì¢‹ìŒ
+         * 5. berserkerGague : ë²„ì„œì»¤ ê²Œì´ì§€ ì´ ëŸ‰, ì‘ì„ ìˆ˜ë¡ ì¢‹ìŒ
          */
         //CharacterSpecDefault();
         CharacterSpecSetting(
