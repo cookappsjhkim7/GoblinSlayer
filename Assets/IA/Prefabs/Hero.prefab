@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6493878705437694400}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &913811761
 SpriteRenderer:
@@ -108,14 +108,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2762279280988001669}
-  m_LocalRotation: {x: -0, y: -0, z: 0.35185584, w: 0.9360542}
-  m_LocalPosition: {x: -0.3, y: -0.1, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalRotation: {x: 0.00013395709, y: 0.00017910256, z: 0.84179825, w: 0.5397923}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2445937732090765218}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 41.202}
+  m_LocalEulerAnglesHint: {x: -0.009, y: 0.024, z: 114.661}
 --- !u!212 &9082862388987291457
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 637b36503ea3063458ac8856ab59fa35, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fcdba493aab92f47b7fc6d100ae5a4d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -197,7 +197,6 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2445937732090765218}
   - {fileID: 4324585783467534216}
   - {fileID: 913811760}
   - {fileID: 4116845948407829800}
@@ -222,10 +221,14 @@ MonoBehaviour:
   gameOverMask: {fileID: 0}
   hp: {fileID: 0}
   shield: {fileID: 0}
+  hpCount: 0
+  shieldCount: 0
+  criticalRate: 
   existPos: 0
   ptAtk: {fileID: 543134814174593686}
   ptBerserkerAtk: {fileID: 7803421152117474328}
   chaImage: {fileID: 2445937732090765218}
+  weapon: {fileID: 9082862388987291457}
 --- !u!1 &8645775969079302836
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,14 +254,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8645775969079302836}
-  m_LocalRotation: {x: 0.98721886, y: -0.15937072, z: -0, w: 0}
+  m_LocalRotation: {x: 0.9664991, y: 0.2566701, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0.113, z: 0}
   m_LocalScale: {x: 0.90000004, y: 0.90000004, z: 0.90000004}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6493878705437694400}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 18.341003}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: -29.744995}
 --- !u!198 &7803421152117474328
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -267,15 +270,15 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8645775969079302836}
   serializedVersion: 8
-  lengthInSec: 5
-  simulationSpeed: 1
+  lengthInSec: 1
+  simulationSpeed: 2
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -342,7 +345,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.6
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -449,7 +452,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.39607844, b: 0, a: 0.56078434}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -511,7 +514,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.7
+      scalar: 3.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -776,7 +779,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.283185
+      scalar: -0.17453292
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1093,7 +1096,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1529,7 +1532,7 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: -1.7453293
+      scalar: -12.56637
       minScalar: 0.7853982
       maxCurve:
         serializedVersion: 2
@@ -1581,7 +1584,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -1606,8 +1609,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
-        atime2: 0
+        atime1: 30274
+        atime2: 65128
         atime3: 0
         atime4: 0
         atime5: 0
@@ -1615,7 +1618,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 2
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1653,29 +1656,29 @@ ParticleSystem:
     fps: 30
     frameOverTime:
       serializedVersion: 2
-      minMaxState: 1
-      scalar: 0.9999
+      minMaxState: 0
+      scalar: 0.11111111
       minScalar: 0.9999
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 2
-          outSlope: 2
-          tangentMode: 0
+          value: 0.3944954
+          inSlope: 0.60550463
+          outSlope: 0.60550463
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
           value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          inSlope: 0.60550463
+          outSlope: 0.60550463
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.33333334
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -5119,13 +5122,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9160776354155471885}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.0043400778, y: -0.0075677917, z: -0.48725042, w: 0.8732188}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8600319758302269580}
-  m_Father: {fileID: 6493878705437694400}
+  m_Father: {fileID: 1738398312807241272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3111912737962838847
@@ -5145,7 +5148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1301053991342513687, guid: 1d98cbb91c0e71a40a5cc8cfe795ec88, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1301053991342513687, guid: 1d98cbb91c0e71a40a5cc8cfe795ec88, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5245,6 +5248,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d98cbb91c0e71a40a5cc8cfe795ec88, type: 3}
+--- !u!4 &1738398312807241272 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3679357521107770631, guid: 1d98cbb91c0e71a40a5cc8cfe795ec88, type: 3}
+  m_PrefabInstance: {fileID: 3111912737962838847}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4116845948407829800 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1301053991342513687, guid: 1d98cbb91c0e71a40a5cc8cfe795ec88, type: 3}
@@ -5259,7 +5267,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5267,7 +5287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.39
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5301,13 +5321,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 41.604996
       objectReference: {fileID: 0}
+    - target: {fileID: 4958898884072311280, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7272382091828326978, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: m_Name
       value: FX_Slash
       objectReference: {fileID: 0}
     - target: {fileID: 9177233939599273198, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
+      propertyPath: RotationModule.curve.scalar
+      value: -1.7453293
+      objectReference: {fileID: 0}
+    - target: {fileID: 9177233939599273198, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9177233939599273198, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9177233939599273198, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -5315,7 +5347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9177233939599273198, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.3959697
+      value: 0.394251
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a44684a29a364c449fc2ae1f53781b9, type: 3}

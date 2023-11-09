@@ -31,8 +31,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
                 GameObject go = new GameObject(typeof(T).Name, typeof(T));
                 instance = go.GetComponent<T>();
             }
-
-            //DontDestroyOnLoad(instance.gameObject);
+            
             return instance;
         }
     }
