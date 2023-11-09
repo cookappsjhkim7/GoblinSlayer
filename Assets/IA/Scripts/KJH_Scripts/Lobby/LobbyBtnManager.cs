@@ -12,39 +12,27 @@ public class LobbyBtnManager : MonoBehaviour
     public Image weaponImage;
     public HeroController lobbyHero;
 
-<<<<<<< HEAD
     public Text[] statTest;
 
-
-=======
->>>>>>> origin/main
     int equipNum = 0;
 
     public void Awake()
     {
         equipNum = 0;
-        GameManager.inst.hero.weapon.sprite = weaponImage.sprite;
+        Refresh();
     }
 
     public void OnInGameBtn()
     {
         SceneManager.LoadScene("InGame");
 
-<<<<<<< HEAD
-        LobbyManager.inst.stat.SetStat(
-            LobbyManager.inst.weaponData.weapon[equipNum].hp,
-            LobbyManager.inst.weaponData.weapon[equipNum].shield,
-            LobbyManager.inst.weaponData.weapon[equipNum].criticalRate,
-            LobbyManager.inst.weaponData.weapon[equipNum].timeOver,
-            LobbyManager.inst.weaponData.weapon[equipNum].berserkGague
-=======
+
         LobbyManager.inst.stat.StatBuff(
-            LobbyManager.inst.weaponData.weaponList[equipNum].buff_hp,
-            LobbyManager.inst.weaponData.weaponList[equipNum].buff_shield,
-            LobbyManager.inst.weaponData.weaponList[equipNum].buff_criticalRate,
-            LobbyManager.inst.weaponData.weaponList[equipNum].buff_timeOver,
-            LobbyManager.inst.weaponData.weaponList[equipNum].buff_berserkGague
->>>>>>> origin/main
+            LobbyManager.inst.weaponData.weaponList[equipNum].hp,
+            LobbyManager.inst.weaponData.weaponList[equipNum].shield,
+            LobbyManager.inst.weaponData.weaponList[equipNum].criticalRate,
+            LobbyManager.inst.weaponData.weaponList[equipNum].timeOver,
+            LobbyManager.inst.weaponData.weaponList[equipNum].berserkGague
         );
     }
 
@@ -55,16 +43,7 @@ public class LobbyBtnManager : MonoBehaviour
         
         if (equipNum >= weaponCount)
         {
-<<<<<<< HEAD
-            weaponImage.sprite = LobbyManager.inst.weaponData.weapon[++equipNum].Sprite;
-            //Debug.Log(equipNum + " < " + (LobbyManager.inst.weaponData.weapon.Count - 1));
-            lobbyHero.weapon.sprite = weaponImage.sprite;
-            LobbyManager.inst.weaponData.equipNum = equipNum;
-
-
-=======
             equipNum = 0;
->>>>>>> origin/main
         }
         
         Refresh();
@@ -88,6 +67,12 @@ public class LobbyBtnManager : MonoBehaviour
         weaponImage.sprite = LobbyManager.inst.weaponData.weaponList[equipNum].Sprite;
         lobbyHero.weapon.sprite = weaponImage.sprite;
         LobbyManager.inst.weaponData.equipNum = equipNum;
+
+        statTest[0].text = LobbyManager.inst.weaponData.weaponList[equipNum].hp.ToString();
+        statTest[1].text = LobbyManager.inst.weaponData.weaponList[equipNum].shield.ToString();
+        statTest[2].text = LobbyManager.inst.weaponData.weaponList[equipNum].criticalRate.ToString();
+        statTest[3].text = LobbyManager.inst.weaponData.weaponList[equipNum].timeOver.ToString();
+        statTest[4].text = LobbyManager.inst.weaponData.weaponList[equipNum].berserkGague.ToString();
     }
 
 

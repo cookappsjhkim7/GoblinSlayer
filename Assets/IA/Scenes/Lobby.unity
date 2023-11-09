@@ -7594,31 +7594,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equipNum: 0
-  weapon:
+  weaponList:
   - isBbuy: 1
     Sprite: {fileID: 21300000, guid: 0fcdba493aab92f47b7fc6d100ae5a4d, type: 3}
     price: 0
     hp: 2
     shield: 1
     criticalRate: 10
-    timeOver: 0
-    berserkGague: 0
+    timeOver: 2
+    berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 2d64a61643e0bb2419cdd121f04256ba, type: 3}
-    price: 2000
+    price: 1000
     hp: 2
     shield: 2
     criticalRate: 20
-    timeOver: 0
-    berserkGague: 0
+    timeOver: 2
+    berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: ae2c5a4a35657664f8e0213417c6ec60, type: 3}
-    price: 4000
+    price: 3000
     hp: 1
     shield: 2
     criticalRate: 10
     timeOver: 2.2
-    berserkGague: 0.8
+    berserkGague: 0.9
 --- !u!114 &1837329755
 MonoBehaviour:
   m_ObjectHideFlags: 0
