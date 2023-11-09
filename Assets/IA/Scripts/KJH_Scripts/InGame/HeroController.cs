@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HeroController : MonoBehaviour
 {
-    Vector2[] myPos;
+    protected Vector2[] myPos;
 
     public GameObject hitMask;
     public GameObject shieldMask;
@@ -18,9 +18,9 @@ public class HeroController : MonoBehaviour
     public int[] criticalRate;
 
     public int existPos;
-    WaitForSeconds wfsHitMask = new WaitForSeconds(0.2f);
+    protected WaitForSeconds wfsHitMask = new WaitForSeconds(0.2f);
 
-    int movePosIndex;
+    protected int movePosIndex;
 
     public ParticleSystem ptAtk;
     public ParticleSystem ptBerserkerAtk;
@@ -118,9 +118,9 @@ public class HeroController : MonoBehaviour
         }
     }
 
-    public void Hit()
+    public virtual void Hit()
     {
-        Debug.LogError($"{name} Hit");
+        //Debug.LogError($"{name} Hit");
 
         if (shieldCount == 0)
         {
@@ -146,13 +146,13 @@ public class HeroController : MonoBehaviour
         }
     }
 
-    IEnumerator CoHitMask()
+    protected IEnumerator CoHitMask()
     {
         hitMask.SetActive(true);
         yield return wfsHitMask;
         hitMask.SetActive(false);
     }
-    IEnumerator CoShieldMask()
+    protected IEnumerator CoShieldMask()
     {
         shieldMask.SetActive(true);
         yield return wfsHitMask;
