@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     //public MoveMap moveMap;
     public HeroController hero;
     public VFXManager vfx;
+    
+    public List<GameObject> easterEggList;
 
     public int[] missRate;
 
@@ -94,5 +96,16 @@ public class GameManager : MonoBehaviour
         yield return wfs_01f;
 
         isAction = false;
+    }
+
+    private IEnumerator CoStartEasterEgg()
+    {
+        while (true)
+        {
+            
+            
+            
+            yield return new WaitForSeconds(10f);
+        }
     }
 }
