@@ -21,7 +21,7 @@ public class WeaponData : MonoBehaviour
         public float buff_berserkGague;
     }
 
-    public List<Weapon> weapon;
+    public List<Weapon> weaponList;
 
 
 }

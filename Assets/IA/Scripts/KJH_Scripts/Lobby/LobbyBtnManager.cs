@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
 
 
 public class LobbyBtnManager : MonoBehaviour
@@ -12,7 +11,6 @@ public class LobbyBtnManager : MonoBehaviour
     public ParticleSystem ptBuffOn;
     public Image weaponImage;
     public HeroController lobbyHero;
-
 
     int equipNum = 0;
 
@@ -27,46 +25,55 @@ public class LobbyBtnManager : MonoBehaviour
         SceneManager.LoadScene("InGame");
 
         LobbyManager.inst.stat.StatBuff(
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_hp,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_shield,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_criticalRate,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_timeOver,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_berserkGague
+            LobbyManager.inst.weaponData.weaponList[equipNum].buff_hp,
+            LobbyManager.inst.weaponData.weaponList[equipNum].buff_shield,
+            LobbyManager.inst.weaponData.weaponList[equipNum].buff_criticalRate,
+            LobbyManager.inst.weaponData.weaponList[equipNum].buff_timeOver,
+            LobbyManager.inst.weaponData.weaponList[equipNum].buff_berserkGague
         );
-
-        
     }
 
     public void OnWeaponNextBtn()
     {
-        if (equipNum < LobbyManager.inst.weaponData.weapon.Count - 1)
+        var weaponCount = LobbyManager.inst.weaponData.weaponList.Count;
+        equipNum++;
+        
+        if (equipNum >= weaponCount)
         {
-            weaponImage.sprite = LobbyManager.inst.weaponData.weapon[++equipNum].Sprite;
-            //Debug.Log(equipNum + " < " + (LobbyManager.inst.weaponData.weapon.Count - 1));
-            lobbyHero.weapon.sprite = weaponImage.sprite;
-            LobbyManager.inst.weaponData.equipNum = equipNum;
+            equipNum = 0;
         }
+        
+        Refresh();
     }
 
     public void OnWeaponPreviousBtn()
     {
-        if (equipNum > 0)
+        var weaponCount = LobbyManager.inst.weaponData.weaponList.Count;
+        equipNum--;
+        
+        if (equipNum < 0)
         {
-            weaponImage.sprite = LobbyManager.inst.weaponData.weapon[--equipNum].Sprite;
-            //Debug.Log(equipNum + " > 0");
-            lobbyHero.weapon.sprite = weaponImage.sprite;
-            LobbyManager.inst.weaponData.equipNum = equipNum;
+            equipNum = weaponCount - 1;
         }
+        
+        Refresh();
+    }
+
+    private void Refresh()
+    {
+        weaponImage.sprite = LobbyManager.inst.weaponData.weaponList[equipNum].Sprite;
+        lobbyHero.weapon.sprite = weaponImage.sprite;
+        LobbyManager.inst.weaponData.equipNum = equipNum;
     }
 
 
-    // ±¤°í ³ª¿À´Â ¹öÆ°
+    // ê´‘ê³  ë‚˜ì˜¤ëŠ” ë²„íŠ¼
     public void OnBuffBtn()
     {
-        // ±¤°í ³ª¿Â ÈÄ
+        // ê´‘ê³  ë‚˜ì˜¨ í›„
         LobbyManager.inst.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
         btnBuff.interactable = false;
         ptBuffOn.Play();
-        Debug.Log("¹öÇÁ ÀÛµ¿");
+        Debug.Log("ë²„í”„ ì‘ë™");
     }
 }
