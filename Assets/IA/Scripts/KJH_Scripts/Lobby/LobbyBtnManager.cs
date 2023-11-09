@@ -20,20 +20,19 @@ public class LobbyBtnManager : MonoBehaviour
     public void Awake()
     {
         equipNum = 0;
-        GameManager.inst.hero.weapon.sprite = weaponImage.sprite;
+        Refresh();
     }
 
     public void OnInGameBtn()
     {
         SceneManager.LoadScene("InGame");
-
+        
         LobbyManager.inst.stat.StatBuff(
             LobbyManager.inst.weaponData.weaponList[equipNum].hp,
             LobbyManager.inst.weaponData.weaponList[equipNum].shield,
             LobbyManager.inst.weaponData.weaponList[equipNum].criticalRate,
             LobbyManager.inst.weaponData.weaponList[equipNum].timeOver,
             LobbyManager.inst.weaponData.weaponList[equipNum].berserkGague
-
         );
     }
 
@@ -69,6 +68,12 @@ public class LobbyBtnManager : MonoBehaviour
         lobbyHero.weapon.sprite = weaponImage.sprite;
         LobbyManager.inst.weaponData.equipNum = equipNum;
         coin.text = $"Coin : {GameManager.SaveData.currency}";
+
+        statTest[0].text = LobbyManager.inst.weaponData.weaponList[equipNum].hp.ToString();
+        statTest[1].text = LobbyManager.inst.weaponData.weaponList[equipNum].shield.ToString();
+        statTest[2].text = LobbyManager.inst.weaponData.weaponList[equipNum].criticalRate.ToString();
+        statTest[3].text = LobbyManager.inst.weaponData.weaponList[equipNum].timeOver.ToString();
+        statTest[4].text = LobbyManager.inst.weaponData.weaponList[equipNum].berserkGague.ToString();
     }
 
 
