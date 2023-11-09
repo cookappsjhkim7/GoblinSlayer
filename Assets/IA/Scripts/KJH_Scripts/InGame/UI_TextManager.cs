@@ -12,6 +12,8 @@ public class UI_TextManager : MonoBehaviour
     int killCount = 0;
     public Text killCountText;
 
+    public int earnCoin;
+
     int lvUp = 0;
     public Text lvCountText;
     
@@ -26,10 +28,24 @@ public class UI_TextManager : MonoBehaviour
         LobbyManager.Instance.SetMaxScore(killCount);
     }
 
+    public void CoinReset()
+    {
+        earnCoin = 0;
+        coinCountText.text = earnCoin.ToString();
+    }
+
     public void CoinCount()
     {
+        earnCoin++;
         LobbyManager.Instance.SaveData.currency++;
-        coinCountText.text = LobbyManager.Instance.SaveData.currency.ToString();
+        
+        coinCountText.text = earnCoin.ToString();
+    }
+
+    public void WatchCoinAD()
+    {
+        LobbyManager.Instance.SaveData.currency += earnCoin;
+        coinCountText.text = $"{earnCoin} +{earnCoin}";
     }
 
     public void lvCount()

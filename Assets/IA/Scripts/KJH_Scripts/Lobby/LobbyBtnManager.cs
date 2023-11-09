@@ -50,31 +50,33 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 
         if (buffOn == true)
         {
-            int n = Random.Range(0, 6);
+            // int n = Random.Range(0, 6);
+            //
+            // switch (n)
+            // {
+            //     case 0:
+            //         LobbyManager.Instance.stat.StatBuff(1, 0, 0, 0, 0);
+            //         break;
+            //     case 1:
+            //         LobbyManager.Instance.stat.StatBuff(0, 1, 0, 0, 0);
+            //         break;
+            //     case 2:
+            //         LobbyManager.Instance.stat.StatBuff(0, 0, 10, 0, 0);
+            //         break;
+            //         LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0.2f, 0);
+            //     case 3:
+            //         LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0, -0.1f);
+            //         break;
+            //     case 4:
+            //         LobbyManager.Instance.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
+            //         break;
+            // }
 
-            switch (n)
-            {
-                case 0:
-                    LobbyManager.Instance.stat.StatBuff(1, 0, 0, 0, 0);
-                    break;
-                case 1:
-                    LobbyManager.Instance.stat.StatBuff(0, 1, 0, 0, 0);
-                    break;
-                case 2:
-                    LobbyManager.Instance.stat.StatBuff(0, 0, 10, 0, 0);
-                    break;
-                    LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0.2f, 0);
-                case 3:
-                    LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0, -0.1f);
-                    break;
-                case 4:
-                    LobbyManager.Instance.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
-                    break;
-            }
+            Debug.Log("버프 뭐 받았는지 보여줘야 해요");
 
-            Debug.Log("버프 뭐 받았는지 보여줘야 해요" + n);
-
+            btnBuff.interactable = true;
             buffOn = false;
+            LobbyManager.Instance.stat.ResetStatBuff();
 
             // 버프 뭐 받았는지 보여줘야 해요
         }
@@ -114,21 +116,99 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
         coin.text = $"{LobbyManager.Instance.SaveData.currency}";
         maxScore.text = $"Max Score\n{LobbyManager.Instance.SaveData.maxScore}";
 
-        statTest[0].text = LobbyManager.Instance.weaponData.weaponList[equipNum].hp.ToString();
-        statTest[1].text = LobbyManager.Instance.weaponData.weaponList[equipNum].shield.ToString();
-        statTest[2].text = LobbyManager.Instance.weaponData.weaponList[equipNum].criticalRate.ToString();
-        statTest[3].text = LobbyManager.Instance.weaponData.weaponList[equipNum].timeOver.ToString();
-        statTest[4].text = LobbyManager.Instance.weaponData.weaponList[equipNum].berserkGague.ToString();
+        var hp = LobbyManager.Instance.weaponData.weaponList[equipNum].hp;
+        statTest[0].text = hp.ToString();
+        
+        var shield = LobbyManager.Instance.weaponData.weaponList[equipNum].shield;
+        statTest[1].text = shield.ToString();
+        
+        var criticalRate = LobbyManager.Instance.weaponData.weaponList[equipNum].criticalRate;
+        statTest[2].text = criticalRate.ToString();
+        
+        var timeOver = LobbyManager.Instance.weaponData.weaponList[equipNum].timeOver;
+        statTest[3].text = timeOver.ToString();
+        
+        var berserkGague = LobbyManager.Instance.weaponData.weaponList[equipNum].berserkGague;
+        statTest[4].text = berserkGague.ToString();
+
+        if (buffOn)
+        {
+            var stat = LobbyManager.Instance.stat;
+            if (stat.hpBuff > 0)
+            {
+                statTest[0].text = $"{hp + stat.hpBuff} +{stat.hpBuff}";
+                statTest[0].color = Color.yellow;
+            }
+
+            if (stat.shieldBuff > 0)
+            {
+                statTest[1].text = $"{shield + stat.shieldBuff} +{stat.shieldBuff}";
+                statTest[1].color = Color.yellow;
+            }
+
+            if (stat.criticalRateBuff > 0)
+            {
+                statTest[2].text = $"{criticalRate + stat.criticalRateBuff} +{stat.criticalRateBuff}";
+                statTest[2].color = Color.yellow;
+            }
+
+            if (stat.timeOverBuff > 0)
+            {
+                statTest[3].text = $"{timeOver + stat.timeOverBuff} +{stat.timeOverBuff}";
+                statTest[3].color = Color.yellow;
+            }
+
+            if (stat.berserkGagueBuff > 0)
+            {
+                statTest[4].text = $"{berserkGague + stat.berserkGagueBuff} +{stat.berserkGagueBuff}";
+                statTest[4].color = Color.yellow;
+            }
+        }
+        else
+        {
+            foreach (var text in statTest)
+            {
+                text.color = Color.white;
+            }
+        }
     }
 
 
     // 광고 나오는 버튼
     public void OnBuffBtn()
     {
-        Debug.Log("광고 나오게 해주세요");
-        buffOn = true;
-        btnBuff.interactable = false;
-        ptBuffOn.Play();
-        Debug.Log("버프 작동");
+
+        AdManager.Instance.TryShowRequest(() =>
+        {
+            Debug.Log("광고 나오게 해주세요");
+            buffOn = true;
+            btnBuff.interactable = false;
+            ptBuffOn.Play();
+
+            var rand = Random.Range(0, 5);
+            
+            switch (rand)
+            {
+                case 0:
+                    LobbyManager.Instance.stat.StatBuff(1, 0, 0, 0, 0);
+                    break;
+                case 1:
+                    LobbyManager.Instance.stat.StatBuff(0, 1, 0, 0, 0);
+                    break;
+                case 2:
+                    LobbyManager.Instance.stat.StatBuff(0, 0, 10, 0, 0);
+                    break;
+                    LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0.2f, 0);
+                case 3:
+                    LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0, -0.1f);
+                    break;
+                case 4:
+                    LobbyManager.Instance.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
+                    break;
+            }
+            
+            Refresh();
+            Debug.Log("버프 작동");
+        });
     }
 }

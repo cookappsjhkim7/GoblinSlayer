@@ -109,6 +109,7 @@ SpriteAtlas:
   - {fileID: -3380439360112706912, guid: a7f47872edd94614589b318435eb5434, type: 3}
   - {fileID: -6702876299118751804, guid: a7f47872edd94614589b318435eb5434, type: 3}
   - {fileID: 21300000, guid: 8e8c9692a1fd2ec4c9e8c3a8130c2322, type: 3}
+  - {fileID: 21300000, guid: fb549ea27cb1642848219d225c9bf3ec, type: 3}
   - {fileID: 21300000, guid: ddd454d23124755418129a6d60679535, type: 3}
   - {fileID: 4168471578896831415, guid: da815fd2aaf579e43a6fb01d49ae5343, type: 3}
   - {fileID: 5317998160545211047, guid: da815fd2aaf579e43a6fb01d49ae5343, type: 3}
@@ -141,6 +142,7 @@ SpriteAtlas:
   - {fileID: -2016631381429734677, guid: f9202604b6d95df47bb20dcf1fc5d0d5, type: 3}
   - {fileID: 7505278090536262311, guid: f9202604b6d95df47bb20dcf1fc5d0d5, type: 3}
   - {fileID: 21300000, guid: 70c9502424316ec42a068b3768e2b89d, type: 3}
+  - {fileID: 21300000, guid: f7a79924e7ef26c4199be2b6441eccde, type: 3}
   - {fileID: 21300000, guid: 33d6d334872f0ac48b1894ca7a04710a, type: 3}
   - {fileID: 21300000, guid: 68a89834d3c367b4d838e24b766d2222, type: 3}
   - {fileID: 21300000, guid: b293c9443f495c341a80eef53ff17e4d, type: 3}
@@ -246,6 +248,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 32a42d49e7d439347b07dd37d8fc3985, type: 3}
   - {fileID: 21300000, guid: a288b359598ab7f499ba876dcc3af0ed, type: 3}
   - {fileID: -314589219302796148, guid: 8fc69569ecbf399448f7fed1734485f9, type: 3}
+  - {fileID: 21300000, guid: 7e645b8959f2cb04984f22be04086210, type: 3}
   - {fileID: 7194678473495877024, guid: c6b3ec89eba70bb47bcea6d21981a453, type: 3}
   - {fileID: -6802735470812833022, guid: c6b3ec89eba70bb47bcea6d21981a453, type: 3}
   - {fileID: 21300000, guid: 617d2f99199477c4a91b3de0c37737d1, type: 3}
@@ -253,6 +256,7 @@ SpriteAtlas:
   - {fileID: -1120026500337400717, guid: cf1c50b97a989ce4582f6c5ab479a5c5, type: 3}
   - {fileID: -1554369935797715747, guid: cf1c50b97a989ce4582f6c5ab479a5c5, type: 3}
   - {fileID: -3992137426342128158, guid: cf1c50b97a989ce4582f6c5ab479a5c5, type: 3}
+  - {fileID: 21300000, guid: 2ee670b959413404ea4881a40f988155, type: 3}
   - {fileID: 21300000, guid: c135c6c90eedd0a4a94f7a6a6980de3c, type: 3}
   - {fileID: 21300000, guid: 21a588c9a09e67c4689fb75c8029d1c7, type: 3}
   - {fileID: 1941588151021849806, guid: 19f78ac9724fa054a8632ab8d871de03, type: 3}
@@ -289,6 +293,7 @@ SpriteAtlas:
   - {fileID: -5314646427713862164, guid: 9b27034b7ccfa944bb3ef962ca3bb18a, type: 3}
   - {fileID: 918163296319358687, guid: 9b27034b7ccfa944bb3ef962ca3bb18a, type: 3}
   - {fileID: -1051182729592144375, guid: 9b27034b7ccfa944bb3ef962ca3bb18a, type: 3}
+  - {fileID: 21300000, guid: 3f56374bb316d4089a8fcea9e49cf28a, type: 3}
   - {fileID: 8502403439925346003, guid: 75f42a5b5e6601b42b1e6d826354ffe2, type: 3}
   - {fileID: 1942513663190102962, guid: 75f42a5b5e6601b42b1e6d826354ffe2, type: 3}
   - {fileID: -8337890454457736744, guid: 75f42a5b5e6601b42b1e6d826354ffe2, type: 3}
@@ -339,6 +344,7 @@ SpriteAtlas:
   - {fileID: 1468843896871262044, guid: d091a1fd051452a45ab5512aababf088, type: 3}
   - {fileID: 6707769398717036949, guid: d091a1fd051452a45ab5512aababf088, type: 3}
   - {fileID: -7736556782503057505, guid: d091a1fd051452a45ab5512aababf088, type: 3}
+  - {fileID: 21300000, guid: 838fc00ebcb96fd468a0d3e125f7ffd1, type: 3}
   - {fileID: 21300000, guid: fe48370ef5a125d4aa154292992aebe9, type: 3}
   - {fileID: 21300000, guid: fe1d193e605117a4a9a2773b473fe2c9, type: 3}
   - {fileID: 21300000, guid: 8f1c034ef514c234b9b62927315b7dec, type: 3}
@@ -437,6 +443,7 @@ SpriteAtlas:
   - Right
   - Body
   - Normal_Hair8
+  - play_f
   - FaceHair_1
   - Left
   - Right
@@ -469,6 +476,7 @@ SpriteAtlas:
   - Right
   - Body
   - Bow_1
+  - Tutorial_0
   - icon_coin 1
   - Hair_7
   - New_Weapon_18
@@ -574,6 +582,7 @@ SpriteAtlas:
   - weapon_1
   - New_Hair_05
   - Body
+  - Tutorial_1
   - Left
   - Right
   - weapon_4
@@ -581,6 +590,7 @@ SpriteAtlas:
   - Left
   - Right
   - Body
+  - gra
   - New_Hair_15
   - Axe_1
   - Left
@@ -617,6 +627,7 @@ SpriteAtlas:
   - Left
   - Right
   - Body
+  - info_f
   - Left
   - Right
   - Body
@@ -667,6 +678,7 @@ SpriteAtlas:
   - Left
   - Right
   - Body
+  - Tutorial_2
   - WoodShield2
   - Helmet_9
   - New_Helmet_08
