@@ -14,14 +14,14 @@ public class MonsterController : MonoBehaviour
     public ParticleSystem ptCoin;
     //public ParticleSystem ptHit;
 
-    int rCoin;
+    protected int rCoin;
 
-    bool isMove;
-    bool isAtk;
+    protected bool isMove;
+    protected bool isAtk;
 
     public bool criticalHit;
 
-    Vector3[] atkPos = {
+    protected Vector3[] atkPos = {
             new Vector2(-1.2f, -3f),
             new Vector2(0f, -3f),
             new Vector2(1.2f, -3f)
@@ -64,7 +64,7 @@ public class MonsterController : MonoBehaviour
 
     }
    
-    public void Attack(int atkPosIndex) // 0 �ٷ� �� ����, 1 �߰� ����, 2 �̵�, 3 �ٷ� �� ���� �� �̵�, 4 �߰� ���� �� �̵�
+    public void Attack(int atkPosIndex) 
     {
         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_MonsterAttack");
         isAtk = true;
@@ -184,7 +184,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    public void RemoveStateBar()
+    public virtual void RemoveStateBar()
     {
         stateBar.stateSlot[stateCount].gameObject.SetActive(false);
         //stateBar.stateType[stateCount] = -1;
@@ -278,7 +278,7 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    IEnumerator CoDeath()
+    protected IEnumerator CoDeath()
     {
         float rPosY = Random.Range(0, 5);
         float rPosX = Random.Range(2, 8);
