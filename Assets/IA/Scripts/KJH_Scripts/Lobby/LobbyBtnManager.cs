@@ -74,6 +74,8 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 
             Debug.Log("버프 뭐 받았는지 보여줘야 해요" + n);
 
+            buffOn = false;
+
             // 버프 뭐 받았는지 보여줘야 해요
         }
     }
