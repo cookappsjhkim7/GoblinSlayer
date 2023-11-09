@@ -6,7 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     public List<MonsterController> spawnData;
 
-    // ¹è¿­ À§Ä¡
+    // ï¿½è¿­ ï¿½ï¿½Ä¡
     float startY = -2.8f;
     float yGap = 1.2f;
     float[] xGap = new float[3] { -1.2f, 0, 1.2f };
@@ -55,7 +55,7 @@ public class SpawnManager : MonoBehaviour
     {
         int ranNum = Random.Range(0, 3);
 
-        tmpMon = GameManager.inst.pool.Get(GameManager.RandomRate(0, curSpawnRate), new Vector2(xGap[ranNum], startY + (yGap * (spawnPosY + 1)))).GetComponent<MonsterController>();
+        tmpMon = GameManager.Instance.pool.Get(GameManager.RandomRate(0, curSpawnRate), new Vector2(xGap[ranNum], startY + (yGap * (spawnPosY + 1)))).GetComponent<MonsterController>();
         tmpMon.existPos = ranNum;
         tmpMon.myPos = new Vector2(xGap[ranNum], startY + (yGap * (spawnPosY + 1)));
 

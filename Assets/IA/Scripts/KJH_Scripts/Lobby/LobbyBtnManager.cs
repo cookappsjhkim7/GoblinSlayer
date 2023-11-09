@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class LobbyBtnManager : MonoBehaviour
+public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 {
     public Button btnBuff;
     public ParticleSystem ptBuffOn;
     public Image weaponImage;
-    public HeroController lobbyHero;
+    public SpriteRenderer lobbyHero;
     public Text coin;
+    public Text maxScore;
 
     public Text[] statTest;
 
@@ -20,6 +19,10 @@ public class LobbyBtnManager : MonoBehaviour
     public void Awake()
     {
         equipNum = 0;
+    }
+
+    public void Init()
+    {
         Refresh();
     }
 
@@ -27,18 +30,18 @@ public class LobbyBtnManager : MonoBehaviour
     {
         SceneManager.LoadScene("InGame");
         
-        LobbyManager.inst.stat.StatBuff(
-            LobbyManager.inst.weaponData.weaponList[equipNum].hp,
-            LobbyManager.inst.weaponData.weaponList[equipNum].shield,
-            LobbyManager.inst.weaponData.weaponList[equipNum].criticalRate,
-            LobbyManager.inst.weaponData.weaponList[equipNum].timeOver,
-            LobbyManager.inst.weaponData.weaponList[equipNum].berserkGague
+        LobbyManager.Instance.stat.StatBuff(
+            LobbyManager.Instance.weaponData.weaponList[equipNum].hp,
+            LobbyManager.Instance.weaponData.weaponList[equipNum].shield,
+            LobbyManager.Instance.weaponData.weaponList[equipNum].criticalRate,
+            LobbyManager.Instance.weaponData.weaponList[equipNum].timeOver,
+            LobbyManager.Instance.weaponData.weaponList[equipNum].berserkGague
         );
     }
 
     public void OnWeaponNextBtn()
     {
-        var weaponCount = LobbyManager.inst.weaponData.weaponList.Count;
+        var weaponCount = LobbyManager.Instance.weaponData.weaponList.Count;
         equipNum++;
         
         if (equipNum >= weaponCount)
@@ -51,7 +54,7 @@ public class LobbyBtnManager : MonoBehaviour
 
     public void OnWeaponPreviousBtn()
     {
-        var weaponCount = LobbyManager.inst.weaponData.weaponList.Count;
+        var weaponCount = LobbyManager.Instance.weaponData.weaponList.Count;
         equipNum--;
         
         if (equipNum < 0)
@@ -64,16 +67,17 @@ public class LobbyBtnManager : MonoBehaviour
 
     private void Refresh()
     {
-        weaponImage.sprite = LobbyManager.inst.weaponData.weaponList[equipNum].Sprite;
-        lobbyHero.weapon.sprite = weaponImage.sprite;
-        LobbyManager.inst.weaponData.equipNum = equipNum;
-        coin.text = $"Coin : {GameManager.SaveData.currency}";
+        weaponImage.sprite = LobbyManager.Instance.weaponData.weaponList[equipNum].Sprite;
+        lobbyHero.sprite = weaponImage.sprite;
+        LobbyManager.Instance.weaponData.equipNum = equipNum;
+        coin.text = $"Coin : {LobbyManager.Instance.SaveData.currency}";
+        maxScore.text = $"Max Score\n{LobbyManager.Instance.SaveData.maxScore}";
 
-        statTest[0].text = LobbyManager.inst.weaponData.weaponList[equipNum].hp.ToString();
-        statTest[1].text = LobbyManager.inst.weaponData.weaponList[equipNum].shield.ToString();
-        statTest[2].text = LobbyManager.inst.weaponData.weaponList[equipNum].criticalRate.ToString();
-        statTest[3].text = LobbyManager.inst.weaponData.weaponList[equipNum].timeOver.ToString();
-        statTest[4].text = LobbyManager.inst.weaponData.weaponList[equipNum].berserkGague.ToString();
+        statTest[0].text = LobbyManager.Instance.weaponData.weaponList[equipNum].hp.ToString();
+        statTest[1].text = LobbyManager.Instance.weaponData.weaponList[equipNum].shield.ToString();
+        statTest[2].text = LobbyManager.Instance.weaponData.weaponList[equipNum].criticalRate.ToString();
+        statTest[3].text = LobbyManager.Instance.weaponData.weaponList[equipNum].timeOver.ToString();
+        statTest[4].text = LobbyManager.Instance.weaponData.weaponList[equipNum].berserkGague.ToString();
     }
 
 
@@ -81,7 +85,7 @@ public class LobbyBtnManager : MonoBehaviour
     public void OnBuffBtn()
     {
         // 광고 나온 후
-        LobbyManager.inst.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
+        LobbyManager.Instance.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
         btnBuff.interactable = false;
         ptBuffOn.Play();
         Debug.Log("버프 작동");

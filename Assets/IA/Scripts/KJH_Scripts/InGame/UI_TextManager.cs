@@ -22,15 +22,16 @@ public class UI_TextManager : MonoBehaviour
         killCount++;
         killCountText.text = killCount.ToString();
         
-        GameManager.inst.spawn.SpawnNextMonster();
+        GameManager.Instance.spawn.SpawnNextMonster();
+        LobbyManager.Instance.SetMaxScore(killCount);
         
         //.. 200부터 소환 안되게
     }
 
     public void CoinCount()
     {
-        GameManager.SaveData.currency++;
-        coinCountText.text = GameManager.SaveData.currency.ToString();
+        LobbyManager.Instance.SaveData.currency++;
+        coinCountText.text = LobbyManager.Instance.SaveData.currency.ToString();
     }
 
 
@@ -41,43 +42,43 @@ public class UI_TextManager : MonoBehaviour
 
         if (lvUp == 0)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(0);
+            GameManager.Instance.spawn.ChangeSpawnRate(0);
         }
         else if (lvUp == 15)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(1);
+            GameManager.Instance.spawn.ChangeSpawnRate(1);
         }
         else if (lvUp == 30)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(2);
+            GameManager.Instance.spawn.ChangeSpawnRate(2);
         }
         else if (lvUp == 45)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(3);
+            GameManager.Instance.spawn.ChangeSpawnRate(3);
         }
         else if (lvUp == 60)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(4);
+            GameManager.Instance.spawn.ChangeSpawnRate(4);
         }
         else if (lvUp == 75)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(5);
+            GameManager.Instance.spawn.ChangeSpawnRate(5);
         }
         else if (lvUp == 90)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(6);
+            GameManager.Instance.spawn.ChangeSpawnRate(6);
         }
         else if (lvUp == 105)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(7);
+            GameManager.Instance.spawn.ChangeSpawnRate(7);
         }
         else if (lvUp == 120)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(8);
+            GameManager.Instance.spawn.ChangeSpawnRate(8);
         }
         else if (lvUp == 135)
         {
-            GameManager.inst.spawn.ChangeSpawnRate(9);
+            GameManager.Instance.spawn.ChangeSpawnRate(9);
         }
     }
 
