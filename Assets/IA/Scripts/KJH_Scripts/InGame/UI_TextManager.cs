@@ -23,14 +23,15 @@ public class UI_TextManager : MonoBehaviour
         killCountText.text = killCount.ToString();
         
         GameManager.Instance.spawn.SpawnNextMonster();
+        LobbyManager.Instance.SetMaxScore(killCount);
         
         //.. 200부터 소환 안되게
     }
 
     public void CoinCount()
     {
-        GameManager.Instance.SaveData.currency++;
-        coinCountText.text = GameManager.Instance.SaveData.currency.ToString();
+        LobbyManager.Instance.SaveData.currency++;
+        coinCountText.text = LobbyManager.Instance.SaveData.currency.ToString();
     }
 
 

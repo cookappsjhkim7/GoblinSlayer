@@ -40,7 +40,7 @@ public class HeroController : MonoBehaviour
 
         Move(1);
 
-        weapon.sprite = LobbyManager.inst.weaponData.weaponList[LobbyManager.inst.weaponData.equipNum].Sprite;
+        weapon.sprite = LobbyManager.Instance.weaponData.weaponList[LobbyManager.Instance.weaponData.equipNum].Sprite;
 
         /* 디폴트 값 CharacterSpecSetting(1, 2, 10, 2, 1);
          * 1. hp
@@ -51,11 +51,11 @@ public class HeroController : MonoBehaviour
          */
         //CharacterSpecDefault();
         CharacterSpecSetting(
-            LobbyManager.inst.stat.hp,
-            LobbyManager.inst.stat.shield,
-            LobbyManager.inst.stat.criticalRate,
-            LobbyManager.inst.stat.timeOver,
-            LobbyManager.inst.stat.berserkGague
+            LobbyManager.Instance.stat.hp,
+            LobbyManager.Instance.stat.shield,
+            LobbyManager.Instance.stat.criticalRate,
+            LobbyManager.Instance.stat.timeOver,
+            LobbyManager.Instance.stat.berserkGague
         );
 
         for (int i = 0; i < hpCount; i++)

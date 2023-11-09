@@ -18,7 +18,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     
     private void Awake()
     {
-        Object.DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
 
         string[] soundTypeNames = System.Enum.GetNames(typeof(Enum_Sound));
         for (int count = 0; count < soundTypeNames.Length - 1; count++)

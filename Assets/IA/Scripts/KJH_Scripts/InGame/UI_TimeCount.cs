@@ -17,7 +17,7 @@ public class UI_TimeCount : MonoBehaviour
         slider = GetComponent<Slider>();
 
         slider.value = 1;
-        timeOver = 2f + LobbyManager.inst.stat.timeOver; //Stat.buff_timeOver;
+        timeOver = 2f + LobbyManager.Instance.stat.timeOver; //Stat.buff_timeOver;
 
         kipTimeOver = timeOver;
 
@@ -66,7 +66,7 @@ public class UI_TimeCount : MonoBehaviour
 
     public void WaitTimeDown()
     {
-        if (timeOver > 0.7f + LobbyManager.inst.stat.timeOver)
+        if (timeOver > 0.7f + LobbyManager.Instance.stat.timeOver)
         {
             timeOver -= 0.1f;
         }

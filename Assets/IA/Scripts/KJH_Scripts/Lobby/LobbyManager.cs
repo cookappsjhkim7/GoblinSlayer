@@ -2,14 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LobbyManager : MonoBehaviour
+public class LobbyManager : SingletonMonoBehaviour<LobbyManager>
 {
-    public static LobbyManager inst;
     public WeaponData weaponData;
     public Stat stat;
 
-    private void Awake()
+    public SaveData SaveData;
+
+    public void Awake()
     {
-        inst = this;
+        SaveData ??= new SaveData();
+        LoadGame();
+    }
+    
+    public void SetMaxScore(int value)
+    {
+        SaveData.maxScore = Mathf.Max(SaveData.maxScore, value);
+    }
+
+    public void SaveGame()
+    {
+        SaveData.Save();
+    }
+
+    public void LoadGame()
+    {
+        SaveData.LoadGame();
     }
 }

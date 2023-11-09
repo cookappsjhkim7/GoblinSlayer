@@ -5,9 +5,10 @@ public class ResourceManager : SingletonMonoBehaviour<ResourceManager>
 {
     public Dictionary<string, Sprite> _sprites = new Dictionary<string, Sprite>();
 
-    public void Init()
+
+    public void Awake()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public T Load<T>(string path) where T : Object
