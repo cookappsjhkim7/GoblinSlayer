@@ -10,7 +10,7 @@ public class UI_StateBar : MonoBehaviour
     {
         public Sprite stateTex;
         public int stateType;
-        public Color color;
+        //public Color color;
     }
 
     public List<StateData> stateData;

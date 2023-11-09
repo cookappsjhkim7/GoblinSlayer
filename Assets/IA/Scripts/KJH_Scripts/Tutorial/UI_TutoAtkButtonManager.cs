@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UI_AtkButtonManager : MonoBehaviour
+public class UI_TutoAtkButtonManager : MonoBehaviour
 {
     public HeroController hero;
     float time;
+
+    public UI_TutoTextManager uiTutoText;
 
     public void OnLAtkBtnClick()
     {

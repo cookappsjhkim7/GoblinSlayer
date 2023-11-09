@@ -40,7 +40,7 @@ public class UI_BerserkerGauge : MonoBehaviour
     public void GaugeDown()
     {
         gauge = slider.value - 0.1f;
-        slider.value = gauge / 1;
+        slider.value = gauge / 2;
     }
 
     IEnumerator CoBerserkerMode(int endTime)
