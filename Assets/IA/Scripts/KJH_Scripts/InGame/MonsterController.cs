@@ -193,7 +193,7 @@ public class MonsterController : MonoBehaviour
         {
             if (stateCount == 0)
             {
-                if (stateBar.stateType[0] == 1 && !GameManager.inst.uiBerGauge.isBerserker)
+                if (stateBar.stateType[0] == 1 && !GameManager.Instance.uiBerGauge.isBerserker)
                 {
                     stateBar.SettingState(0, 0);
                     stateCount++;
@@ -204,14 +204,14 @@ public class MonsterController : MonoBehaviour
 
                     if (rCoin == 0)
                     {
-                        GameManager.inst.vfx.SpawnVFX(1, transform.position);
-                        GameManager.inst.uiCombotex.CoinCount();
+                        GameManager.Instance.vfx.SpawnVFX(1, transform.position);
+                        GameManager.Instance.uiCombotex.CoinCount();
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin",0.7f);
                     }
 
                     BattleCamera.Instance.Shake(0.1f, 0.25f);
-                    GameManager.inst.spawn.spawnData.RemoveAt(0);
-                    GameManager.inst.uiCombotex.KillCount();
+                    GameManager.Instance.spawn.spawnData.RemoveAt(0);
+                    GameManager.Instance.uiCombotex.KillCount();
 
                     //gameObject.SetActive(false);
                     StopAllCoroutines();
@@ -221,9 +221,9 @@ public class MonsterController : MonoBehaviour
                     StartCoroutine(CoDeath());
                 }
 
-                if (!GameManager.inst.uiBerGauge.isBerserker)
+                if (!GameManager.Instance.uiBerGauge.isBerserker)
                 {
-                    GameManager.inst.uiCombotex.lvCount();
+                    GameManager.Instance.uiCombotex.lvCount();
                 }
             }
 
@@ -241,14 +241,14 @@ public class MonsterController : MonoBehaviour
 
                     if (rCoin == 0)
                     {
-                        GameManager.inst.vfx.SpawnVFX(1, transform.position);
-                        GameManager.inst.uiCombotex.CoinCount();
+                        GameManager.Instance.vfx.SpawnVFX(1, transform.position);
+                        GameManager.Instance.uiCombotex.CoinCount();
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Coin");
                     }
 
                     BattleCamera.Instance.Shake(0.1f, 0.25f);
-                    GameManager.inst.spawn.spawnData.RemoveAt(0);
-                    GameManager.inst.uiCombotex.KillCount();
+                    GameManager.Instance.spawn.spawnData.RemoveAt(0);
+                    GameManager.Instance.uiCombotex.KillCount();
 
                     //gameObject.SetActive(false);
                     StopAllCoroutines();
@@ -288,7 +288,7 @@ public class MonsterController : MonoBehaviour
 
         float dirWing = Mathf.Atan2(pos.y - transform.position.y, pos.x - transform.position.x) * 180 / Mathf.PI;
 
-        GameManager.inst.vfx.SpawnVFX_2(2, transform.position, dirWing - 90);
+        GameManager.Instance.vfx.SpawnVFX_2(2, transform.position, dirWing - 90);
 
         while (true)
         {
@@ -333,7 +333,7 @@ public class MonsterController : MonoBehaviour
         {
             SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
             //GameManager.inst.vfx.VFXPlay(GameManager.inst.vfx.ptHit, transform.position);
-            GameManager.inst.vfx.SpawnVFX(0, transform.position);
+            GameManager.Instance.vfx.SpawnVFX(0, transform.position);
             RemoveStateBar();
         }
     }

@@ -37,7 +37,7 @@ public class UI_TimeCount : MonoBehaviour
                 timer = 0;
                 hero.Hit();
                 WaitTimeReset();
-                GameManager.inst.uiCombotex.ComboEnd();
+                GameManager.Instance.uiCombotex.ComboEnd();
             }
 
             //if(timer > 0.3f)

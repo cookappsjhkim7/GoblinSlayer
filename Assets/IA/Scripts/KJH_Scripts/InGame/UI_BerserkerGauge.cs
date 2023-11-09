@@ -48,8 +48,8 @@ public class UI_BerserkerGauge : MonoBehaviour
         berserkerMask.SetActive(true);
         tmp_berserkerMode.SetActive(true);
         
-        GameManager.inst.uiTimerbar.TimerStop();
-        GameManager.inst.hero.BerserkerAttack();
+        GameManager.Instance.uiTimerbar.TimerStop();
+        GameManager.Instance.hero.BerserkerAttack();
         
         SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_Berserk");
 
@@ -64,7 +64,7 @@ public class UI_BerserkerGauge : MonoBehaviour
                 isBerserker = false;
                 berserkerMask.SetActive(false);
                 tmp_berserkerMode.SetActive(false);
-                GameManager.inst.uiTimerbar.TimerReset();
+                GameManager.Instance.uiTimerbar.TimerReset();
                 timer = 0;
                 SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_PlayBGM");
                 yield break;

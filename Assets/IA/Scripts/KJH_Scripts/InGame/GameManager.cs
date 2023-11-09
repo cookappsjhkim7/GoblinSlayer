@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
-    public static GameManager inst;
-    public static SaveData SaveData;
+    public SaveData SaveData;
     public PoolManager pool;
     public SpawnManager spawn;
     public UI_AtkButtonManager uiAtkbtn;
@@ -25,12 +24,16 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_PlayBGM");
-        inst = this;
         isAction = false;
         
         SaveData ??= new SaveData();
         SaveData.LoadGame();
+    }
+
+    private void Start()
+    {
+        SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_PlayBGM");
+        LobbyBtnManager.Instance.Init();
     }
 
     void Update()

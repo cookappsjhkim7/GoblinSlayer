@@ -75,8 +75,8 @@ public class HeroController : MonoBehaviour
         criticalRate[0] = 90;
         criticalRate[1] = 10;
 
-        GameManager.inst.uiTimerbar.timeOver = 2;
-        GameManager.inst.uiBerGauge.berserkGague = 1;
+        GameManager.Instance.uiTimerbar.timeOver = 2;
+        GameManager.Instance.uiBerGauge.berserkGague = 1;
     }
 
     public void CharacterSpecSetting(int _hp, int _shield, int _critical, float _timeOver, float _berserkGague)
@@ -86,8 +86,8 @@ public class HeroController : MonoBehaviour
         criticalRate[1] = _critical;
         criticalRate[0] = 100 - criticalRate[1];
 
-        GameManager.inst.uiTimerbar.timeOver = _timeOver;
-        GameManager.inst.uiBerGauge.berserkGague = _berserkGague;
+        GameManager.Instance.uiTimerbar.timeOver = _timeOver;
+        GameManager.Instance.uiBerGauge.berserkGague = _berserkGague;
     }
 
     private void Update()
@@ -134,7 +134,7 @@ public class HeroController : MonoBehaviour
             if (hpCount == 0)
             {
                 gameOverMask.SetActive(true);
-                GameManager.inst.uiTimerbar.TimerStop();
+                GameManager.Instance.uiTimerbar.TimerStop();
                 //GameManager.inst.spawn.SpawnNextMonster();
             }
         }
@@ -193,7 +193,7 @@ public class HeroController : MonoBehaviour
         {
             chaImage.transform.Rotate(new Vector3(0, 0, -1) * 1800 * Time.deltaTime);
 
-            if (!GameManager.inst.uiBerGauge.isBerserker)
+            if (!GameManager.Instance.uiBerGauge.isBerserker)
             {
                 ptBerserkerAtk.Stop();
                 chaImage.transform.rotation = Quaternion.Euler(0, 0, 0);

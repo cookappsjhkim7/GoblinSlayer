@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class LobbyBtnManager : MonoBehaviour
+public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 {
     public Button btnBuff;
     public ParticleSystem ptBuffOn;
@@ -20,6 +21,10 @@ public class LobbyBtnManager : MonoBehaviour
     public void Awake()
     {
         equipNum = 0;
+    }
+
+    public void Init()
+    {
         Refresh();
     }
 
@@ -67,7 +72,7 @@ public class LobbyBtnManager : MonoBehaviour
         weaponImage.sprite = LobbyManager.inst.weaponData.weaponList[equipNum].Sprite;
         lobbyHero.weapon.sprite = weaponImage.sprite;
         LobbyManager.inst.weaponData.equipNum = equipNum;
-        coin.text = $"Coin : {GameManager.SaveData.currency}";
+        coin.text = $"Coin : {GameManager.Instance.SaveData.currency}";
 
         statTest[0].text = LobbyManager.inst.weaponData.weaponList[equipNum].hp.ToString();
         statTest[1].text = LobbyManager.inst.weaponData.weaponList[equipNum].shield.ToString();
