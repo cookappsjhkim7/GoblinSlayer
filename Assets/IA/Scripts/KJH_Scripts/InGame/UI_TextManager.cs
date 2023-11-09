@@ -14,8 +14,7 @@ public class UI_TextManager : MonoBehaviour
 
     int lvUp = 0;
     public Text lvCountText;
-
-    int coinCount = 0;
+    
     public Text coinCountText;
 
     public void KillCount()
@@ -25,13 +24,13 @@ public class UI_TextManager : MonoBehaviour
         
         GameManager.inst.spawn.SpawnNextMonster();
         
-        //.. 200ºÎÅÍ ¼ÒÈ¯ ¾ÈµÇ°Ô
+        //.. 200ë¶€í„° ì†Œí™˜ ì•ˆë˜ê²Œ
     }
 
     public void CoinCount()
     {
-        coinCount++;
-        coinCountText.text = coinCount.ToString();
+        GameManager.SaveData.currency++;
+        coinCountText.text = GameManager.SaveData.currency.ToString();
     }
 
 
