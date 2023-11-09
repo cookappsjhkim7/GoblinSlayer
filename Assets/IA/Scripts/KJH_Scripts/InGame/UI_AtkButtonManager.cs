@@ -27,6 +27,11 @@ public class UI_AtkButtonManager : MonoBehaviour
     public void OnLobbyBtnClick()
     {
         SceneManager.LoadScene("Lobby");
+
+        if ((LobbyManager.Instance.SaveData.playCount + 1) % 5 == 0)
+        {
+            AdManager.Instance.TryShowInterstitial();
+        }
     }
 
     public void CriticalTimeScaleCon()

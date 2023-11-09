@@ -19,6 +19,8 @@ public class GameOver : MonoBehaviour
 
         GameManager.Instance.hero.CharacterSpecDefault();
         LobbyManager.Instance.stat.SetStat(2, 1, 10, 2, 1);
+
+        LobbyManager.Instance.SaveData.playCount++;
         LobbyManager.Instance.SaveGame();
     }
 

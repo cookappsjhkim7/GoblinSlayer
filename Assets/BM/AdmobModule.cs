@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class AdmobModule : MonoBehaviour
 {
-    private RewardedAd rewardedAd;
+    private RewardedAd _rewardedAd;
+    private InterstitialAd _interstitialAd;
     
     private string rewardADUnitID = "ca-app-pub-1076272347919893/7079684757";
-    private string interstiatial = "ca-app-pub-1076272347919893/8738297074";
+    private string interstiatialID = "ca-app-pub-1076272347919893/8738297074";
 
     private Action _onSuccess;
     private Action _onFail;
@@ -20,9 +21,12 @@ public class AdmobModule : MonoBehaviour
     {
         // 광고-유니티 스레드 충돌 해결
         MobileAds.RaiseAdEventsOnUnityMainThread = true;
-        MobileAds.Initialize(initStatus => { Debug.LogError("애드몹 초기화 완료"); });
+        MobileAds.Initialize(initStatus => { Debug.LogError("애드몹 초기화 완료"); });  
 
         LoadRewardedAd();
+        LoadInterstitialAd();
+
+        RegisterReloadHandler(_interstitialAd);
     }
 
     private void Update()
@@ -48,10 +52,10 @@ public class AdmobModule : MonoBehaviour
     public void LoadRewardedAd()
     {
         // Clean up the old ad before loading a new one.
-        if (rewardedAd != null)
+        if (_rewardedAd != null)
         {
-            rewardedAd.Destroy();
-            rewardedAd = null;
+            _rewardedAd.Destroy();
+            _rewardedAd = null;
         }
 
         Debug.Log("Loading the rewarded ad.");
@@ -69,7 +73,7 @@ public class AdmobModule : MonoBehaviour
                     return;
                 }
 
-                rewardedAd = ad;
+                _rewardedAd = ad;
                 Debug.Log("Success Loading AD.");
                 
                 RegisterReloadHandler(ad);
@@ -131,7 +135,7 @@ public class AdmobModule : MonoBehaviour
 
     public bool IsEnableShowAD()
     {
-        bool isLoaded = rewardedAd == null || rewardedAd.CanShowAd();
+        bool isLoaded = _rewardedAd == null || _rewardedAd.CanShowAd();
 
         if (!isLoaded)
         {
@@ -143,15 +147,82 @@ public class AdmobModule : MonoBehaviour
 
     public void TryShowRewardAd(Action onSuccessCallback, Action onSkippedCallback)
     {
-        if (rewardedAd != null && rewardedAd.CanShowAd())
+        if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
             _onSuccess = onSuccessCallback;
             _onFail = onSkippedCallback;
             
-            rewardedAd.Show((GoogleMobileAds.Api.Reward reward) =>
+            _rewardedAd.Show((GoogleMobileAds.Api.Reward reward) =>
             {
                 _isRewarded = true;
             });
         }
+    }
+    
+    public void LoadInterstitialAd()
+    {
+        // Clean up the old ad before loading a new one.
+        if (_interstitialAd != null)
+        {
+            _interstitialAd.Destroy();
+            _interstitialAd = null;
+        }
+
+        Debug.Log("Loading the interstitial ad.");
+
+        // create our request used to load the ad.
+        var adRequest = new AdRequest();
+
+        // send the request to load the ad.
+        InterstitialAd.Load(interstiatialID, adRequest,
+            (InterstitialAd ad, LoadAdError error) =>
+            {
+                // if error is not null, the load request failed.
+                if (error != null || ad == null)
+                {
+                    Debug.LogError("interstitial ad failed to load an ad " +
+                                   "with error : " + error);
+                    return;
+                }
+
+                Debug.Log("Interstitial ad loaded with response : "
+                          + ad.GetResponseInfo());
+
+                _interstitialAd = ad;
+            });
+    }
+    public void ShowInterstitialAd()
+    {
+        if (_interstitialAd != null && _interstitialAd.CanShowAd())
+        {
+            Debug.Log("Showing interstitial ad.");
+            _interstitialAd.Show();
+        }
+        else
+        {
+            Debug.LogError("Interstitial ad is not ready yet.");
+        }
+    }
+    
+    private void RegisterReloadHandler(InterstitialAd interstitialAd)
+    {
+        // Raised when the ad closed full screen content.
+        interstitialAd.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("Interstitial Ad full screen content closed.");
+
+            // Reload the ad so that we can show another as soon as possible.
+            LoadInterstitialAd();
+        };
+        
+        // Raised when the ad failed to open full screen content.
+        interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            Debug.LogError("Interstitial ad failed to open full screen content " +
+                           "with error : " + error);
+
+            // Reload the ad so that we can show another as soon as possible.
+            LoadInterstitialAd();
+        };
     }
 }

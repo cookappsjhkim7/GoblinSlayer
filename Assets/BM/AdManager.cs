@@ -42,6 +42,11 @@ public class AdManager : SingletonMonoBehaviour<AdManager>
         return true;
     }
 
+    public void TryShowInterstitial()
+    {
+        admobModule.ShowInterstitialAd();
+    }
+
     void RewardedAdCompletedHandler()
     {
         m_RewardedAdComplete?.Invoke();
