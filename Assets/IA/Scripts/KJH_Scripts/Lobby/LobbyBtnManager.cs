@@ -111,7 +111,7 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
         weaponImage.sprite = LobbyManager.Instance.weaponData.weaponList[equipNum].Sprite;
         lobbyHero.sprite = weaponImage.sprite;
         LobbyManager.Instance.weaponData.equipNum = equipNum;
-        coin.text = $"Coin : {LobbyManager.Instance.SaveData.currency}";
+        coin.text = $"{LobbyManager.Instance.SaveData.currency}";
         maxScore.text = $"Max Score\n{LobbyManager.Instance.SaveData.maxScore}";
 
         statTest[0].text = LobbyManager.Instance.weaponData.weaponList[equipNum].hp.ToString();
