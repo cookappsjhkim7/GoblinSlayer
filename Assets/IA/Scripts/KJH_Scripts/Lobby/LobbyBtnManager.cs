@@ -14,18 +14,18 @@ public class LobbyBtnManager : MonoBehaviour
 
     public Text[] statTest;
 
-
     int equipNum = 0;
 
     public void Awake()
     {
         equipNum = 0;
-        GameManager.inst.hero.weapon.sprite = weaponImage.sprite;
+        Refresh();
     }
 
     public void OnInGameBtn()
     {
         SceneManager.LoadScene("InGame");
+
 
         LobbyManager.inst.stat.StatBuff(
             LobbyManager.inst.weaponData.weaponList[equipNum].hp,
@@ -67,6 +67,12 @@ public class LobbyBtnManager : MonoBehaviour
         weaponImage.sprite = LobbyManager.inst.weaponData.weaponList[equipNum].Sprite;
         lobbyHero.weapon.sprite = weaponImage.sprite;
         LobbyManager.inst.weaponData.equipNum = equipNum;
+
+        statTest[0].text = LobbyManager.inst.weaponData.weaponList[equipNum].hp.ToString();
+        statTest[1].text = LobbyManager.inst.weaponData.weaponList[equipNum].shield.ToString();
+        statTest[2].text = LobbyManager.inst.weaponData.weaponList[equipNum].criticalRate.ToString();
+        statTest[3].text = LobbyManager.inst.weaponData.weaponList[equipNum].timeOver.ToString();
+        statTest[4].text = LobbyManager.inst.weaponData.weaponList[equipNum].berserkGague.ToString();
     }
 
 
