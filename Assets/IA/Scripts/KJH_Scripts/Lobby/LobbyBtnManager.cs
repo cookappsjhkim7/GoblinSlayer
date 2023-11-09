@@ -21,9 +21,12 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
         equipNum = 0;
     }
 
-    public void Init()
+    public void Start()
     {
         Refresh();
+
+        var bgmRandom = Random.Range(0, 2);
+        SoundManager.Instance.Play(Enum_Sound.Bgm, $"Sound_LobbyBGM{bgmRandom}");
     }
 
     public void OnInGameBtn()

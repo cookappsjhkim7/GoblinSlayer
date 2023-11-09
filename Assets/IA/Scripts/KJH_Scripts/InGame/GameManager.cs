@@ -29,7 +29,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private void Start()
     {
         SoundManager.Instance.Play(Enum_Sound.Bgm, "Sound_PlayBGM");
-        LobbyBtnManager.Instance.Init();
     }
 
     void Update()
