@@ -7,7 +7,8 @@ public class AdmobModule : MonoBehaviour
 {
     private RewardedAd rewardedAd;
     
-    private string adUnitId = "ca-app-pub-1076272347919893/1666006391";
+    private string rewardADUnitID = "ca-app-pub-1076272347919893/7079684757";
+    private string interstiatial = "ca-app-pub-1076272347919893/8738297074";
 
     private Action _onSuccess;
     private Action _onFail;
@@ -59,7 +60,7 @@ public class AdmobModule : MonoBehaviour
         var adRequest = new AdRequest();
         adRequest.Keywords.Add("unity-admob-sample");
 
-        RewardedAd.Load(adUnitId, adRequest,
+        RewardedAd.Load(rewardADUnitID, adRequest,
             (RewardedAd ad, LoadAdError error) =>
             {
                 if (error != null || ad == null)

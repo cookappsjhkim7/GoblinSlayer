@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAppIndex: 0
   clientTokens:
-  - 903816ada32ca593b3649cfd325152a3
+  - 8304a62216cb2e065b3a0fe8bf0ffb29
   appIds:
-  - 959366198606221
+  - 875137897661244
   appLabels:
   - cookapps
   cookie: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   status: 1
   xfbml: 0
   frictionlessRequests: 1
-  androidKeystorePath: 
+  androidKeystorePath: user.keystore
   iosURLSuffix: 
   appLinkSchemes:
   - list: []
