@@ -13,6 +13,8 @@ public class LobbyBtnManager : MonoBehaviour
     public Image weaponImage;
     public HeroController lobbyHero;
 
+    public Text[] statTest;
+
 
     int equipNum = 0;
 
@@ -26,15 +28,13 @@ public class LobbyBtnManager : MonoBehaviour
     {
         SceneManager.LoadScene("InGame");
 
-        LobbyManager.inst.stat.StatBuff(
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_hp,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_shield,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_criticalRate,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_timeOver,
-            LobbyManager.inst.weaponData.weapon[equipNum].buff_berserkGague
+        LobbyManager.inst.stat.SetStat(
+            LobbyManager.inst.weaponData.weapon[equipNum].hp,
+            LobbyManager.inst.weaponData.weapon[equipNum].shield,
+            LobbyManager.inst.weaponData.weapon[equipNum].criticalRate,
+            LobbyManager.inst.weaponData.weapon[equipNum].timeOver,
+            LobbyManager.inst.weaponData.weapon[equipNum].berserkGague
         );
-
-        
     }
 
     public void OnWeaponNextBtn()
@@ -45,6 +45,8 @@ public class LobbyBtnManager : MonoBehaviour
             //Debug.Log(equipNum + " < " + (LobbyManager.inst.weaponData.weapon.Count - 1));
             lobbyHero.weapon.sprite = weaponImage.sprite;
             LobbyManager.inst.weaponData.equipNum = equipNum;
+
+
         }
     }
 

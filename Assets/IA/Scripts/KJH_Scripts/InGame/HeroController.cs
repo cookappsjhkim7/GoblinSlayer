@@ -49,13 +49,13 @@ public class HeroController : MonoBehaviour
          * 4. timeOver : 타임바 길이, 클 수록 좋음
          * 5. berserkerGague : 버서커 게이지 총 량, 작을 수록 좋음
          */
-        CharacterSpecDefault();
+        //CharacterSpecDefault();
         CharacterSpecSetting(
-            LobbyManager.inst.stat.buff_hp,
-            LobbyManager.inst.stat.buff_shield,
-            LobbyManager.inst.stat.buff_criticalRate,
-            LobbyManager.inst.stat.buff_timeOver,
-            LobbyManager.inst.stat.buff_berserkGague
+            LobbyManager.inst.stat.hp,
+            LobbyManager.inst.stat.shield,
+            LobbyManager.inst.stat.criticalRate,
+            LobbyManager.inst.stat.timeOver,
+            LobbyManager.inst.stat.berserkGague
         );
 
         for (int i = 0; i < hpCount; i++)
@@ -81,13 +81,13 @@ public class HeroController : MonoBehaviour
 
     public void CharacterSpecSetting(int _hp, int _shield, int _critical, float _timeOver, float _berserkGague)
     {
-        hpCount += _hp;
-        shieldCount += _shield;
-        criticalRate[1] += _critical;
+        hpCount = _hp;
+        shieldCount = _shield;
+        criticalRate[1] = _critical;
         criticalRate[0] = 100 - criticalRate[1];
 
-        GameManager.inst.uiTimerbar.timeOver += _timeOver;
-        GameManager.inst.uiBerGauge.berserkGague += _berserkGague;
+        GameManager.inst.uiTimerbar.timeOver = _timeOver;
+        GameManager.inst.uiBerGauge.berserkGague = _berserkGague;
     }
 
     private void Update()

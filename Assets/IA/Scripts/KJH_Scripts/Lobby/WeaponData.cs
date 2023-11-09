@@ -14,11 +14,11 @@ public class WeaponData : MonoBehaviour
         public bool isBbuy;
         public Sprite Sprite;
         public int price;
-        public int buff_hp;
-        public int buff_shield;
-        public int buff_criticalRate;
-        public float buff_timeOver;
-        public float buff_berserkGague;
+        public int hp;
+        public int shield;
+        public int criticalRate;
+        public float timeOver;
+        public float berserkGague;
     }
 
     public List<Weapon> weapon;
