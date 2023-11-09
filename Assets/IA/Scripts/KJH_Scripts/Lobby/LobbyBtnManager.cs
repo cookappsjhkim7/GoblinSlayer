@@ -26,11 +26,16 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
         Refresh();
     }
 
+    public void OnEnable()
+    {
+        Refresh();
+    }
+
     public void OnInGameBtn()
     {
         SceneManager.LoadScene("InGame");
         
-        LobbyManager.Instance.stat.StatBuff(
+        LobbyManager.Instance.stat.SetStat(
             LobbyManager.Instance.weaponData.weaponList[equipNum].hp,
             LobbyManager.Instance.weaponData.weaponList[equipNum].shield,
             LobbyManager.Instance.weaponData.weaponList[equipNum].criticalRate,

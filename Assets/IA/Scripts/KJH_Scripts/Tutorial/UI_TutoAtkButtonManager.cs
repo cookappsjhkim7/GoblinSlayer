@@ -72,23 +72,23 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
 
         hero.Move(heroCurIndex);
 
-        MonsterController mon = GameManager.inst.spawn.spawnData[0];
+        MonsterController mon = GameManager.Instance.spawn.spawnData[0];
 
-        if (GameManager.inst.uiBerGauge.isBerserker)
+        if (GameManager.Instance.uiBerGauge.isBerserker)
         {
             for (int i = mon.stateCount; i >= 0; i--)
             {
                 SoundManager.Instance.PlayRandomAttack(0.4f,1f);
                 mon.Hit(false);
                 //hero.BerserkerAttack();
-                GameManager.inst.uiCombotex.Combo();
+                GameManager.Instance.uiCombotex.Combo();
 
                 hero.Move(mon.existPos);
             }
         }
         else
         {
-            GameManager.inst.uiTimerbar.TimerReset();
+            GameManager.Instance.uiTimerbar.TimerReset();
 
             if (mon.stateBar.stateType[mon.stateCount] == 0)
             {
@@ -100,7 +100,7 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
                         mon.Hit(false);
 
                         CriticalTimeScaleCon();
-                        GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                        GameManager.Instance.vfx.SpawnVFX(3, mon.transform.position);
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
                     }
                     else
@@ -109,7 +109,7 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
                         mon.Hit(false);
                     }
                     hero.Attack();
-                    AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
+                    AttackSuccess(GameManager.Instance.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
@@ -138,7 +138,7 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
                     {
                         StartCoroutine(mon.Action_AtkMove(heroBeforeIndex, heroBeforeIndex));
                         mon.RemoveStateBar();
-                        AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
+                        AttackSuccess(GameManager.Instance.uiTimerbar.GetTimerSliderValue());
                     }
 
                 }
@@ -159,7 +159,7 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
                         mon.Hit(true);
                         
                         CriticalTimeScaleCon();
-                        GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                        GameManager.Instance.vfx.SpawnVFX(3, mon.transform.position);
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
                     }
                     else
@@ -168,7 +168,7 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
                         mon.Hit(true);
                     }
                     hero.Attack();
-                    AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
+                    AttackSuccess(GameManager.Instance.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
@@ -198,7 +198,7 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
                         mon.Hit(true);
 
                         CriticalTimeScaleCon();
-                        GameManager.inst.vfx.SpawnVFX(3, mon.transform.position);
+                        GameManager.Instance.vfx.SpawnVFX(3, mon.transform.position);
                         SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_CriticalHit");
                     }
                     else
@@ -206,7 +206,7 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
                         mon.Hit(true);
                     }
                     hero.Attack();
-                    AttackSuccess(GameManager.inst.uiTimerbar.GetTimerSliderValue());
+                    AttackSuccess(GameManager.Instance.uiTimerbar.GetTimerSliderValue());
                 }
                 else
                 {
@@ -224,15 +224,15 @@ public class UI_TutoAtkButtonManager : MonoBehaviour
 
     void AttackFail()
     {
-        GameManager.inst.uiTimerbar.WaitTimeReset();
-        GameManager.inst.uiCombotex.ComboEnd();
-        GameManager.inst.uiBerGauge.GaugeDown();
+        GameManager.Instance.uiTimerbar.WaitTimeReset();
+        GameManager.Instance.uiCombotex.ComboEnd();
+        GameManager.Instance.uiBerGauge.GaugeDown();
     }
 
     void AttackSuccess(float gauge)
     {
-        GameManager.inst.uiTimerbar.WaitTimeDown();
-        GameManager.inst.uiCombotex.Combo();
-        GameManager.inst.uiBerGauge.GaugeCharging(1 - gauge);
+        GameManager.Instance.uiTimerbar.WaitTimeDown();
+        GameManager.Instance.uiCombotex.Combo();
+        GameManager.Instance.uiBerGauge.GaugeCharging(1 - gauge);
     }
 }

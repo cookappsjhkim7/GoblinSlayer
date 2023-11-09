@@ -40,7 +40,7 @@ public class TutoHeroController : HeroController
 
         Move(1);
 
-        weapon.sprite = LobbyManager.inst.weaponData.weaponList[0].Sprite;
+        weapon.sprite = LobbyManager.Instance.weaponData.weaponList[0].Sprite;
 
         /* 디폴트 값 CharacterSpecSetting(1, 2, 10, 2, 1);
          * 1. hp
@@ -57,8 +57,8 @@ public class TutoHeroController : HeroController
         criticalRate[0] = 90;
         criticalRate[1] = 20;
 
-        GameManager.inst.uiTimerbar.timeOver = 2;
-        GameManager.inst.uiBerGauge.berserkGague = 1;
+        GameManager.Instance.uiTimerbar.timeOver = 2;
+        GameManager.Instance.uiBerGauge.berserkGague = 1;
 
         for (int i = 0; i < shieldCount; i++)
         {

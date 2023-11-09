@@ -32,7 +32,7 @@ public class UI_TutoTextManager : MonoBehaviour
         killCount++;
         killCountText.text = killCount.ToString();
         
-        GameManager.inst.spawn.SpawnNextMonster();
+        GameManager.Instance.spawn.SpawnNextMonster();
         
         //.. 200부터 소환 안되게
     }

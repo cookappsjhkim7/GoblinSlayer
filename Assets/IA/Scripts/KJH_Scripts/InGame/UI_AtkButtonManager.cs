@@ -222,9 +222,9 @@ public class UI_AtkButtonManager : MonoBehaviour
 
     void AttackFail()
     {
-        GameManager.inst.uiTimerbar.WaitTimeReset();
-        GameManager.inst.uiCombotex.ComboEnd();
-        GameManager.inst.uiBerGauge.GaugeDown();
+        GameManager.Instance.uiTimerbar.WaitTimeReset();
+        GameManager.Instance.uiCombotex.ComboEnd();
+        GameManager.Instance.uiBerGauge.GaugeDown();
     }
 
     void AttackSuccess(float gauge)
