@@ -16,8 +16,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public HeroController hero;
     public VFXManager vfx;
 
-    public int[] missRate;
-
     bool isAction;
     WaitForSeconds wfs_01f = new WaitForSeconds(0.1f);
 

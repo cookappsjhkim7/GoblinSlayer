@@ -103,21 +103,6 @@ public class HeroController : MonoBehaviour
         existPos = n;
     }
 
-    IEnumerator CoMove(int n)
-    {
-        while (true)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, myPos[n], 1f * Time.deltaTime);
-
-            if (transform.position.x == myPos[n].x)
-            {
-                yield break;
-            }
-
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
     public virtual void Hit()
     {
         //Debug.LogError($"{name} Hit");

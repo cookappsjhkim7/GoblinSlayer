@@ -32,7 +32,7 @@ public class UI_BerserkerGauge : MonoBehaviour
         {
             gauge = 1;
             isBerserker = true;
-            StartCoroutine(CoBerserkerMode(6));
+            StartCoroutine(CoBerserkerMode(4));
         }
 
         slider.value = gauge / 1;

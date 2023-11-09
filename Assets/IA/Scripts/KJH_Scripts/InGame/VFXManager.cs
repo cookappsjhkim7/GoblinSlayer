@@ -16,7 +16,6 @@ public class VFXManager : MonoBehaviour
 
         tmpPt = vfxPool.Get(ptIndex, transform.position).GetComponent<ParticleSystem>();
 
-
         if(ptIndex == 0)
         {
             pos.x += Random.Range(-0.2f, 0.3f);
@@ -36,7 +35,7 @@ public class VFXManager : MonoBehaviour
         tmpPt.transform.rotation = Quaternion.Euler(0, 0, angle);
         tmpPt.Play();
 
-        StartCoroutine(PTActiveOff(tmpPt));
+        StartCoroutine(PTActiveOff(tmpPt, 8f));
     }
 
 
@@ -45,12 +44,12 @@ public class VFXManager : MonoBehaviour
         pt.transform.position = pos;
         pt.Play();
 
-        StartCoroutine(PTActiveOff(pt));
+        StartCoroutine(PTActiveOff(tmpPt, 0.4f));
     }
 
-    IEnumerator PTActiveOff(ParticleSystem pt)
+    IEnumerator PTActiveOff(ParticleSystem pt, float time)
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(time);
 
         pt.gameObject.SetActive(false);
     }

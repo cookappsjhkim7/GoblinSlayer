@@ -15,6 +15,7 @@ public class GameOver : MonoBehaviour
         killCountText.text = uiTextManager.killCountText.text;
 
         GameManager.Instance.hero.CharacterSpecDefault();
+        LobbyManager.Instance.stat.SetStat(2, 1, 10, 2, 1);
         LobbyManager.Instance.SaveGame();
     }
 }

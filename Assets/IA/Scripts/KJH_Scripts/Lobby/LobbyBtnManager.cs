@@ -16,6 +16,8 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 
     int equipNum = 0;
 
+    bool buffOn = false;
+
     public void Awake()
     {
         equipNum = 0;
@@ -45,6 +47,37 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
             LobbyManager.Instance.weaponData.weaponList[equipNum].timeOver,
             LobbyManager.Instance.weaponData.weaponList[equipNum].berserkGague
         );
+
+        if (buffOn == true)
+        {
+            int n = Random.Range(0, 6);
+
+            switch (n)
+            {
+                case 0:
+                    LobbyManager.Instance.stat.StatBuff(1, 0, 0, 0, 0);
+                    break;
+                case 1:
+                    LobbyManager.Instance.stat.StatBuff(0, 1, 0, 0, 0);
+                    break;
+                case 2:
+                    LobbyManager.Instance.stat.StatBuff(0, 0, 10, 0, 0);
+                    break;
+                    LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0.2f, 0);
+                case 3:
+                    LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0, -0.1f);
+                    break;
+                case 4:
+                    LobbyManager.Instance.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
+                    break;
+            }
+
+            Debug.Log("버프 뭐 받았는지 보여줘야 해요" + n);
+
+            buffOn = false;
+
+            // 버프 뭐 받았는지 보여줘야 해요
+        }
     }
 
     public void OnWeaponNextBtn()
@@ -92,8 +125,8 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     // 광고 나오는 버튼
     public void OnBuffBtn()
     {
-        // 광고 나온 후
-        LobbyManager.Instance.stat.StatBuff(0, 1, 10, 0.2f, -0.1f);
+        Debug.Log("광고 나오게 해주세요");
+        buffOn = true;
         btnBuff.interactable = false;
         ptBuffOn.Play();
         Debug.Log("버프 작동");
