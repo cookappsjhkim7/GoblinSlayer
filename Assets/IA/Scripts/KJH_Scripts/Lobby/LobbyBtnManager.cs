@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -13,10 +14,20 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     public SpriteRenderer lobbyHero;
     public Text coin;
     public Text maxScore;
-
+    
+    public Animation Cow;
+    public int CowClick;
+    
+    [SerializeField] private GameObject goCost;
+    [SerializeField] private GameObject goBuyBtn;
+    [SerializeField] private GameObject goSelectBtn;
+    [SerializeField] private Text txtCost;
+    [SerializeField] private Text txtBuy;
+    
     public Text[] statTest;
 
     int equipNum = 0;
+    int selectedIndex = 0;
 
     bool buffOn = false;
 
@@ -35,6 +46,7 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 
     public void OnEnable()
     {
+        selectedIndex = LobbyManager.Instance.weaponData.equipNum;
         Refresh();
     }
 
@@ -87,11 +99,11 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     public void OnWeaponNextBtn()
     {
         var weaponCount = LobbyManager.Instance.weaponData.weaponList.Count;
-        equipNum++;
+        selectedIndex++;
         
-        if (equipNum >= weaponCount)
+        if (selectedIndex >= weaponCount)
         {
-            equipNum = 0;
+            selectedIndex = 0;
         }
         
         Refresh();
@@ -100,11 +112,11 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     public void OnWeaponPreviousBtn()
     {
         var weaponCount = LobbyManager.Instance.weaponData.weaponList.Count;
-        equipNum--;
+        selectedIndex--;
         
-        if (equipNum < 0)
+        if (selectedIndex < 0)
         {
-            equipNum = weaponCount - 1;
+            selectedIndex = weaponCount - 1;
         }
         
         Refresh();
@@ -112,26 +124,36 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 
     private void Refresh()
     {
-        weaponImage.sprite = LobbyManager.Instance.weaponData.weaponList[equipNum].Sprite;
-        lobbyHero.sprite = weaponImage.sprite;
-        LobbyManager.Instance.weaponData.equipNum = equipNum;
+        weaponImage.sprite = LobbyManager.Instance.weaponData.weaponList[selectedIndex].Sprite;
+        lobbyHero.sprite = LobbyManager.Instance.weaponData.weaponList[equipNum].Sprite;
         coin.text = $"{LobbyManager.Instance.SaveData.currency}";
         maxScore.text = $"Max Score\n{LobbyManager.Instance.SaveData.maxScore}";
 
-        var hp = LobbyManager.Instance.weaponData.weaponList[equipNum].hp;
+        var hp = LobbyManager.Instance.weaponData.weaponList[selectedIndex].hp;
         statTest[0].text = hp.ToString();
         
-        var shield = LobbyManager.Instance.weaponData.weaponList[equipNum].shield;
+        var shield = LobbyManager.Instance.weaponData.weaponList[selectedIndex].shield;
         statTest[1].text = shield.ToString();
         
-        var criticalRate = LobbyManager.Instance.weaponData.weaponList[equipNum].criticalRate;
+        var criticalRate = LobbyManager.Instance.weaponData.weaponList[selectedIndex].criticalRate;
         statTest[2].text = criticalRate.ToString();
         
-        var timeOver = LobbyManager.Instance.weaponData.weaponList[equipNum].timeOver;
+        var timeOver = LobbyManager.Instance.weaponData.weaponList[selectedIndex].timeOver;
         statTest[3].text = timeOver.ToString();
         
-        var berserkGague = LobbyManager.Instance.weaponData.weaponList[equipNum].berserkGague;
+        var berserkGague = LobbyManager.Instance.weaponData.weaponList[selectedIndex].berserkGague;
         statTest[4].text = berserkGague.ToString();
+        
+        // BTN GROUP
+        txtCost.text = $"{LobbyManager.Instance.weaponData.weaponList[selectedIndex].price}";
+        var isBuy = LobbyManager.Instance.weaponData.weaponList[selectedIndex].isBbuy;
+        goCost.SetActive(!isBuy);
+        goBuyBtn.SetActive(!isBuy);
+        goSelectBtn.SetActive(isBuy && LobbyManager.Instance.weaponData.equipNum != selectedIndex);
+        var userCur = LobbyManager.Instance.SaveData.currency;
+        var buyPrice = LobbyManager.Instance.weaponData.weaponList[selectedIndex].price;
+        txtCost.color = userCur < buyPrice ? Color.red : Color.white;
+        txtBuy.color = userCur < buyPrice ? Color.red : Color.white;
 
         if (buffOn)
         {
@@ -179,7 +201,6 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     // 광고 나오는 버튼
     public void OnBuffBtn()
     {
-
         AdManager.Instance.TryShowRequest(() =>
         {
             Debug.Log("광고 나오게 해주세요");
@@ -200,7 +221,6 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
                 case 2:
                     LobbyManager.Instance.stat.StatBuff(0, 0, 10, 0, 0);
                     break;
-                    LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0.2f, 0);
                 case 3:
                     LobbyManager.Instance.stat.StatBuff(0, 0, 0, 0, -0.1f);
                     break;
@@ -213,10 +233,42 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
             Debug.Log("버프 작동");
         });
     }
+
+    public void OnClickBuyBtn()
+    {
+        var userCur = LobbyManager.Instance.SaveData.currency;
+        var buyPrice = LobbyManager.Instance.weaponData.weaponList[selectedIndex].price;
+        if (userCur < buyPrice)
+        {
+            return;
+        }
+        
+        LobbyManager.Instance.weaponData.weaponList[selectedIndex].isBbuy = true;
+        Refresh();
+    }
+
+    public void OnClickSelectBtn()
+    {
+        equipNum = selectedIndex;
+        LobbyManager.Instance.weaponData.equipNum = equipNum;
+        Refresh();
+    }
     
     
     public void OnClickGuide()
     {
         tutorial.SetActive(true);
+    }
+
+    public void OnClickCow()
+    {
+        CowClick++;
+
+        if (CowClick > 5)
+        {
+            Cow.Play();
+            CowClick = 0;
+            LobbyManager.Instance.CowOn = true;
+        }
     }
 }

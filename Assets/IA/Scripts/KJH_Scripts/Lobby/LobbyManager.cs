@@ -9,6 +9,8 @@ public class LobbyManager : SingletonMonoBehaviour<LobbyManager>
 
     public SaveData SaveData;
 
+    public bool CowOn = false;
+
     public void Awake()
     {
         SaveData ??= new SaveData();
