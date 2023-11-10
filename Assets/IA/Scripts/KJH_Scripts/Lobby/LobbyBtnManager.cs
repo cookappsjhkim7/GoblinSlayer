@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 {
+    [SerializeField] public GameObject tutorial;
     public Button btnBuff;
+    public Button btnGuide;
     public ParticleSystem ptBuffOn;
     public Image weaponImage;
     public SpriteRenderer lobbyHero;
@@ -210,5 +212,11 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
             Refresh();
             Debug.Log("버프 작동");
         });
+    }
+    
+    
+    public void OnClickGuide()
+    {
+        tutorial.SetActive(true);
     }
 }
