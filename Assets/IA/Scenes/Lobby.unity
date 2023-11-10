@@ -12613,6 +12613,7 @@ MonoBehaviour:
   goBuyBtn: {fileID: 309497186}
   goSelectBtn: {fileID: 998873411}
   txtCost: {fileID: 368214331}
+  txtBuy: {fileID: 685752683}
   statTest:
   - {fileID: 2049947786}
   - {fileID: 799511879}
