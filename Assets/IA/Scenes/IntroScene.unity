@@ -511,41 +511,41 @@ MonoBehaviour:
     price: 5000
     hp: 1
     shield: 2
-    criticalRate: 10
-    timeOver: 2.2
-    berserkGague: 0.9
+    criticalRate: 30
+    timeOver: 2
+    berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 32a42d49e7d439347b07dd37d8fc3985, type: 3}
     price: 5000
-    hp: 1
+    hp: 2
     shield: 2
     criticalRate: 10
-    timeOver: 2.2
-    berserkGague: 0.9
+    timeOver: 4
+    berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: ef71646b65d76a44291983e4e0e011ed, type: 3}
     price: 5000
-    hp: 1
-    shield: 2
-    criticalRate: 10
-    timeOver: 2.2
+    hp: 4
+    shield: 4
+    criticalRate: 5
+    timeOver: 2
     berserkGague: 0.9
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 5a9b96839f4c7704b8693f1afd0d8a4b, type: 3}
     price: 5000
-    hp: 1
+    hp: 2
     shield: 2
-    criticalRate: 10
-    timeOver: 2.2
-    berserkGague: 0.9
+    criticalRate: 25
+    timeOver: 2.5
+    berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 617d2f99199477c4a91b3de0c37737d1, type: 3}
     price: 5000
     hp: 1
-    shield: 2
-    criticalRate: 10
-    timeOver: 2.2
-    berserkGague: 0.9
+    shield: 1
+    criticalRate: 5
+    timeOver: 2
+    berserkGague: 0.6
 --- !u!114 &781994003
 MonoBehaviour:
   m_ObjectHideFlags: 0
