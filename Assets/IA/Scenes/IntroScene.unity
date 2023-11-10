@@ -492,7 +492,7 @@ MonoBehaviour:
     berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 2d64a61643e0bb2419cdd121f04256ba, type: 3}
-    price: 1000
+    price: 500
     hp: 2
     shield: 2
     criticalRate: 20
@@ -500,7 +500,7 @@ MonoBehaviour:
     berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: ae2c5a4a35657664f8e0213417c6ec60, type: 3}
-    price: 3000
+    price: 500
     hp: 1
     shield: 2
     criticalRate: 10
@@ -508,7 +508,7 @@ MonoBehaviour:
     berserkGague: 0.9
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 11ad5b7e9b3095949abf8b13ddd7e83c, type: 3}
-    price: 5000
+    price: 500
     hp: 1
     shield: 2
     criticalRate: 30
@@ -516,7 +516,7 @@ MonoBehaviour:
     berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 32a42d49e7d439347b07dd37d8fc3985, type: 3}
-    price: 5000
+    price: 1000
     hp: 2
     shield: 2
     criticalRate: 10
@@ -524,7 +524,7 @@ MonoBehaviour:
     berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: ef71646b65d76a44291983e4e0e011ed, type: 3}
-    price: 5000
+    price: 1000
     hp: 4
     shield: 4
     criticalRate: 5
@@ -532,7 +532,7 @@ MonoBehaviour:
     berserkGague: 0.9
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 5a9b96839f4c7704b8693f1afd0d8a4b, type: 3}
-    price: 5000
+    price: 1000
     hp: 2
     shield: 2
     criticalRate: 25
@@ -540,7 +540,7 @@ MonoBehaviour:
     berserkGague: 1
   - isBbuy: 0
     Sprite: {fileID: 21300000, guid: 617d2f99199477c4a91b3de0c37737d1, type: 3}
-    price: 5000
+    price: 2000
     hp: 1
     shield: 1
     criticalRate: 5
