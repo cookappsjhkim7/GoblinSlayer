@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,9 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     public SpriteRenderer lobbyHero;
     public Text coin;
     public Text maxScore;
+
+    public Animator Cow;
+    public int CowClick;
 
     public Text[] statTest;
 
@@ -218,5 +222,16 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     public void OnClickGuide()
     {
         tutorial.SetActive(true);
+    }
+
+    public void OnClickCow()
+    {
+        CowClick++;
+
+        if (CowClick > 5)
+        {
+            Cow.Play("Move");
+            CowClick = 0;
+        }
     }
 }
