@@ -110,6 +110,7 @@ SpriteAtlas:
   - {fileID: -6702876299118751804, guid: a7f47872edd94614589b318435eb5434, type: 3}
   - {fileID: 21300000, guid: 8e8c9692a1fd2ec4c9e8c3a8130c2322, type: 3}
   - {fileID: 21300000, guid: fb549ea27cb1642848219d225c9bf3ec, type: 3}
+  - {fileID: 21300000, guid: 6c2685b26094dbd4b8e06c31b168bf0a, type: 3}
   - {fileID: 21300000, guid: ddd454d23124755418129a6d60679535, type: 3}
   - {fileID: 4168471578896831415, guid: da815fd2aaf579e43a6fb01d49ae5343, type: 3}
   - {fileID: 5317998160545211047, guid: da815fd2aaf579e43a6fb01d49ae5343, type: 3}
@@ -444,6 +445,7 @@ SpriteAtlas:
   - Body
   - Normal_Hair8
   - play_f
+  - title3
   - FaceHair_1
   - Left
   - Right
