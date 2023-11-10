@@ -15,7 +15,7 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     public Text coin;
     public Text maxScore;
     
-    public Animator Cow;
+    public Animation Cow;
     public int CowClick;
     
     [SerializeField] private GameObject goCost;
@@ -258,8 +258,9 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 
         if (CowClick > 5)
         {
-            Cow.Play("Move");
+            Cow.Play();
             CowClick = 0;
+            LobbyManager.Instance.CowOn = true;
         }
     }
 }
