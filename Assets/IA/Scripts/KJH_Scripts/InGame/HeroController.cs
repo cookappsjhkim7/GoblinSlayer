@@ -111,7 +111,7 @@ public class HeroController : MonoBehaviour
         {
             SoundManager.Instance.Play(Enum_Sound.Effect, "Sound_Kill");
 
-            hp.stateSlot[hpCount - 1].gameObject.SetActive(false);
+            hp.stateSlot[hpCount - 1]?.gameObject.SetActive(false);
             hpCount--;
 
             StartCoroutine(CoHitMask());
@@ -126,7 +126,7 @@ public class HeroController : MonoBehaviour
         else
         {
             StartCoroutine(CoShieldMask());
-            shield.stateSlot[shieldCount - 1].gameObject.SetActive(false);
+            shield.stateSlot[shieldCount - 1]?.gameObject.SetActive(false);
             shieldCount--;
         }
     }
