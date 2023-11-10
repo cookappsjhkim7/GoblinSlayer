@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,9 +25,15 @@ public class UI_AtkButtonManager : MonoBehaviour
         BtnFunction(2);
     }
 
-    public void OnLobbyBtnClick()
+    public async void OnLobbyBtnClick()
     {
-        SceneManager.LoadScene("Lobby");
+        var loadSceneAsync = SceneManager.LoadSceneAsync("Lobby");
+        loadSceneAsync.allowSceneActivation = true;
+
+        while (!loadSceneAsync.isDone)
+        {
+            await Task.Delay(100);
+        }
 
         if ((LobbyManager.Instance.SaveData.playCount + 1) % 5 == 0)
         {
