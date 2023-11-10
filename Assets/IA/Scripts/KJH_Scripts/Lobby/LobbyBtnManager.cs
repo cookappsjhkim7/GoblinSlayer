@@ -22,6 +22,7 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
     [SerializeField] private GameObject goBuyBtn;
     [SerializeField] private GameObject goSelectBtn;
     [SerializeField] private Text txtCost;
+    [SerializeField] private Text txtBuy;
     
     public Text[] statTest;
 
@@ -149,6 +150,10 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
         goCost.SetActive(!isBuy);
         goBuyBtn.SetActive(!isBuy);
         goSelectBtn.SetActive(isBuy && LobbyManager.Instance.weaponData.equipNum != selectedIndex);
+        var userCur = LobbyManager.Instance.SaveData.currency;
+        var buyPrice = LobbyManager.Instance.weaponData.weaponList[selectedIndex].price;
+        txtCost.color = userCur < buyPrice ? Color.red : Color.white;
+        txtBuy.color = userCur < buyPrice ? Color.red : Color.white;
 
         if (buffOn)
         {
@@ -231,11 +236,14 @@ public class LobbyBtnManager : SingletonMonoBehaviour<LobbyBtnManager>
 
     public void OnClickBuyBtn()
     {
-        if (LobbyManager.Instance.SaveData.currency >= LobbyManager.Instance.weaponData.weaponList[equipNum].price)
+        var userCur = LobbyManager.Instance.SaveData.currency;
+        var buyPrice = LobbyManager.Instance.weaponData.weaponList[selectedIndex].price;
+        if (userCur < buyPrice)
         {
-            
+            return;
         }
-        LobbyManager.Instance.weaponData.weaponList[equipNum].isBbuy = true;
+        
+        LobbyManager.Instance.weaponData.weaponList[selectedIndex].isBbuy = true;
         Refresh();
     }
 
