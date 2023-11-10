@@ -201,6 +201,7 @@ public class AdmobModule : MonoBehaviour
         else
         {
             Debug.LogError("Interstitial ad is not ready yet.");
+            LoadInterstitialAd();
         }
     }
     
