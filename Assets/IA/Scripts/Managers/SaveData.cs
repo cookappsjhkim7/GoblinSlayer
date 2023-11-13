@@ -6,10 +6,12 @@ public class SaveData
     public int maxScore;
     public int currency;
     public int character;
+    public int playCount;
 
     public static readonly string MAXSCORE = "MAXSCORE";
     public static readonly string CURRENCY = "CURRENCY";
     public static readonly string CHARACTER = "CHARACTER";
+    public static readonly string PLAYCOUNT = "PLAYCOUNT";
 
     public void LoadGame()
     {
@@ -21,6 +23,11 @@ public class SaveData
         if (PlayerPrefs.HasKey(CURRENCY))
         {
             currency = PlayerPrefs.GetInt("CURRENCY");
+        }
+
+        if (PlayerPrefs.HasKey(PLAYCOUNT))
+        {
+            playCount = PlayerPrefs.GetInt(PLAYCOUNT);
         }
 
         if (PlayerPrefs.HasKey(CHARACTER))
@@ -51,6 +58,7 @@ public class SaveData
     {
         PlayerPrefs.SetInt(MAXSCORE, maxScore);
         PlayerPrefs.SetInt(CURRENCY, currency);
+        PlayerPrefs.SetInt(PLAYCOUNT, playCount);
 
         var weaponData = LobbyManager.Instance.weaponData.weaponList;
         var saveInt = 0;

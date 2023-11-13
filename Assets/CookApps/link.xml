@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--CookApps 패키지 자동 생성 (수정하지 마세요!!)-->
+<linker>
+  <!--CookApps 내부 패키지-->
+  <assembly fullname="CookApps.AnalyticsLite" preserve="all" />
+  <assembly fullname="CookApps.Build" preserve="all" />
+  <assembly fullname="CookApps.Facebook" preserve="all" />
+  <assembly fullname="CookApps.Iap" preserve="all" />
+  <assembly fullname="CookApps.TechDebug" preserve="all" />
+  <!--CookApps 외부 패키지-->
+  <assembly fullname="Facebook.Unity.Android" ignoreIfMissing="1">
+    <type fullname="Facebook.Unity.Android.*" preserve="all" />
+  </assembly>
+  <assembly fullname="Facebook.Unity.IOS" ignoreIfMissing="1">
+    <type fullname="Facebook.Unity.IOS.*" preserve="all" />
+  </assembly>
+  <assembly fullname="Facebook.Unity.Canvas" ignoreIfMissing="1">
+    <type fullname="Facebook.Unity.Canvas.*" preserve="all" />
+  </assembly>
+</linker>

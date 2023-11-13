@@ -14,6 +14,9 @@ public class MonsterController : MonoBehaviour
     public ParticleSystem ptCoin;
     //public ParticleSystem ptHit;
 
+    public GameObject CowHead;
+    public GameObject NormalHead;
+
     protected int rCoin;
 
     protected bool isMove;
@@ -29,6 +32,8 @@ public class MonsterController : MonoBehaviour
 
     private void OnEnable()
     {
+        CowHead.SetActive(LobbyManager.Instance.CowOn);
+        NormalHead.SetActive(!LobbyManager.Instance.CowOn);
         isMove = false;
         isAtk = false;
         //isHit = false;
