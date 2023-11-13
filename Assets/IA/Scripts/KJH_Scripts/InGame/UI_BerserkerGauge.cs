@@ -26,13 +26,13 @@ public class UI_BerserkerGauge : MonoBehaviour
 
     public void GaugeCharging(float num)
     {
-        gauge += num / 30;
+        gauge += num / 40;
 
         if (gauge > berserkGague)
         {
             gauge = 1;
             isBerserker = true;
-            StartCoroutine(CoBerserkerMode(4));
+            StartCoroutine(CoBerserkerMode(5));
         }
 
         slider.value = gauge / 1;
