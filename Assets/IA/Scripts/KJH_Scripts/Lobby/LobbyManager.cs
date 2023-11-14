@@ -13,6 +13,7 @@ public class LobbyManager : SingletonMonoBehaviour<LobbyManager>
 
     public void Awake()
     {
+        Application.targetFrameRate = 45;
         SaveData ??= new SaveData();
         LoadGame();
     }
