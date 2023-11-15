@@ -83,7 +83,7 @@ public class UI_AtkButtonManager : MonoBehaviour
 
         hero.Move(heroCurIndex);
 
-        Vibration.Vibrate();
+        //Vibration.Vibrate();
 
         MonsterController mon = GameManager.Instance.spawn.spawnData[0];
 
