@@ -219,6 +219,7 @@ public class MonsterController : MonoBehaviour
                     GameManager.Instance.uiCombotex.KillCount();
 
                     //gameObject.SetActive(false);
+                    GameManager.Instance.vfx.SpawnVFX_2(2, transform.position, 0);
                     StopAllCoroutines();
                     isMove = false;
                     isAtk = false;
@@ -257,6 +258,7 @@ public class MonsterController : MonoBehaviour
                     GameManager.Instance.uiCombotex.KillCount();
 
                     //gameObject.SetActive(false);
+                    GameManager.Instance.vfx.SpawnVFX_2(2, transform.position, 0);
                     StopAllCoroutines();
                     isMove = false;
                     isAtk = false;
