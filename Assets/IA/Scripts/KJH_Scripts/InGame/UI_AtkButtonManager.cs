@@ -75,12 +75,15 @@ public class UI_AtkButtonManager : MonoBehaviour
         }
     }
 
-
     protected virtual void BtnFunction(int heroCurIndex)
     {
+        
+
         int heroBeforeIndex = hero.existPos;
 
         hero.Move(heroCurIndex);
+
+        Vibration.Vibrate();
 
         MonsterController mon = GameManager.Instance.spawn.spawnData[0];
 

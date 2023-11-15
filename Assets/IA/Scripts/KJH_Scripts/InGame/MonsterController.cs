@@ -223,7 +223,8 @@ public class MonsterController : MonoBehaviour
                     isMove = false;
                     isAtk = false;
                     criticalHit = false;
-                    StartCoroutine(CoDeath());
+                    gameObject.SetActive(false);
+                    //StartCoroutine(CoDeath());
                 }
 
                 if (!GameManager.Instance.uiBerGauge.isBerserker)
@@ -260,7 +261,8 @@ public class MonsterController : MonoBehaviour
                     isMove = false;
                     isAtk = false;
                     criticalHit = false;
-                    StartCoroutine(CoDeath());
+                    gameObject.SetActive(false);
+                    //StartCoroutine(CoDeath());
                 }
 
                 stateCount--;
